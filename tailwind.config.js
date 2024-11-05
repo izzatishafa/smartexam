@@ -8,9 +8,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        "white": "#F5F6FA",
+        "dark-blue": "#1B3042",
+        "blue": "#2D7CC1",
+        "light-blue": "E9F0FC",
+        "gray": "#2D2D2D",
+        "light-gray": "#D9D9D9",
+        "yellow": "#E3C72A",
       },
+      fontFamily: {
+        "inter": ["Inter", "sans-serif"],
+      }
     },
   },
   plugins: [],
