@@ -10,6 +10,7 @@ import {
   Button,
   theme,
 } from "antd";
+import { CaretDownFilled } from "@ant-design/icons";
 import "../../app/globals.css";
 
 const { Header } = Layout;
@@ -47,6 +48,7 @@ export default function HeaderComponent() {
       style={{
         display: "flex",
         alignItems: "center",
+        justifyContent: "space-between",
         backgroundColor: "white",
         border: 1,
         borderBottom: "black",
@@ -57,13 +59,10 @@ export default function HeaderComponent() {
         height: 80,
       }}
     >
-      <Space direction="row" style={{ marginTop: "20px" }}>
         <Flex
           style={{
             margin: 0,
             padding: 0,
-            justifyContent: "center",
-            alignItems: "center",
           }}
           vertical
         >
@@ -91,7 +90,7 @@ export default function HeaderComponent() {
             </Text>
           </Flex>
         </Flex>
-        <Flex horizontal="true" style={{ marginLeft: "1210px" }}>
+        <Flex horizontal="true">
           <Dropdown
             menu={{
               items,
@@ -116,16 +115,24 @@ export default function HeaderComponent() {
               </div>
             )}
           >
-            <a onClick={(e) => e.preventDefault()} style={{ color: "gray" }}>
+            <a
+              onClick={(e) => e.preventDefault()}
+              style={{
+                display: "flex",
+                color: "gray",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
               <img
                 src="/assets/profile-pict.png"
                 alt="profile picture"
                 style={{ width: 40 }}
               />
+              <CaretDownFilled />
             </a>
           </Dropdown>
         </Flex>
-      </Space>
     </Header>
   );
 }

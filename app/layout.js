@@ -3,7 +3,7 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import "./globals.css";
 
 export const metadata = {
-  title: "PB Taxand",
+  title: "Smartexam",
 };
 
 export default function RootLayout({ children }) {
