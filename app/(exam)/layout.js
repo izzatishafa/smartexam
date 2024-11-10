@@ -1,11 +1,11 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import Header from "@/components/ui/Header.js";
 import Sider from "@/components/ui/Sider.js";
 import "../globals.css";
 
-import { Layout } from "antd";
+import { Layout, Spin } from "antd";
 const { Content, Footer } = Layout;
 
 const footerStyle = {
@@ -26,6 +26,31 @@ const data = [
 ];
 
 export default function ExamLayout({ children }) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  // simulate loading delay
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 0);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          flexDirection: "column",
+        }}
+      >
+        <Spin size="large" />
+        <p>Loading...</p>
+      </div>
+    );
+  }
   return (
     <html lang="en">
       <body>

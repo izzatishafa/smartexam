@@ -22,6 +22,10 @@ const Exam = () => {
     setIsModalOpen(false);
   };
 
+  const handleCopy = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <>
       <Typography
@@ -116,7 +120,9 @@ const Exam = () => {
         <Card
           style={{
             width: "100%",
+            userSelect: "none",
           }}
+          onCopy={handleCopy}
         >
           <Title
             level={4}

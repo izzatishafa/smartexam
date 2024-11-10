@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Typography, Col, Row, Card, Button, Checkbox, Space } from "antd";
+import { Typography, Col, Row, Card, Button, Checkbox, Space, message } from "antd";
 const { Title, Text } = Typography;
 
 const Guidelines = () => {
@@ -33,7 +33,11 @@ const Guidelines = () => {
   };
 
   const handleStart = () => {
-    router.push("./exam");
+    if (Object.values(checkedItems).every(Boolean)) {
+      router.push("./exam");
+    } else {
+      message.error("Anda harus menerima semua pernyataan sebelum melanjutkan ke tes.");
+    }
   }
   return (
     <>

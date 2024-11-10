@@ -1,17 +1,34 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Flex, Typography, Button, Form, Input, Checkbox } from "antd";
-import { UserOutlined, LockOutlined } from '@ant-design/icons'
+import { Flex, Typography, Button, Form, Input, Checkbox, message } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 const { Title, Text } = Typography;
 
 export default function Page() {
   const [form] = Form.useForm();
+  const [isChecked, setIsChecked] = useState(false);
   const router = useRouter();
 
   const handleLogin = () => {
+    const username = form.getFieldValue("username");
+    const password = form.getFieldValue("password");
+
+    if (!isChecked) {
+      message.error("You must accept the terms and conditions.");
+      return;
+    }
+
+    if (!username || !password) {
+      message.error("Username and password cannot be empty.");
+      return;
+    }
     router.push("/guidelines");
+  };
+
+  const handleCheckboxChange = (e) => {
+    setIsChecked(e.target.checked);
   };
 
   return (
@@ -148,17 +165,32 @@ export default function Page() {
                   required: true,
                   message: "Please input your password!",
                 },
+                {
+                  min: 8,
+                  message: "Password must be at least 8 characters",
+                },
               ]}
               required={false}
             >
               <Input.Password
                 placeholder="Masukkan password Anda"
                 style={{ padding: "9px" }}
-                prefix={<LockOutlined style={{ color: '#003366', paddingRight: "10px", paddingLeft: "5px" }} />} 
+                prefix={
+                  <LockOutlined
+                    style={{
+                      color: "#003366",
+                      paddingRight: "10px",
+                      paddingLeft: "5px",
+                    }}
+                  />
+                }
               />
             </Form.Item>
             <Form.Item name="remember" valuePropName="checked">
-              <Checkbox style={{ color: "white", fontSize: "15px" }}>
+              <Checkbox
+                onChange={handleCheckboxChange}
+                style={{ color: "white", fontSize: "15px" }}
+              >
                 Accept All Term & Condition
               </Checkbox>
             </Form.Item>
