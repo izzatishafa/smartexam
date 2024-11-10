@@ -7,11 +7,6 @@ import { Layout, Progress, Flex, Space, Typography, Row, Col } from "antd";
 const { Sider } = Layout;
 const { Title } = Typography;
 
-const style = {
-  background: "#0092ff",
-  padding: "10px 8px",
-};
-
 const questions = Array.from({ length: 50 }, (_, index) => `${index + 1}`);
 
 export default function SiderComponent() {
