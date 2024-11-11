@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { Typography, Card, Button, Space, Divider, Modal } from "antd";
 import Countdown from "@/components/ui/Countdown";
+import BasicCard from "@/components/ui/card/BasicCard";
+import DiscCard from "@/components/ui/card/DiscCard";
 import { Layout } from "antd";
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -100,93 +102,27 @@ const Exam = () => {
                 color: "#4A4A4A",
               }}
             >
-              <li>Baca setiap soal dengan seksama sebelum menjawab.</li>
-              <li>Pilih jawaban yang paling tepat untuk setiap pertanyaan.</li>
-              <li>
-                Pastikan untuk memeriksa kembali jawaban Anda sebelum
-                melanjutkan ke soal berikutnya.
-              </li>
-              <li>
-                Anda dapat mengklik tombol "Panduan" jika memerlukan bantuan
-                selama ujian.
-              </li>
-              <li>
-                Waktu pengerjaan akan tampil di bagian atas layar sebagai
-                pengingat.
-              </li>
+              <li>Baca soal dengan teliti.</li>
+              <li>Pantau waktu di pojok atas.</li>
+              <li>Jawab semua soal dengan teliti.</li>
+              <li>Periksa ulang sebelum submit.</li>
+              <li>Klik Submit setelah selesai.</li>
             </ol>
+            <Text
+                style={{
+                  color: "#2F2F2F",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  textAlign: "center",
+                  margin: 2,
+                }}
+              >
+                Semoga Sukses! 🤩
+              </Text>
           </Modal>
         </Space>
-        <Card
-          style={{
-            width: "100%",
-            userSelect: "none",
-          }}
-          onCopy={handleCopy}
-        >
-          <Title
-            level={4}
-            style={{ fontWeight: "normal", paddingLeft: "10px" }}
-          >
-            5. Choose the grammatically correct word or phrase to complete the
-            following sentences.
-          </Title>
-          <Space style={{ paddingLeft: "30px" }} direction="vertical">
-            <Text style={{ fontSize: "17px", fontWeight: "bold" }}>
-              Abrahan Lincoln insisted that ____ not just on mere opinion but on
-              moral purpose.
-            </Text>
-            <ol
-              style={{
-                color: "#000",
-                listStyleType: "none",
-                paddingLeft: "20px",
-                fontSize: "15px",
-              }}
-            >
-              {["A", "B", "C", "D"].map((choice, index) => (
-                <li
-                  key={index}
-                  onClick={() => handleOptionClick(choice)}
-                  style={{
-                    color: "#1B3042",
-                    backgroundColor:
-                      selectedOption === choice ? "#D6E4FF" : "#E9F0FC",
-                    padding: "8px 15px",
-                    borderRadius: "15px",
-                    marginBottom: "10px",
-                    display: "flex",
-                    alignItems: "center",
-                    cursor: "pointer",
-                    border:
-                      selectedOption === choice ? "2px solid #0A01FF" : "none",
-                  }}
-                >
-                  <span
-                    style={{
-                      backgroundColor: "white",
-                      color: "#0A01FF",
-                      padding: "5px 10px",
-                      borderRadius: "100%",
-                      marginRight: "15px",
-                    }}
-                  >
-                    {choice}
-                  </span>
-                  <p
-                    style={{
-                      margin: 0,
-                      fontFamily: ["ABeeZee", "sans-serif"],
-                      fontWeight: "semibold",
-                    }}
-                  >
-                    Ini adalah contoh pilihan ganda dari quiz
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </Space>
-        </Card>
+        <BasicCard />
+        {/* <DiscCard /> */}
       </Content>
     </>
   );
