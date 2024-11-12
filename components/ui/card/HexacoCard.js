@@ -6,6 +6,7 @@ const { Title, Text } = Typography;
 
 export default function HexacoCard() {
   const [selectedOption, setSelectedOption] = useState(null);
+  const [hoveredOption, setHoveredOption] = useState(null);
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -51,27 +52,29 @@ export default function HexacoCard() {
             <li
               key={index}
               onClick={() => handleOptionClick(choice.value)}
+              onMouseOver={() => setHoveredOption(choice.value)}
+              onMouseLeave={() => setHoveredOption(null)}
               style={{
-                color: "#1B3042",
+                color: selectedOption === choice.value ? "white" : "black",
                 backgroundColor:
-                  selectedOption === choice.value ? "#D6E4FF" : "#E9F0FC",
+                  selectedOption === choice.value
+                    ? "#2D7CC1"
+                    : hoveredOption === choice.value
+                    ? "#96BDE0"
+                    : "white",
                 padding: "8px 15px",
-                borderRadius: "15px",
-                marginBottom: "10px",
+                borderRadius: "7px",
+                margin: "0px 20px 10px 0",
+                cursor: "pointer",
                 display: "inline-flex",
                 alignItems: "center",
-                cursor: "pointer",
-                border:
-                  selectedOption === choice.value
-                    ? "2px solid #0A01FF"
-                    : "none",
+                border: "0.5px solid black",
               }}
             >
               <p
                 style={{
                   margin: 0,
                   fontFamily: ["ABeeZee", "sans-serif"],
-                  fontWeight: "semibold",
                 }}
               >
                 {choice.value}

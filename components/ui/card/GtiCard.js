@@ -6,6 +6,7 @@ const { Title, Text } = Typography;
 
 export default function GtiCard() {
   const [selectedOption, setSelectedOption] = useState(null);
+  const [hoveredOption, setHoveredOption] = useState(null);
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -15,209 +16,90 @@ export default function GtiCard() {
     e.preventDefault();
   };
 
+  const letterPairs = [
+    { uppercase: "Q", lowercase: "r" },
+    { uppercase: "T", lowercase: "n" },
+    { uppercase: "H", lowercase: "b" },
+    { uppercase: "E", lowercase: "a" },
+  ];
+
+  const choices = [0, 1, 2, 3, 4];
+
   return (
     <Card
       style={{
         width: "100%",
         userSelect: "none",
         marginBottom: "100px",
-        paddingBottom: "30px",
       }}
       onCopy={handleCopy}
     >
       <Title level={4} style={{ fontWeight: "normal", paddingLeft: "10px" }}>
         5. Berapa jumlah pasangan huruf yang memiliki kesamaan?
       </Title>
-      <Row style={{ margin: "20px 0px 10px 40px", gap: "45px" }}>
-        <Col
-          span={3}
-          style={{
-            border: "1px solid lightgray",
-            textAlign: "center",
-            height: "100%",
-          }}
-        >
-          <div
+      <Row style={{ margin: "40px 0px 10px 40px", gap: "45px" }}>
+        {letterPairs.map((pair, index) => (
+          <Col
+            key={index}
+            span={3}
             style={{
-              width: "100%",
-              margin: 0,
-              display: "flex",
-              flexDirection: "column",
+              border: "1px solid lightgray",
+              textAlign: "center",
+              height: "100%",
             }}
           >
-            <Text
+            <div
               style={{
-                fontSize: "5rem",
+                width: "100%",
+                margin: 0,
+                display: "flex",
+                flexDirection: "column",
               }}
             >
-              Q
-            </Text>
-            <Text
-              style={{
-                fontSize: "2rem",
-                color: "white",
-                backgroundColor: "gray",
-                padding: "4px 0px 4px 0px",
-              }}
-            >
-              r
-            </Text>
-          </div>
-        </Col>
-        <Col
-          span={3}
-          style={{
-            border: "1px solid lightgray",
-            textAlign: "center",
-          }}
-        >
-          <div
-            style={{
-              width: "100%",
-              margin: 0,
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Text
-              style={{
-                fontSize: "5rem",
-              }}
-            >
-              T
-            </Text>
-            <Text
-              style={{
-                fontSize: "2rem",
-                color: "white",
-                backgroundColor: "gray",
-                padding: "4px 0px 4px 0px",
-              }}
-            >
-              n
-            </Text>
-          </div>
-        </Col>
-        <Col
-          span={3}
-          style={{
-            border: "1px solid lightgray",
-            textAlign: "center",
-          }}
-        >
-          <div
-            style={{
-              width: "100%",
-              margin: 0,
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Text
-              style={{
-                fontSize: "5rem",
-              }}
-            >
-              H
-            </Text>
-            <Text
-              style={{
-                fontSize: "2rem",
-                color: "white",
-                backgroundColor: "gray",
-                padding: "4px 0px 4px 0px",
-              }}
-            >
-              b
-            </Text>
-          </div>
-        </Col>
-        <Col
-          span={3}
-          style={{
-            border: "1px solid lightgray",
-            textAlign: "center",
-          }}
-        >
-          <div
-            style={{
-              width: "100%",
-              margin: 0,
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Text
-              style={{
-                fontSize: "5rem",
-              }}
-            >
-              E
-            </Text>
-            <Text
-              style={{
-                fontSize: "2rem",
-                color: "white",
-                backgroundColor: "gray",
-                padding: "4px 0px 4px 0px",
-              }}
-            >
-              a
-            </Text>
-          </div>
-        </Col>
+              <Text style={{ fontSize: "5rem" }}>{pair.uppercase}</Text>
+              <Text
+                style={{
+                  fontSize: "2rem",
+                  color: "white",
+                  backgroundColor: "gray",
+                  padding: "4px 0px 4px 0px",
+                }}
+              >
+                {pair.lowercase}
+              </Text>
+            </div>
+          </Col>
+        ))}
       </Row>
-      <Row style={{ margin: "0px 0px 10px 40px", gap: "50px" }}>
-        <Col span={2} style={{ margin: "40px 0px 10px 0px", gap: "60px" }}>
-          <Button
-            style={{
-              padding: "20px 50px 20px 50px",
-              fontSize: "2rem",
-            }}
-          >
-            0
-          </Button>
-        </Col>
-        <Col span={2} style={{ margin: "40px 0px 10px 0px", gap: "60px" }}>
-          <Button
-            style={{
-              padding: "20px 50px 20px 50px",
-              fontSize: "2rem",
-            }}
-          >
-            1
-          </Button>
-        </Col>
-        <Col span={2} style={{ margin: "40px 0px 10px 0px", gap: "60px" }}>
-          <Button
-            style={{
-              padding: "20px 50px 20px 50px",
-              fontSize: "2rem",
-            }}
-          >
-            2
-          </Button>
-        </Col>
-        <Col span={2} style={{ margin: "40px 0px 10px 0px", gap: "60px" }}>
-          <Button
-            style={{
-              padding: "20px 50px 20px 50px",
-              fontSize: "2rem",
-            }}
-          >
-            3
-          </Button>
-        </Col>
-        <Col span={2} style={{ margin: "40px 0px 10px 0px", gap: "60px" }}>
-          <Button
-            style={{
-              padding: "20px 50px 20px 50px",
-              fontSize: "2rem",
-            }}
-          >
-            4
-          </Button>
-        </Col>
+      <Row style={{ margin: "0px 0px 10px 40px", gap: "60px" }}>
+        {choices.map((num) => (
+          <Col key={num} span={2} style={{ margin: "40px 0px 10px 0px" }}>
+            <Button
+              style={{
+                padding: "20px 50px 20px 50px",
+                fontSize: "1.5rem",
+                color: selectedOption === num ? "white" : "black",
+                backgroundColor:
+                  selectedOption === num
+                    ? "#2D7CC1"
+                    : hoveredOption === num
+                    ? "#96BDE0"
+                    : "white",
+                borderRadius: "7px",
+                margin: "0px 20px 10px 0",
+                cursor: "pointer",
+                display: "inline-flex",
+                alignItems: "center",
+                border: "0.5px solid black",
+              }}
+              onClick={() => handleOptionClick(num)}
+              onMouseOver={() => setHoveredOption(num)}
+              onMouseLeave={() => setHoveredOption(null)}
+            >
+              {num}
+            </Button>
+          </Col>
+        ))}
       </Row>
     </Card>
   );
