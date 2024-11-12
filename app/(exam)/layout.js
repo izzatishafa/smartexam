@@ -21,7 +21,7 @@ const footerStyle = {
 
 const data = [
   { text: "Answered", bulletColor: "#1B3042", bulletSize: "10px" },
-  { text: "Not Answered", bulletColor: "gray", bulletSize: "10px" },
+  { text: "Not Answered", bulletColor: "#c0c0c0", bulletSize: "10px" },
   { text: "Confused", bulletColor: "#E3C72A", bulletSize: "10px" },
 ];
 
