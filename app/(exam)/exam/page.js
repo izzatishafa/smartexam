@@ -4,6 +4,7 @@ import { Typography, Card, Button, Space, Divider, Modal } from "antd";
 import Countdown from "@/components/ui/Countdown";
 import BasicCard from "@/components/ui/card/BasicCard";
 import DiscCard from "@/components/ui/card/DiscCard";
+import WptCard from "@/components/ui/card/WptCard";
 import { Layout } from "antd";
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -122,7 +123,7 @@ const Exam = () => {
           </Modal>
         </Space>
         {/* <BasicCard /> */}
-        <DiscCard />
+        <WptCard />
       </Content>
     </>
   );
