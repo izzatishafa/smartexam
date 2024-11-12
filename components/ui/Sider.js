@@ -2,7 +2,16 @@
 import React, { useState } from "react";
 import "../../app/globals.css";
 
-import { Layout, Progress, Flex, Space, Typography, Row, Col } from "antd";
+import {
+  Layout,
+  Progress,
+  Flex,
+  Space,
+  Typography,
+  Row,
+  Col,
+  Button,
+} from "antd";
 
 const { Sider } = Layout;
 const { Title } = Typography;
@@ -97,6 +106,16 @@ export default function SiderComponent() {
                   </Row>
                 )
               )}
+              <Button
+                type="primary"
+                style={{
+                  borderRadius: "30px",
+                  marginLeft: "115px",
+                  top: "-3.3rem",
+                }}
+              >
+                Submit Quiz
+              </Button>
             </div>
           </Space>
         </>

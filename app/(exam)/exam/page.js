@@ -121,8 +121,8 @@ const Exam = () => {
               </Text>
           </Modal>
         </Space>
-        <BasicCard />
-        {/* <DiscCard /> */}
+        {/* <BasicCard /> */}
+        <DiscCard />
       </Content>
     </>
   );

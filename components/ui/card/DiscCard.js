@@ -22,9 +22,10 @@ export default function DiscCard() {
   };
 
   const dataSource = [
-    { key: "1", pref: "A. Planning the work ahead" },
-    { key: "2", pref: "B. Blablabla" },
-    { key: "3", pref: "C. Another Choice" },
+    { key: "1", pref: "A Planning the work ahead" },
+    { key: "2", pref: "B Planning the work ahead" },
+    { key: "3", pref: "C Planning the work ahead" },
+    { key: "4", pref: "D Planning the work ahead" },
   ];
 
   const columns = [
@@ -38,47 +39,61 @@ export default function DiscCard() {
           <span>
             <span
               style={{
-                fontWeight: "bold",
-                color: "#1890ff",
-                backgroundColor: "#e6f7ff",
-                borderRadius: "8px",
+                color: "#0A01FF",
+                backgroundColor: "#e6e7e7",
+                borderRadius: "100%",
                 padding: "4px 8px",
-                marginRight: "8px",
+                margin: "0px 12px 2px 8px",
                 display: "inline-block",
               }}
             >
               {firstLetter}
             </span>
-            <Text>{restText.join(" ")}</Text>
+            <Text style={{ fontWeight: "bold", fontSize: "15px" }}>
+              {restText.join(" ")}
+            </Text>
           </span>
-        ); // <--- Add this missing closing bracket
+        );
       },
+      onHeaderCell: () => ({
+        style: { backgroundColor: "#8D97A0", border: "none" },
+      }),
     },
     {
-      title: "Most",
+      title: <Text style={{ fontSize: "16px", color: "white"}}>Most</Text>,
       dataIndex: "most",
       key: "most",
       render: (_, record) => (
         <Radio.Group
-          onChange={(e) => handleOptionChange(record.key, "most", e.target.value)}
+          onChange={(e) =>
+            handleOptionChange(record.key, "most", e.target.value)
+          }
           value={selectedOption[record.key]?.most || null}
         >
           <Radio value="most"></Radio>
         </Radio.Group>
       ),
+      onHeaderCell: () => ({
+        style: { backgroundColor: "#8D97A0", border: "none" },
+      }),
     },
     {
-      title: "Least",
+      title: <Text style={{ fontSize: "16px", color: "white"}}>Least</Text>,
       dataIndex: "least",
       key: "least",
       render: (_, record) => (
         <Radio.Group
-          onChange={(e) => handleOptionChange(record.key, "least", e.target.value)}
+          onChange={(e) =>
+            handleOptionChange(record.key, "least", e.target.value)
+          }
           value={selectedOption[record.key]?.least || null}
         >
           <Radio value="least"></Radio>
         </Radio.Group>
       ),
+      onHeaderCell: () => ({
+        style: { backgroundColor: "#8D97A0", border: "none" },
+      }),
     },
   ];
 
@@ -88,14 +103,14 @@ export default function DiscCard() {
         width: "100%",
         userSelect: "none",
         marginBottom: "100px",
-        paddingBottom: "50px",
+        padding: "0px 0px 0px 10px",
       }}
       onCopy={handleCopy}
     >
       <Title level={4} style={{ fontWeight: "normal", paddingLeft: "10px" }}>
         Pilihlah opsi yang sesuai dengan kriteria Anda!
       </Title>
-      <Space style={{ paddingLeft: "30px" }} direction="vertical">
+      <Space direction="vertical">
         <Table
           dataSource={dataSource}
           columns={columns}
