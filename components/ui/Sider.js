@@ -38,6 +38,7 @@ export default function SiderComponent() {
         backgroundColor: "#1B3042",
         borderLeft: "1px solid #ccc",
         overflow: "hidden",
+        userSelect: "none",
       }}
     >
       {!collapsed && (
