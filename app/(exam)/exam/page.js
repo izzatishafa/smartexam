@@ -7,17 +7,13 @@ import DiscCard from "@/components/ui/card/DiscCard";
 import WptCard from "@/components/ui/card/WptCard";
 import HexacoCard from "@/components/ui/card/HexacoCard";
 import GtiCard from "@/components/ui/card/GtiCard";
+import TableTestCard from "@/components/ui/card/TableTestCard";
 import { Layout } from "antd";
 const { Content } = Layout;
 const { Title, Text } = Typography;
 
 const Exam = () => {
-  const [selectedOption, setSelectedOption] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
-  };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -25,10 +21,6 @@ const Exam = () => {
 
   const handleClose = () => {
     setIsModalOpen(false);
-  };
-
-  const handleCopy = (e) => {
-    e.preventDefault();
   };
 
   return (
@@ -124,8 +116,7 @@ const Exam = () => {
               </Text>
           </Modal>
         </Space>
-        {/* <BasicCard /> */}
-        <GtiCard />
+        <TableTestCard />
       </Content>
     </>
   );

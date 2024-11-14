@@ -60,36 +60,50 @@ export default function DiscCard() {
       }),
     },
     {
-      title: <Text style={{ fontSize: "16px", color: "white"}}>Most</Text>,
+      title: (
+        <p style={{ fontSize: "16px", color: "white", textAlign: "center" }}>
+          Most
+        </p>
+      ),
       dataIndex: "most",
       key: "most",
       render: (_, record) => (
-        <Radio.Group
-          onChange={(e) =>
-            handleOptionChange(record.key, "most", e.target.value)
-          }
-          value={selectedOption[record.key]?.most || null}
-        >
-          <Radio value="most"></Radio>
-        </Radio.Group>
+        <div style={{ textAlign: "center" }}>
+          <Radio.Group
+            size="large"
+            onChange={(e) =>
+              handleOptionChange(record.key, "most", e.target.value)
+            }
+            value={selectedOption[record.key]?.most || null}
+          >
+            <Radio value="most"></Radio>
+          </Radio.Group>
+        </div>
       ),
       onHeaderCell: () => ({
         style: { backgroundColor: "#8D97A0", border: "none" },
       }),
     },
     {
-      title: <Text style={{ fontSize: "16px", color: "white"}}>Least</Text>,
+      title: (
+        <p style={{ fontSize: "16px", color: "white", textAlign: "center" }}>
+          Least
+        </p>
+      ),
       dataIndex: "least",
       key: "least",
       render: (_, record) => (
-        <Radio.Group
-          onChange={(e) =>
-            handleOptionChange(record.key, "least", e.target.value)
-          }
-          value={selectedOption[record.key]?.least || null}
-        >
-          <Radio value="least"></Radio>
-        </Radio.Group>
+        <div style={{ textAlign: "center" }}>
+          <Radio.Group
+            size="large"
+            onChange={(e) =>
+              handleOptionChange(record.key, "least", e.target.value)
+            }
+            value={selectedOption[record.key]?.least || null}
+          >
+            <Radio value="least"></Radio>
+          </Radio.Group>
+        </div>
       ),
       onHeaderCell: () => ({
         style: { backgroundColor: "#8D97A0", border: "none" },
@@ -102,8 +116,8 @@ export default function DiscCard() {
       style={{
         width: "100%",
         userSelect: "none",
-        marginBottom: "100px",
-        padding: "0px 0px 0px 10px",
+        marginBottom: "70px",
+        padding: "0px 0px 10px 10px",
       }}
       onCopy={handleCopy}
     >
@@ -117,7 +131,7 @@ export default function DiscCard() {
           bordered={true}
           pagination={false}
           rowHoverable={false}
-          style={{ minWidth: "600px" }}
+          style={{ minWidth: "550px" }}
         />
       </Space>
     </Card>
