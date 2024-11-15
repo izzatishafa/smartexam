@@ -100,7 +100,7 @@ export default function TableTestCard() {
                 color: "#1B3042",
                 backgroundColor:
                   selectedOption === choice ? "#D6E4FF" : "#E9F0FC",
-                padding: "8px 15px",
+                padding: "8px 50px 8px 15px",
                 borderRadius: "15px",
                 marginBottom: "10px",
                 display: "flex",

@@ -29,28 +29,28 @@ export default function ExamLayout({ children }) {
   const [isLoading, setIsLoading] = useState(true);
 
   // simulate loading delay
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 0);
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 0);
+  }, []);
 
-  // if (isLoading) {
-  //   return (
-  //     <div
-  //       style={{
-  //         display: "flex",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         height: "100vh",
-  //         flexDirection: "column",
-  //       }}
-  //     >
-  //       <Spin size="large" />
-  //       <p>Loading...</p>
-  //     </div>
-  //   );
-  // }
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          flexDirection: "column",
+        }}
+      >
+        <Spin size="large" />
+        <p>Loading...</p>
+      </div>
+    );
+  }
   return (
     <html lang="en">
       <body>

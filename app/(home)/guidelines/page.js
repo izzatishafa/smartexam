@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Typography, Col, Row, Card, Button, Checkbox, Space, message } from "antd";
 const { Title, Text } = Typography;
 
-const Guidelines = () => {
+const guidelines = () => {
   const router = useRouter();
   const [checkedItems, setCheckedItems] = useState({
     item1: false,
@@ -192,4 +192,4 @@ const Guidelines = () => {
   );
 };
 
-export default Guidelines;
+export default guidelines;
