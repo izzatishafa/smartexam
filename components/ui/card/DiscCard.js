@@ -5,16 +5,25 @@ import { Typography, Card, Space, Table, Radio } from "antd";
 const { Title, Text } = Typography;
 
 export default function DiscCard() {
-  const [selectedOption, setSelectedOption] = useState({});
+  const [selectedOption, setSelectedOption] = useState({
+    most: null,
+    least: null,
+  });
 
   const handleOptionChange = (key, type) => {
-    setSelectedOption((prev) => ({
-      ...prev,
-      [key]: {
-        most: type === "most" ? "most" : null,
-        least: type === "least" ? "least" : null,
-      },
-    }));
+    setSelectedOption((prev) => {
+      if (type === "most" && prev.least === key) {
+        return { ...prev, most: key, least: null };
+      }
+      if (type === "least" && prev.most === key) {
+        return { ...prev, most: null, least: key };
+      }
+
+      return {
+        ...prev,
+        [type]: prev[type] === key ? null : key,
+      };
+    });
   };
 
   const handleCopy = (e) => {
@@ -69,15 +78,11 @@ export default function DiscCard() {
       key: "most",
       render: (_, record) => (
         <div style={{ textAlign: "center" }}>
-          <Radio.Group
-            size="large"
-            onChange={(e) =>
-              handleOptionChange(record.key, "most", e.target.value)
-            }
-            value={selectedOption[record.key]?.most || null}
-          >
-            <Radio value="most"></Radio>
-          </Radio.Group>
+          <Radio
+            checked={selectedOption.most === record.key}
+            disabled={selectedOption.least === record.key}
+            onChange={() => handleOptionChange(record.key, "most")}
+          />
         </div>
       ),
       onHeaderCell: () => ({
@@ -94,15 +99,11 @@ export default function DiscCard() {
       key: "least",
       render: (_, record) => (
         <div style={{ textAlign: "center" }}>
-          <Radio.Group
-            size="large"
-            onChange={(e) =>
-              handleOptionChange(record.key, "least", e.target.value)
-            }
-            value={selectedOption[record.key]?.least || null}
-          >
-            <Radio value="least"></Radio>
-          </Radio.Group>
+          <Radio
+            checked={selectedOption.least === record.key}
+            disabled={selectedOption.most === record.key}
+            onChange={() => handleOptionChange(record.key, "least")}
+          />
         </div>
       ),
       onHeaderCell: () => ({

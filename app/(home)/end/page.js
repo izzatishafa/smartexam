@@ -5,7 +5,7 @@ const { Title, Text } = Typography;
 
 const endPage = () => {
   return (
-      <Typography style={{ textAlign: "center", paddingTop: "100px" }}>
+      <Typography style={{ textAlign: "center", paddingTop: "80px" }}>
         <Title level={1}>
           Terima Kasih
         </Title>

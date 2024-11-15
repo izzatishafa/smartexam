@@ -26,3 +26,12 @@ html, body {
 * {
   box-sizing: inherit;
 }
+
+.no-hover .ant-dropdown-menu-item {
+  pointer-events: none;
+  background-color: transparent !important;
+}
+
+.no-hover .ant-dropdown-menu-item:hover {
+  background-color: transparent !important;
+}
