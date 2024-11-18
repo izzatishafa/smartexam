@@ -6,6 +6,7 @@ import BasicCard from "@/components/ui/card/BasicCard";
 import DiscCard from "@/components/ui/card/DiscCard";
 import WptCard from "@/components/ui/card/WptCard";
 import HexacoCard from "@/components/ui/card/HexacoCard";
+import StoryCard from "@/components/ui/card/StoryCard";
 import GtiCard from "@/components/ui/card/GtiCard";
 import TableTestCard from "@/components/ui/card/TableTestCard";
 import { Layout } from "antd";
@@ -116,7 +117,7 @@ const Exam = () => {
               </Text>
           </Modal>
         </Space>
-        <TableTestCard />
+        <StoryCard />
       </Content>
     </>
   );

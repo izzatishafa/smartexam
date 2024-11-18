@@ -73,13 +73,14 @@ export default function SiderComponent() {
           <Space
             style={{
               backgroundColor: "white",
-              minHeight: "100vh",
+              height: "100%",
               minWidth: "395px",
               display: "flex",
               justifyContent: "center",
+              alignItems: "start"
             }}
           >
-            <div style={{ maxWidth: "380px", margin: "-5rem 0 60px 0" }}>
+            <div style={{ maxWidth: "380px", margin: "25px 0px 60px 0px" }}>
               {Array.from({ length: Math.ceil(questions.length / 6) }).map(
                 (_, rowIndex) => (
                   <Row

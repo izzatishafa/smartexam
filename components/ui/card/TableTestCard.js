@@ -78,7 +78,7 @@ export default function TableTestCard() {
           paddingRight: "50px",
         }}
       />
-      <Typography style={{}}>
+      <Typography>
         <Text style={{ fontSize: "17px" }}>
           Dari data tabel tersebut manakah yang blablabla ?
         </Text>
