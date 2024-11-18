@@ -243,16 +243,14 @@ export default function Page() {
       return;
     }
 
-    console.log(username, password);
-
-    // try {
-    //   const response = await apiService.post('/api/auth/login', { username, password });
-    //   message.success("Logged in successfully!");
-    //   router.push("/guidelines");
-    // } catch (error) {
-    //   const errorMsg = error.response?.data?.message || "Login failed!";
-    //   message.error(errorMsg);
-    // }
+    try {
+      const response = await apiService.post('/api/auth/login', { username, password });
+      message.success("Logged in successfully!");
+      router.push("/guidelines");
+    } catch (error) {
+      const errorMsg = error.response?.data?.message || "Login failed!";
+      message.error(errorMsg);
+    }
   };
 
   const handleCheckboxChange = (e) => {

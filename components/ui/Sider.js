@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import "../../app/globals.css";
 
 import {
@@ -20,6 +21,8 @@ const questions = Array.from({ length: 50 }, (_, index) => `${index + 1}`);
 
 export default function SiderComponent() {
   const [collapsed, setCollapsed] = useState(false);
+
+  const router = useRouter();
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
@@ -113,6 +116,9 @@ export default function SiderComponent() {
                   borderRadius: "30px",
                   marginLeft: "115px",
                   top: "-3.3rem",
+                }}
+                onClick={() => {
+                  router.push("/end");
                 }}
               >
                 Submit Quiz
