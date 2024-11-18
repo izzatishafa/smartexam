@@ -33,6 +33,7 @@ export default function StoryCard() {
             maxWidth: "1300px",
             overflow: "scroll",
             margin: "0px 50px 20px 0px",
+            fontSize: "15px"
           }}
         >
           <p>
