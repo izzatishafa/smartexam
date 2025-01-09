@@ -9,6 +9,10 @@ import { Layout } from "antd";
 
 const GtiSubtestPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hoveredOption, setHoveredOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const handleOptionClick = (value) => setSelectedOption(value);
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -17,7 +21,13 @@ const GtiSubtestPage = () => {
     setIsModalOpen(false);
   };
 
-  const answers = [0, 1, 2, 3];
+  const answers = [0, 1, 2, 3, 4];
+
+  const handleNextQuestion = () => {
+    setSelectedOption(null);
+    setIsAnswerCorrect(null);
+    // Logic to fetch the next question will go here
+  };
 
   return (
     <>
@@ -95,8 +105,17 @@ const GtiSubtestPage = () => {
             <Row gutter={[16, 16]} align="middle" justify="center" style={{ marginTop: "10px" }}>
               {/* Opsi jawaban sebagai tombol */}
               {answers.map((answer, index) => (
-                <Col span={4} key={index}>
-                  <Button block>
+                <Col span={4} key={`answer-${index}`}>
+                  <Button
+                    type={selectedOption === answer ? "primary" : "default"}
+                    onClick={() => handleOptionClick(answer)}
+                    style={{
+                      width: "100%",
+                      height: "50px",
+                      borderRadius: "8px",
+                      fontSize: "16px",
+                    }}
+                  >
                     {answer}
                   </Button>
                 </Col>
