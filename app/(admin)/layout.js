@@ -17,10 +17,19 @@ function getItem(label, key, icon, children) {
   };
 }
 
+const formatBreadcrumb = (text) => {
+  return text
+    .split("-") // Pisahkan berdasarkan tanda '-'
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Kapitalisasi kata pertama
+    .join(" "); // Gabungkan dengan spasi
+};
+
+
 const breadcrumbNameMap = {
   "/dashboard": "Dashboard",
   "/quiz": "Quiz",
   "/quiz/group": "Quiz Group",
+  "/quiz/group-items": "Group Items",
   "/soal": "Soal",
   "/sesi": "Sesi",
   "/formasi": "Formasi",
@@ -87,7 +96,7 @@ const DashboardLayout = ({ children }) => {
             >
               {pathSegments.map((segment, index) => {
                 const url = `/${pathSegments.slice(0, index + 1).join("/")}`;
-                return <Breadcrumb.Item key={url}>{breadcrumbNameMap[url] || segment}</Breadcrumb.Item>;
+                return <Breadcrumb.Item key={url}>{breadcrumbNameMap[url] || formatBreadcrumb(segment)}</Breadcrumb.Item>;
               })}
             </Breadcrumb>
             <div
