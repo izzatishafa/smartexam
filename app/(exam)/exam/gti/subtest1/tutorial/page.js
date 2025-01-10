@@ -10,7 +10,6 @@ import GtiTutorial1 from "@/components/ui/card/GtiTutorial1";
 
 const GtiTutorialPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [hoveredOption, setHoveredOption] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
   const handleOptionClick = (value) => setSelectedOption(value);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(null);

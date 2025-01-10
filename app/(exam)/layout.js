@@ -69,10 +69,7 @@ export default function ExamLayout({ children }) {
                 }}
               >
                 {data.map((item, index) => (
-                  <div
-                    key={index}
-                    style={{ display: "flex", alignItems: "center" }}
-                  >
+                  <div key={index} style={{ display: "flex", alignItems: "center" }}>
                     <span
                       style={{
                         display: "inline-block",
