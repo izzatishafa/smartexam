@@ -4,6 +4,7 @@ import React from "react";
 import { Row, Col, Table, Button, Input } from "antd";
 import { createStyles } from "antd-style";
 import { FileExcelOutlined, PrinterOutlined } from "@ant-design/icons";
+import { AddButton, DeleteButton, DetailButton, EditButton } from "@/components/ui/Buttons";
 const { Search } = Input;
 
 const useStyle = createStyles(({ css, token }) => {
@@ -26,42 +27,51 @@ const useStyle = createStyles(({ css, token }) => {
 
 const columns = [
   {
-    title: "Full Name",
-    width: 100,
-    dataIndex: "name",
-    key: "name",
+    title: "No",
+    width: 70,
+    dataIndex: "no",
+    key: "no",
     fixed: "left",
   },
   {
-    title: "Age",
-    width: 100,
-    dataIndex: "age",
-    key: "age",
-    fixed: "left",
-  },
-  {
-    title: "Address",
-    dataIndex: "address",
-    key: "address",
+    title: "Code",
+    dataIndex: "code",
+    key: "code",
     width: 150,
   },
   {
-    title: "Action",
-    key: "operation",
-    fixed: "right",
-    width: 100,
-    render: () => <a>action</a>,
-  },
+      title: "Action",
+      key: "operation",
+      fixed: "right",
+      width: 150,
+      render: (_, record) => (
+        <Row gutter={[8, 8]}>
+          <Col>
+            <DetailButton />
+          </Col>
+          <Col>
+            <EditButton />
+          </Col>
+          <Col>
+            <DeleteButton />
+          </Col>
+        </Row>
+      ),
+    },
 ];
 
-const dataSource = Array.from({
-  length: 100,
-}).map((_, i) => ({
-  key: i,
-  name: `Edward King ${i}`,
-  age: 32,
-  address: `London, Park Lane no. ${i}`,
-}));
+const dataSource = [
+  { key: 1, no: 1, code: "baru" },
+  { key: 2, no: 2, code: "campuran-library" },
+  { key: 3, no: 3, code: "competency" },
+  { key: 4, no: 4, code: "deletquiz" },
+  { key: 5, no: 5, code: "div_junior_adm" },
+  { key: 6, no: 6, code: "div_junior_professional" },
+  { key: 7, no: 7, code: "div_junior_tech" },
+  { key: 8, no: 8, code: "div_manager_adm" },
+  { key: 9, no: 9, code: "div_manager_prof" },
+  { key: 10, no: 10, code: "div_manager_tech" },
+];
 
 const QuizGroupPage = () => {
   const { styles } = useStyle();
@@ -88,9 +98,7 @@ const QuizGroupPage = () => {
             </Button>
           </Col>
           <Col style={{ textAlign: "right" }}>
-            <Button type="primary" size="large">
-              Tambah Grup Quiz
-            </Button>
+            <AddButton text="Tambah Grup Quiz" />
           </Col>
         </Row>
       </Row>

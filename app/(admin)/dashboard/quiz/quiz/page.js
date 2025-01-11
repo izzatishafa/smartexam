@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Row, Col, Table, Button, Input, Flex } from "antd";
+import { Row, Col, Table, Button, Input } from "antd";
+import {DetailButton, EditButton, DeleteButton, AddButton} from "@/components/ui/Buttons";
 import { createStyles } from "antd-style";
 const { Search } = Input;
 
@@ -25,142 +26,203 @@ const useStyle = createStyles(({ css, token }) => {
 
 const columns = [
   {
-    title: "Full Name",
-    width: 100,
-    dataIndex: "name",
-    key: "name",
+    title: "No",
+    dataIndex: "no",
+    key: "no",
+    width: 70,
     fixed: "left",
   },
   {
-    title: "Age",
+    title: "Code",
+    dataIndex: "code",
+    key: "code",
+    width: 150,
+  },
+  {
+    title: "Label",
+    dataIndex: "label",
+    key: "label",
+    width: 150,
+  },
+  {
+    title: "Description",
+    dataIndex: "description",
+    key: "description",
+    width: 200,
+  },
+  {
+    title: "Library Code",
+    dataIndex: "libraryCode",
+    key: "libraryCode",
+    width: 150,
+  },
+  {
+    title: "Group Quiz Code",
+    dataIndex: "groupQuizCode",
+    key: "groupQuizCode",
+    width: 150,
+  },
+  {
+    title: "Active",
+    dataIndex: "active",
+    key: "active",
     width: 100,
-    dataIndex: "age",
-    key: "age",
-    fixed: "left",
   },
   {
-    title: "Column 1",
-    dataIndex: "address",
-    key: "1",
-    width: 150,
+    title: "Seconds",
+    dataIndex: "seconds",
+    key: "seconds",
+    width: 100,
   },
   {
-    title: "Column 2",
-    dataIndex: "address",
-    key: "2",
-    width: 150,
-  },
-  {
-    title: "Column 3",
-    dataIndex: "address",
-    key: "3",
-    width: 150,
-  },
-  {
-    title: "Column 4",
-    dataIndex: "address",
-    key: "4",
-    width: 150,
-  },
-  {
-    title: "Column 5",
-    dataIndex: "address",
-    key: "5",
-    width: 150,
-  },
-  {
-    title: "Column 6",
-    dataIndex: "address",
-    key: "6",
-    width: 150,
-  },
-  {
-    title: "Column 7",
-    dataIndex: "address",
-    key: "7",
-    width: 150,
-  },
-  {
-    title: "Column 8",
-    dataIndex: "address",
-    key: "8",
-  },
-  {
-    title: "Column 9",
-    dataIndex: "address",
-    key: "9",
-  },
-  {
-    title: "Column 10",
-    dataIndex: "address",
-    key: "10",
-  },
-  {
-    title: "Column 11",
-    dataIndex: "address",
-    key: "11",
-  },
-  {
-    title: "Column 12",
-    dataIndex: "address",
-    key: "12",
-  },
-  {
-    title: "Column 13",
-    dataIndex: "address",
-    key: "13",
-  },
-  {
-    title: "Column 14",
-    dataIndex: "address",
-    key: "14",
-  },
-  {
-    title: "Column 15",
-    dataIndex: "address",
-    key: "15",
-  },
-  {
-    title: "Column 16",
-    dataIndex: "address",
-    key: "16",
-  },
-  {
-    title: "Column 17",
-    dataIndex: "address",
-    key: "17",
-  },
-  {
-    title: "Column 18",
-    dataIndex: "address",
-    key: "18",
-  },
-  {
-    title: "Column 19",
-    dataIndex: "address",
-    key: "19",
-  },
-  {
-    title: "Column 20",
-    dataIndex: "address",
-    key: "20",
+    title: "Is Show",
+    dataIndex: "isShow",
+    key: "isShow",
+    width: 100,
   },
   {
     title: "Action",
     key: "operation",
     fixed: "right",
-    width: 100,
-    render: () => <a>action</a>,
+    width: 150,
+    render: (_, record) => (
+      <Row gutter={[8, 8]}>
+        <Col>
+          <DetailButton />
+        </Col>
+        <Col>
+          <EditButton />
+        </Col>
+        <Col>
+          <DeleteButton />
+        </Col>
+      </Row>
+    ),
   },
 ];
-const dataSource = Array.from({
-  length: 100,
-}).map((_, i) => ({
-  key: i,
-  name: `Edward King ${i}`,
-  age: 32,
-  address: `London, Park Lane no. ${i}`,
-}));
+
+const dataSource = [
+  {
+    key: 1,
+    no: 1,
+    code: "gti_pci",
+    label: "Subtest 1",
+    description: "",
+    libraryCode: "gti",
+    groupQuizCode: "",
+    active: 1,
+    seconds: 180,
+    isShow: 0,
+  },
+  {
+    key: 2,
+    no: 2,
+    code: "gti_penalaran",
+    label: "Subtest 2",
+    description: "",
+    libraryCode: "gti",
+    groupQuizCode: "",
+    active: 1,
+    seconds: 240,
+    isShow: 0,
+  },
+  {
+    key: 3,
+    no: 3,
+    code: "gti_jh",
+    label: "Subtest 3",
+    description: "",
+    libraryCode: "gti",
+    groupQuizCode: "",
+    active: 1,
+    seconds: 240,
+    isShow: 0,
+  },
+  {
+    key: 4,
+    no: 4,
+    code: "gti_kka",
+    label: "Subtest 4",
+    description: "",
+    libraryCode: "gti",
+    groupQuizCode: "",
+    active: 1,
+    seconds: 240,
+    isShow: 0,
+  },
+  {
+    key: 5,
+    no: 5,
+    code: "gti_orientasi",
+    label: "Subtest 5",
+    description: "",
+    libraryCode: "gti",
+    groupQuizCode: "",
+    active: 1,
+    seconds: 300,
+    isShow: 0,
+  },
+  {
+    key: 6,
+    no: 6,
+    code: "hexaco",
+    label: "Hexaco",
+    description: "",
+    libraryCode: "personal",
+    groupQuizCode: "",
+    active: 1,
+    seconds: 1800,
+    isShow: 1,
+  },
+  {
+    key: 7,
+    no: 7,
+    code: "cti",
+    label: "CTI",
+    description: "",
+    libraryCode: "personal",
+    groupQuizCode: "",
+    active: 0,
+    seconds: 1200,
+    isShow: 0,
+  },
+  {
+    key: 8,
+    no: 8,
+    code: "d3ad",
+    label: "D3AD",
+    description: "",
+    libraryCode: "personal",
+    groupQuizCode: "",
+    active: 0,
+    seconds: 1200,
+    isShow: 0,
+  },
+  {
+    key: 9,
+    no: 9,
+    code: "ist_zr",
+    label: "Subtest 6",
+    description: "",
+    libraryCode: "ist",
+    groupQuizCode: "",
+    active: 0,
+    seconds: 480,
+    isShow: 0,
+  },
+  {
+    key: 10,
+    no: 10,
+    code: "ist_fa",
+    label: "Subtest 7",
+    description: "",
+    libraryCode: "ist",
+    groupQuizCode: "",
+    active: 0,
+    seconds: 480,
+    isShow: 0,
+  },
+];
 
 const QuizPage = () => {
   const { styles } = useStyle();
@@ -175,10 +237,8 @@ const QuizPage = () => {
         <Col>
           <Search placeholder="Cari..." allowClear enterButton="Search" size="large" onSearch={onSearch} />
         </Col>
-        <Col  style={{ textAlign: "right" }}>
-          <Button type="primary" size="large">
-            Tambah
-          </Button>
+        <Col style={{ textAlign: "right" }}>
+          <AddButton />
         </Col>
       </Row>
 

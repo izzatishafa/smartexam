@@ -3,7 +3,8 @@
 import React from "react";
 import { Row, Col, Table, Button, Input, Select } from "antd";
 import { createStyles } from "antd-style";
-import { FileExcelOutlined, PrinterOutlined, SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
+import { AddButton, DeleteButton, DetailButton, EditButton } from "@/components/ui/Buttons";
 const { Search } = Input;
 
 const useStyle = createStyles(({ css, token }) => {
@@ -26,42 +27,62 @@ const useStyle = createStyles(({ css, token }) => {
 
 const columns = [
   {
-    title: "Full Name",
-    width: 100,
-    dataIndex: "name",
-    key: "name",
+    title: "No",
+    dataIndex: "no",
+    key: "no",
+    width: 70,
     fixed: "left",
   },
   {
-    title: "Age",
-    width: 100,
-    dataIndex: "age",
-    key: "age",
-    fixed: "left",
+    title: "Group Quiz Code",
+    dataIndex: "group-quiz-code",
+    key: "group-quiz-code",
+    width: 150,
   },
   {
-    title: "Address",
-    dataIndex: "address",
-    key: "address",
+    title: "Quiz Code",
+    dataIndex: "quiz-code",
+    key: "quiz-code",
+    width: 150,
+  },
+  {
+    title: "Order",
+    dataIndex: "order",
+    key: "order",
     width: 150,
   },
   {
     title: "Action",
     key: "operation",
     fixed: "right",
-    width: 100,
-    render: () => <a>action</a>,
+    width: 150,
+    render: (_, record) => (
+      <Row gutter={[8, 8]}>       
+        <Col>
+          <EditButton />
+        </Col>
+        <Col>
+          <DeleteButton />
+        </Col>
+      </Row>
+    ),
   },
 ];
 
-const dataSource = Array.from({
-  length: 100,
-}).map((_, i) => ({
-  key: i,
-  name: `Edward King ${i}`,
-  age: 32,
-  address: `London, Park Lane no. ${i}`,
-}));
+const dataSource = [
+  { key: 1, no: 1, "group-quiz-code": "baru", "quiz-code": "gti_penalaran", order: 0 },
+  { key: 2, no: 2, "group-quiz-code": "baru", "quiz-code": "gti_jh", order: 1 },
+  { key: 3, no: 3, "group-quiz-code": "campuran-library", "quiz-code": "P1v2", order: 0 },
+  { key: 4, no: 4, "group-quiz-code": "campuran-library", "quiz-code": "gti_jh_r", order: 1 },
+  { key: 5, no: 5, "group-quiz-code": "campuran-library", "quiz-code": "gti_kka_r", order: 2 },
+  { key: 6, no: 6, "group-quiz-code": "campuran-library", "quiz-code": "ist_fa", order: 3 },
+  { key: 7, no: 7, "group-quiz-code": "campuran-library", "quiz-code": "english", order: 4 },
+  { key: 8, no: 8, "group-quiz-code": "competency", "quiz-code": "socdes", order: 0 },
+  { key: 9, no: 9, "group-quiz-code": "competency", "quiz-code": "competency", order: 1 },
+  { key: 10, no: 10, "group-quiz-code": "deletequiz", "quiz-code": "deletequiz", order: 0 },
+  { key: 11, no: 11, "group-quiz-code": "deletequiz", "quiz-code": "tkd", order: 1 },
+];
+
 
 const searchIcon = <SearchOutlined style={{ fontSize: "20px" }} />;
 
@@ -94,9 +115,7 @@ const QuizGroupItemsPage = () => {
         </Row>
         <Row gutter={[16, 16]}>
           <Col style={{ textAlign: "right" }}>
-            <Button type="primary" size="large">
-              Tambah Item
-            </Button>
+            <AddButton text="Tambah Item" />
           </Col>
         </Row>
       </Row>
