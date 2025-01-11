@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Row, Col, Table, Button, Input } from "antd";
+import { Row, Col, Table, Input } from "antd";
 import {DetailButton, EditButton, DeleteButton, AddButton} from "@/components/ui/Buttons";
 import { createStyles } from "antd-style";
 const { Search } = Input;

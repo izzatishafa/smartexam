@@ -4,7 +4,7 @@ import React from "react";
 import { Row, Col, Table, Button, Input } from "antd";
 import { createStyles } from "antd-style";
 import { FileExcelOutlined, PrinterOutlined } from "@ant-design/icons";
-import { AddButton, DeleteButton, DetailButton, EditButton } from "@/components/ui/Buttons";
+import { AddButton, DeleteButton, DetailButton, EditButton, ExportButton, PrintButton } from "@/components/ui/Buttons";
 const { Search } = Input;
 
 const useStyle = createStyles(({ css, token }) => {
@@ -88,14 +88,10 @@ const QuizGroupPage = () => {
         </Col>
         <Row gutter={[16, 16]}>
           <Col>
-            <Button icon={<FileExcelOutlined />} size="large" type="primary">
-              Export
-            </Button>
+            <ExportButton/>
           </Col>
           <Col>
-            <Button icon={<PrinterOutlined />} type="primary" size="large">
-              Print
-            </Button>
+            <PrintButton/>
           </Col>
           <Col style={{ textAlign: "right" }}>
             <AddButton text="Tambah Grup Quiz" />
