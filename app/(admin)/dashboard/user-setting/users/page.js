@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { Row, Col, Table, Button, Input } from "antd";
+import { Row, Col, Table, Button, Input, Tooltip } from "antd";
 import { createStyles } from "antd-style";
-import { FileExcelOutlined, FileTextOutlined, PictureOutlined, PrinterOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
+import { FileTextOutlined, PictureOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
 import { AddButton, CloneButton, DeleteButton, DetailButton, EditButton, ExportButton, PrintButton } from "@/components/ui/Buttons";
 const { Search } = Input;
 
@@ -107,28 +107,44 @@ const columns = [
     render: (_, record) => (
       <Row gutter={[8, 8]}>
         <Col>
-          <DetailButton />
+          <Tooltip title="Detail">
+            <DetailButton />
+          </Tooltip>
         </Col>
         <Col>
-          <EditButton />
+          <Tooltip title="Edit">
+            <EditButton />
+          </Tooltip>
         </Col>
         <Col>
-          <DeleteButton />
+          <Tooltip title="Delete">
+            <DeleteButton />
+          </Tooltip>
         </Col>
         <Col>
-          <CloneButton />
+          <Tooltip title="Copy">
+            <CloneButton />
+          </Tooltip>
         </Col>
         <Col>
-          <Button icon={<SettingOutlined />} type="primary" style={{ backgroundColor: "#2F54EB", color: "white" }} />
+          <Tooltip title="Set Quiz">
+            <Button icon={<SettingOutlined />} type="primary" style={{ backgroundColor: "#2F54EB", color: "white" }} />
+          </Tooltip>
         </Col>
         <Col>
-          <Button icon={<PictureOutlined />} type="primary" style={{ backgroundColor: "#FA8C16", color: "white" }} />
+          <Tooltip title="Photo">
+            <Button icon={<PictureOutlined />} type="primary" style={{ backgroundColor: "#FA8C16", color: "white" }} />
+          </Tooltip>
         </Col>
         <Col>
-          <Button icon={<FileTextOutlined />} type="primary" style={{ backgroundColor: "#722ED1", color: "white" }} />
+          <Tooltip title="Quiz Log">
+            <Button icon={<FileTextOutlined />} type="primary" style={{ backgroundColor: "#722ED1", color: "white" }} />
+          </Tooltip>
         </Col>
         <Col>
-          <Button icon={<UserOutlined />} type="primary" style={{ backgroundColor: "#13C2C2", color: "white" }} />
+          <Tooltip title="User Log">
+            <Button icon={<UserOutlined />} type="primary" style={{ backgroundColor: "#13C2C2", color: "white" }} />
+          </Tooltip>
         </Col>
       </Row>
     ),
