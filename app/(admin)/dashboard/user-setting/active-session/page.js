@@ -91,7 +91,7 @@ const dataSource = [
   { key: 10, no: 10, username: "div_manager_tech" },
 ];
 
-const QuizGroupPage = () => {
+const ActiveSessionPage = () => {
   const { styles } = useStyle();
 
   const onSearch = (value) => {
@@ -106,7 +106,9 @@ const QuizGroupPage = () => {
         </Col>
         <Row gutter={[16, 16]}>
           <Col>
-            <Button type="primary" size="large">Kembali</Button>
+            <Button type="primary" size="large">
+              Kembali
+            </Button>
           </Col>
         </Row>
       </Row>
@@ -124,4 +126,4 @@ const QuizGroupPage = () => {
   );
 };
 
-export default QuizGroupPage;
+export default ActiveSessionPage;

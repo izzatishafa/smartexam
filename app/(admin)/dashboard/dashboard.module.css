@@ -1,0 +1,81 @@
+.dashboard {
+  padding: 24px;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.headerTitle {
+  color: #333;
+  font-weight: bold;
+}
+
+.statsRow {
+  margin-bottom: 24px;
+}
+
+.statCard {
+  background: #fff;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 16px;
+}
+
+.statLabel {
+  font-size: 14px;
+  color: #666;
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.statValue {
+  font-size: 28px;
+  color: #333;
+  font-weight: bold;
+}
+
+.sessionContainer {
+  margin-top: 24px;
+}
+
+.sessionCard {
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+}
+
+.sessionTitle {
+  margin: 4px 0;
+  font-weight: bold;
+}
+
+.participants {
+  font-size: 14px;
+  color: #555;
+  font-weight: bold;
+}
+
+.filterButton {
+  display: block;
+  margin: 16px auto 0;
+  background: #1890ff;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  padding: 8px 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.filterButton:hover {
+  background: #40a9ff;
+}
