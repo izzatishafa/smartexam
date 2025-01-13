@@ -9,7 +9,7 @@ export const AddButton = ({ text = "Tambah", ...props }) => (
   </Button>
 );
 
-export const EditButton = (props) => <Button style={{ backgroundColor: "#52c41a", color: "white" }} icon={<EditOutlined />} {...props} />;
+export const EditButton = (props) => <Button type="primary" style={{ backgroundColor: "#52c41a", color: "white" }} icon={<EditOutlined />} {...props} />;
 
 export const DeleteButton = (props) => <Button type="primary" danger icon={<DeleteOutlined />} {...props} />;
 
@@ -27,4 +27,4 @@ export const PrintButton = (props) => (
   </Button>
 );
 
-export const CloneButton = (props) => <Button icon={<CopyOutlined />} style={{ backgroundColor: "#FADB14", color: "white" }} {...props} />;
+export const CloneButton = (props) => <Button type="primary" icon={<CopyOutlined />} style={{ backgroundColor: "#FADB14", color: "white" }} {...props} />;

@@ -68,7 +68,7 @@ const CardComponent = ({ title, dateRange, duration, days, time, participants, o
 // Contoh render banyak card
 const CardsList = ({ data }) => {
   return (
-    <div style={{ height: "calc(100vh - 350px)", overflowX: "hidden", overflowY: "auto" }}>
+    <div style={{ height: "calc(100vh - 350px)", overflowX: "hidden", overflowY: "auto", paddingTop: "5px" }}>
       <Row gutter={[16, 16]}>
         {data.map((item, index) => (
           <Col key={index} xs={24} sm={12} lg={8}>
