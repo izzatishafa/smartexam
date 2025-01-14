@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Card, Row, Col, Badge, Progress, Typography, Button } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 import styles from "./dashboard.module.css";
 
 const { Title, Text } = Typography;
@@ -52,11 +53,9 @@ const Dashboard = () => {
 
   return (
     <div className={styles.dashboard}>
-      <div className={styles.header}>
-      </div>
       <Row gutter={[16, 16]} className={styles.statsRow}>
         {[
-          { label: "USERS", value: "796", color: "#4caf50" },
+          { label: "USERS", value: "796", color: "#4caf50", icon: <UserOutlined /> },
           { label: "FORMASI", value: "161", color: "#3f51b5" },
           { label: "SESI", value: "73", color: "#ff9800" },
           { label: "SOAL GTI", value: "972", color: "#e91e63" },
@@ -79,7 +78,7 @@ const Dashboard = () => {
             className={styles.sessionCard}
             style={{
               borderLeft: `5px solid ${session.status === "Active" ? "#4caf50" : "#f44336"}`,
-              marginBottom:"15px"
+              marginBottom: "15px",
             }}
           >
             <Row align="middle" justify="space-between">

@@ -12,7 +12,7 @@ const SesiPage = () => {
     {
       id: 1,
       title: "Sesi 1",
-      dateRange: "12 Januari 2025 - 14 Januari 2025",
+      dateRange: "12 Januari 2025 - 14 Januari 2026",
       duration: "7306 Hari",
       days: "Kamis - Senin",
       time: "04:00 - 22:00 WIB",

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Button } from "antd";
+import { Button, Tooltip } from "antd";
 import { CopyOutlined, DeleteOutlined, EditOutlined, EyeOutlined, FileExcelOutlined, PrinterOutlined } from "@ant-design/icons";
 
 export const AddButton = ({ text = "Tambah", ...props }) => (
@@ -9,11 +9,23 @@ export const AddButton = ({ text = "Tambah", ...props }) => (
   </Button>
 );
 
-export const EditButton = (props) => <Button type="primary" style={{ backgroundColor: "#52c41a", color: "white" }} icon={<EditOutlined />} {...props} />;
+export const EditButton = (props) => (
+  <Tooltip title="Edit">
+    <Button type="primary" style={{ backgroundColor: "#52c41a", color: "white" }} icon={<EditOutlined />} {...props} />
+  </Tooltip>
+);
 
-export const DeleteButton = (props) => <Button type="primary" danger icon={<DeleteOutlined />} {...props} />;
+export const DeleteButton = (props) => (
+  <Tooltip title="Delete">
+    <Button type="primary" danger icon={<DeleteOutlined />} {...props} />
+  </Tooltip>
+);
 
-export const DetailButton = (props) => <Button type="primary" icon={<EyeOutlined />} {...props} />;
+export const DetailButton = (props) => (
+  <Tooltip title="Detail" >
+    <Button type="primary" icon={<EyeOutlined />} {...props} />
+  </Tooltip>
+);
 
 export const ExportButton = (props) => (
   <Button icon={<FileExcelOutlined />} size="large" type="primary" {...props}>
@@ -27,4 +39,8 @@ export const PrintButton = (props) => (
   </Button>
 );
 
-export const CloneButton = (props) => <Button type="primary" icon={<CopyOutlined />} style={{ backgroundColor: "#FADB14", color: "white" }} {...props} />;
+export const CloneButton = (props) => (
+  <Tooltip title="Clone">
+    <Button type="primary" icon={<CopyOutlined />} style={{ backgroundColor: "#FADB14", color: "white" }} {...props} />
+  </Tooltip>
+);
