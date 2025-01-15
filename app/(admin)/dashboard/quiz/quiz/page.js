@@ -2,12 +2,13 @@
 
 import React from "react";
 import { useState } from "react";
-import { Row, Col, Table, Input, Form, Space, Button, Select, Drawer, Switch, InputNumber } from "antd";
+import { Row, Col, Table, Input } from "antd";
 import {DetailButton, EditButton, DeleteButton, AddButton} from "@/components/ui/Buttons";
 import { createStyles } from "antd-style";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import QuizForm from "./components/QuizForm";
+import QuizDetail from "./components/QuizDetail";
 const { Search } = Input; 
-const { Option } = Select;
+
 
 const useStyle = createStyles(({ css, token }) => {
   const { antCls } = token;
@@ -26,83 +27,6 @@ const useStyle = createStyles(({ css, token }) => {
     `,
   };
 });
-
-const columns = [
-  {
-    title: "No",
-    dataIndex: "no",
-    key: "no",
-    width: 70,
-    fixed: "left",
-  },
-  {
-    title: "Code",
-    dataIndex: "code",
-    key: "code",
-    width: 150,
-  },
-  {
-    title: "Label",
-    dataIndex: "label",
-    key: "label",
-    width: 150,
-  },
-  {
-    title: "Description",
-    dataIndex: "description",
-    key: "description",
-    width: 200,
-  },
-  {
-    title: "Library Code",
-    dataIndex: "libraryCode",
-    key: "libraryCode",
-    width: 150,
-  },
-  {
-    title: "Group Quiz Code",
-    dataIndex: "groupQuizCode",
-    key: "groupQuizCode",
-    width: 150,
-  },
-  {
-    title: "Active",
-    dataIndex: "active",
-    key: "active",
-    width: 100,
-  },
-  {
-    title: "Seconds",
-    dataIndex: "seconds",
-    key: "seconds",
-    width: 100,
-  },
-  {
-    title: "Is Show",
-    dataIndex: "isShow",
-    key: "isShow",
-    width: 100,
-  },
-  {
-    title: "Action",
-    key: "action",
-    fixed: "right",
-    width: 150,
-    render: (_, record) => (
-      <Row gutter={[8, 8]}>
-        <Col>
-          <DetailButton />
-        </Col>
-        <Col>
-          <EditButton />
-        </Col>
-        <Col>
-          <DeleteButton />
-        </Col>
-      </Row>
-    ),
-  },
-];
 
 const dataSource = [
   {
@@ -230,17 +154,112 @@ const dataSource = [
 
 const QuizPage = () => {
   const { styles } = useStyle();
+  const [formMode, setFormMode] = useState("add");
   const [open, setOpen] = useState(false);
-    const showDrawer = () => {
-      setOpen(true);
-    };
+  const [openDetail, setOpenDetail] = useState(false);
     const onClose = () => {
       setOpen(false);
+    };
+
+    const onCloseDetail = () => {
+      setOpenDetail(false);
+    };
+
+    const handleDetail = () => {
+      setOpenDetail(true);
+    };
+
+    const handleAdd = () => {
+      setFormMode("add");
+      setOpen(true);
+    };
+
+    const handleEdit = () => {
+      setFormMode("edit");
+      setOpen(true);
     };
 
   const onSearch = (value) => {
     console.log("Search value:", value);
   };
+
+  const columns = [
+    {
+      title: "No",
+      dataIndex: "no",
+      key: "no",
+      width: 70,
+      fixed: "left",
+    },
+    {
+      title: "Code",
+      dataIndex: "code",
+      key: "code",
+      width: 150,
+    },
+    {
+      title: "Label",
+      dataIndex: "label",
+      key: "label",
+      width: 150,
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
+      width: 200,
+    },
+    {
+      title: "Library Code",
+      dataIndex: "libraryCode",
+      key: "libraryCode",
+      width: 150,
+    },
+    {
+      title: "Group Quiz Code",
+      dataIndex: "groupQuizCode",
+      key: "groupQuizCode",
+      width: 150,
+    },
+    {
+      title: "Active",
+      dataIndex: "active",
+      key: "active",
+      width: 100,
+    },
+    {
+      title: "Seconds",
+      dataIndex: "seconds",
+      key: "seconds",
+      width: 100,
+    },
+    {
+      title: "Is Show",
+      dataIndex: "isShow",
+      key: "isShow",
+      width: 100,
+    },
+    {
+      title: "Action",
+      key: "action",
+      fixed: "right",
+      width: 150,
+      render: (_, record) => (
+        <Row gutter={[8, 8]}>
+          <Col>
+            <DetailButton onClick={() => handleDetail()} />
+          </Col>
+          <Col>
+            <EditButton onClick={() => handleEdit()} />
+          </Col>
+          <Col>
+            <DeleteButton />
+          </Col>
+        </Row>
+      ),
+    },
+  ];
+
 
   return (
     <>
@@ -249,136 +268,13 @@ const QuizPage = () => {
           <Search placeholder="Cari..." allowClear enterButton="Search" size="large" onSearch={onSearch} />
         </Col>
         <Col style={{ textAlign: "right" }}>
-          <AddButton onClick={showDrawer} />
+          <AddButton onClick={handleAdd} />
         </Col>
       </Row>
 
-      <Drawer
-        title="Tambah Quiz"
-        onClose={onClose}
-        open={open}
-        width={720}
-        styles={{
-          body: {
-            paddingBottom: 80,
-          },
-        }}
-        extra={
-          <Space>
-            <Button onClick={onClose}>Batal</Button>
-            <Button onClick={onClose} type="primary">
-              Tambah
-            </Button>
-          </Space>
-        }
-      >
-        <Form layout="vertical" hideRequiredMark>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                name="code"
-                label="Code"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter quiz code",
-                  },
-                ]}
-              >
-                <Input placeholder="Masukan kode kuis" />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item
-                name="label"
-                label="Label"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter quiz label",
-                  },
-                ]}
-              >
-                <Input placeholder="Masukkan judul kuis" />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                name="libraryCode"
-                label="Library Code"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please select an Library Code",
-                  },
-                ]}
-              >
-                <Select placeholder="Pilih Library Code">
-                  <Option value="competency">Competency</Option>
-                  <Option value="disc">Disc</Option>
-                  <Option value="essay">Essay</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item
-                name="groupQuizCode"
-                label="Group Quiz Code"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please select an Group Quiz Code",
-                  },
-                ]}
-              >
-                <Select placeholder="Pilih Library Code">
-                  <Option value="campuran_library">Campuran_library</Option>
-                  <Option value="div_junior_adm">Div_junior_adm</Option>
-                  <Option value="english_university">English_university</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item name="isShow" label="Is Show">
-                <Switch checkedChildren={<CheckOutlined />} unCheckedChildren={<CloseOutlined />} />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item name="seconds" label="Seconds">
-                <Space>
-                  <InputNumber min={0} placeholder="0" />
-                  <Form.Item name="isActive" noStyle>
-                    <Switch checkedChildren="Active" unCheckedChildren="Inactive" />
-                  </Form.Item>
-                  <Form.Item name="allowRestart" noStyle>
-                    <Switch checkedChildren="Allow Restart" unCheckedChildren="No Restart" />
-                  </Form.Item>
-                </Space>
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={24}>
-              <Form.Item
-                name="description"
-                label="Description"
-                rules={[
-                  {
-                    required: true,
-                    message: "please enter quiz description",
-                  },
-                ]}
-              >
-                <Input.TextArea rows={4} placeholder="Tulis deskripsi kuis disini" />
-              </Form.Item>
-            </Col>
-          </Row>
-        </Form>
-      </Drawer>
+      <QuizForm title={formMode === "add" ? "Tambah Quiz" : "Edit Quiz"} open={open} onClose={onClose} />
+
+      <QuizDetail open={openDetail} onClose={onCloseDetail} />
 
       <Table
         className={styles.customTable}
