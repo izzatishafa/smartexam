@@ -1,9 +1,7 @@
 "use client";
 
-import { Badge, Button, Col, Descriptions, Drawer, Form, Input, InputNumber, Row, Select, Space, Switch } from "antd";
+import { Button, Col, Descriptions, Drawer, Form, Space, Switch } from "antd";
 import React from "react";
-const { Option } = Select;
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
 const items = [
   {

@@ -101,7 +101,7 @@ const columns = [
   },
   {
     title: "Action",
-    key: "operation",
+    key: "action",
     fixed: "right",
     width: 110,
     render: (_, record) => (

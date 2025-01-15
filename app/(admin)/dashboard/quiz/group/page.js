@@ -1,10 +1,12 @@
 "use client";
 
-import React from "react";
-import { Row, Col, Table, Button, Input } from "antd";
+import React, { useState } from "react";
+import { Row, Col, Table, Button, Input, Tooltip } from "antd";
 import { createStyles } from "antd-style";
-import { FileExcelOutlined, PrinterOutlined } from "@ant-design/icons";
+import {CheckOutlined } from "@ant-design/icons";
 import { AddButton, DeleteButton, DetailButton, EditButton, ExportButton, PrintButton } from "@/components/ui/Buttons";
+import GroupFrom from "./components/GroupFrom";
+import Link from "next/link";
 const { Search } = Input;
 
 const useStyle = createStyles(({ css, token }) => {
@@ -25,41 +27,6 @@ const useStyle = createStyles(({ css, token }) => {
   };
 });
 
-const columns = [
-  {
-    title: "No",
-    width: 70,
-    dataIndex: "no",
-    key: "no",
-    fixed: "left",
-  },
-  {
-    title: "Code",
-    dataIndex: "code",
-    key: "code",
-    width: 150,
-  },
-  {
-      title: "Action",
-      key: "operation",
-      fixed: "right",
-      width: 150,
-      render: (_, record) => (
-        <Row gutter={[8, 8]}>
-          <Col>
-            <DetailButton />
-          </Col>
-          <Col>
-            <EditButton />
-          </Col>
-          <Col>
-            <DeleteButton />
-          </Col>
-        </Row>
-      ),
-    },
-];
-
 const dataSource = [
   { key: 1, no: 1, code: "baru" },
   { key: 2, no: 2, code: "campuran-library" },
@@ -75,10 +42,69 @@ const dataSource = [
 
 const QuizGroupPage = () => {
   const { styles } = useStyle();
+  const [open, setOpen] = useState(false);
+  const [formMode, setFormMode] = useState("add");
+
+  const onClose = () => {
+    setOpen(false);
+  }
+
+  const handleEdit = () => {
+    setFormMode("edit");
+    setOpen(true);
+  };
+
+  const handleDetail = () => {
+    // setSelectedData(record); // Simpan data yang dipilih
+    setFormMode("detail"); 
+    setOpen(true);
+  };
 
   const onSearch = (value) => {
     console.log("Search value:", value);
   };
+
+  const columns = [
+    {
+      title: "No",
+      width: 70,
+      dataIndex: "no",
+      key: "no",
+      fixed: "left",
+    },
+    {
+      title: "Code",
+      dataIndex: "code",
+      key: "code",
+      width: 150,
+    },
+    {
+      title: "Action",
+      key: "action",
+      fixed: "right",
+      width: 150,
+      render: (_, record) => (
+        <Row gutter={[8, 8]}>
+          <Col>
+            <DetailButton onClick={() => handleDetail()} />
+          </Col>
+          <Col>
+            <EditButton onClick={() => handleEdit()} />
+          </Col>
+          <Col>
+            <DeleteButton />
+          </Col>
+          <Col>
+            <Link href="/dashboard/quiz/group-items">
+              <Tooltip title="Set Quiz">
+                <Button icon={<CheckOutlined />} type="primary" style={{ backgroundColor: "#FF7A45", color: "white" }} />
+              </Tooltip>
+            </Link>
+          </Col>
+        </Row>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -88,16 +114,18 @@ const QuizGroupPage = () => {
         </Col>
         <Row gutter={[16, 16]}>
           <Col>
-            <ExportButton/>
+            <ExportButton />
           </Col>
           <Col>
-            <PrintButton/>
+            <PrintButton />
           </Col>
           <Col style={{ textAlign: "right" }}>
-            <AddButton text="Tambah Grup Quiz" />
+            <AddButton text="Tambah Grup Quiz" onClick={() => setOpen(true)} />
           </Col>
         </Row>
       </Row>
+
+      <GroupFrom mode={formMode} open={open} onClose={onClose} title={formMode === "add" ? "Tambah Group" : formMode === "edit" ? "Edit Group" : "Detail Group"} />
 
       <Table
         className={styles.customTable}

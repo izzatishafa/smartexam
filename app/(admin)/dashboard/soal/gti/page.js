@@ -58,7 +58,7 @@ const columns = [
   },
   {
     title: "Action",
-    key: "operation",
+    key: "action",
     fixed: "right",
     width: 150,
     render: (_, record) => (
