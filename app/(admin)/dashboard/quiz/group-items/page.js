@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Row, Col, Table, Button, Input, Select } from "antd";
+import { Row, Col, Table, Button, Input, Select, InputNumber } from "antd";
 import { createStyles } from "antd-style";
 import { SearchOutlined } from "@ant-design/icons";
 import { AddButton, DeleteButton, DetailButton, EditButton } from "@/components/ui/Buttons";
@@ -58,6 +58,11 @@ const QuizGroupItemsPage = () => {
     setOpen(true);
   };
 
+  const handleAdd = () => {
+    setFormMode("add");
+    setOpen(true);
+  };
+
   const onSearch = (value) => {
     console.log("Search value:", value);
   };
@@ -108,34 +113,42 @@ const QuizGroupItemsPage = () => {
 
   const formItems = [
     {
-      name: "code",
-      label: "Code",
-      rules: [{ required: true, message: "Please enter quiz code" }],
-      component: <Input placeholder="Masukkan kode kuis" />,
-    },
-    {
-      name: "label",
-      label: "Label",
-      rules: [{ required: true, message: "Please enter quiz label" }],
-      component: <Input placeholder="Masukkan judul kuis" />,
-    },
-    {
-      name: "libraryCode",
-      label: "Library Code",
-      rules: [{ required: true, message: "Please select a Library Code" }],
+      name: "groupQuizCode",
+      label: "Group quiz code",
+      rules: [{ required: true, message: "Please select an group quiz code" }],
       component: (
-        <Select placeholder="Pilih Library Code">
-          <Option value="competency">Competency</Option>
-          <Option value="disc">Disc</Option>
-          <Option value="essay">Essay</Option>
+        <Select placeholder="Pilih kode group kuiz">
+          <Option value="baru">baru</Option>
+          <Option value="competency">competency</Option>
+          <Option value="campura-library">campura-library</Option>
+          <Option value="delete-quiz">deletequiz</Option>
         </Select>
       ),
     },
     {
-      name: "description",
-      label: "Description",
-      rules: [{ required: true, message: "Please enter quiz description" }],
-      component: <Input.TextArea rows={4} placeholder="Tulis deskripsi kuis" />,
+      name: "quizCode",
+      label: "Quiz Code",
+      rules: [{ required: true, message: "Please enter quiz code" }],
+      component: (
+        <Select placeholder="Pilih kode quiz">
+          <Option value="3a">3a</Option>
+          <Option value="cti">cti</Option>
+          <Option value="d3ad">d3ad</Option>
+          <Option value="disc1">disc1</Option>
+        </Select>
+      ),
+    },
+    {
+      name: "order",
+      label: "Order",
+      rules: [{ required: true, message: "Please input order quantity" }],
+      component: (
+        <InputNumber
+          style={{
+            width: "100%",
+          }}
+        ></InputNumber>
+      ),
     },
   ];
 
@@ -161,12 +174,12 @@ const QuizGroupItemsPage = () => {
         </Row>
         <Row gutter={[16, 16]}>
           <Col style={{ textAlign: "right" }}>
-            <AddButton text="Tambah Item" onClick={() => setOpen(true)} />
+            <AddButton text="Tambah Item" onClick={() => handleAdd()} />
           </Col>
         </Row>
       </Row>
 
-      <GroupItemsForm title={formMode === "add" ? "Tambah Group Item" : "Edit Item"} open={open} onClose={onClose}  formItems={formItems}  />
+      <GroupItemsForm title={formMode === "add" ? "Tambah Group Item" : "Edit Item"} open={open} onClose={onClose} formItems={formItems} />
 
       <Table
         className={styles.customTable}
