@@ -1,11 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Row, Col, Table, Button, Input, Select } from "antd";
 import { createStyles } from "antd-style";
 import { SearchOutlined } from "@ant-design/icons";
 import { AddButton, DeleteButton, DetailButton, EditButton } from "@/components/ui/Buttons";
+import GroupItemsForm from "./components/GroupItemsForm";
 const { Search } = Input;
+const { Option } = Select;
 
 const useStyle = createStyles(({ css, token }) => {
   const { antCls } = token;
@@ -24,50 +26,6 @@ const useStyle = createStyles(({ css, token }) => {
     `,
   };
 });
-
-const columns = [
-  {
-    title: "No",
-    dataIndex: "no",
-    key: "no",
-    width: 70,
-    fixed: "left",
-  },
-  {
-    title: "Group Quiz Code",
-    dataIndex: "group-quiz-code",
-    key: "group-quiz-code",
-    width: 150,
-  },
-  {
-    title: "Quiz Code",
-    dataIndex: "quiz-code",
-    key: "quiz-code",
-    width: 150,
-  },
-  {
-    title: "Order",
-    dataIndex: "order",
-    key: "order",
-    width: 150,
-  },
-  {
-    title: "Action",
-    key: "action",
-    fixed: "right",
-    width: 150,
-    render: (_, record) => (
-      <Row gutter={[8, 8]}>       
-        <Col>
-          <EditButton />
-        </Col>
-        <Col>
-          <DeleteButton />
-        </Col>
-      </Row>
-    ),
-  },
-];
 
 const dataSource = [
   { key: 1, no: 1, "group-quiz-code": "baru", "quiz-code": "gti_penalaran", order: 0 },
@@ -88,10 +46,98 @@ const searchIcon = <SearchOutlined style={{ fontSize: "20px" }} />;
 
 const QuizGroupItemsPage = () => {
   const { styles } = useStyle();
+  const [open, setOpen] = useState(false);
+  const [formMode, setFormMode] = useState("add");
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  const handleEdit = () => {
+    setFormMode("edit");
+    setOpen(true);
+  };
 
   const onSearch = (value) => {
     console.log("Search value:", value);
   };
+
+  const columns = [
+    {
+      title: "No",
+      dataIndex: "no",
+      key: "no",
+      width: 70,
+      fixed: "left",
+    },
+    {
+      title: "Group Quiz Code",
+      dataIndex: "group-quiz-code",
+      key: "group-quiz-code",
+      width: 150,
+    },
+    {
+      title: "Quiz Code",
+      dataIndex: "quiz-code",
+      key: "quiz-code",
+      width: 150,
+    },
+    {
+      title: "Order",
+      dataIndex: "order",
+      key: "order",
+      width: 150,
+    },
+    {
+      title: "Action",
+      key: "action",
+      fixed: "right",
+      width: 150,
+      render: (_, record) => (
+        <Row gutter={[8, 8]}>
+          <Col>
+            <EditButton onClick={() => handleEdit()} />
+          </Col>
+          <Col>
+            <DeleteButton />
+          </Col>
+        </Row>
+      ),
+    },
+  ];
+
+  const formItems = [
+    {
+      name: "code",
+      label: "Code",
+      rules: [{ required: true, message: "Please enter quiz code" }],
+      component: <Input placeholder="Masukkan kode kuis" />,
+    },
+    {
+      name: "label",
+      label: "Label",
+      rules: [{ required: true, message: "Please enter quiz label" }],
+      component: <Input placeholder="Masukkan judul kuis" />,
+    },
+    {
+      name: "libraryCode",
+      label: "Library Code",
+      rules: [{ required: true, message: "Please select a Library Code" }],
+      component: (
+        <Select placeholder="Pilih Library Code">
+          <Option value="competency">Competency</Option>
+          <Option value="disc">Disc</Option>
+          <Option value="essay">Essay</Option>
+        </Select>
+      ),
+    },
+    {
+      name: "description",
+      label: "Description",
+      rules: [{ required: true, message: "Please enter quiz description" }],
+      component: <Input.TextArea rows={4} placeholder="Tulis deskripsi kuis" />,
+    },
+  ];
 
   return (
     <>
@@ -115,10 +161,12 @@ const QuizGroupItemsPage = () => {
         </Row>
         <Row gutter={[16, 16]}>
           <Col style={{ textAlign: "right" }}>
-            <AddButton text="Tambah Item" />
+            <AddButton text="Tambah Item" onClick={() => setOpen(true)} />
           </Col>
         </Row>
       </Row>
+
+      <GroupItemsForm title={formMode === "add" ? "Tambah Group Item" : "Edit Item"} open={open} onClose={onClose}  formItems={formItems}  />
 
       <Table
         className={styles.customTable}
