@@ -2,7 +2,7 @@
 import React from "react";
 import { Button, Tooltip } from "antd";
 import { CopyOutlined, DeleteOutlined, EditOutlined, EyeOutlined, FileExcelOutlined, PrinterOutlined } from "@ant-design/icons";
-import ModalDelete from "@/components/ModalDelete";
+import ModalDelete from "@/components/ui/ModalDelete";
 
 export const AddButton = ({ text = "Tambah", ...props }) => (
   <Button type="primary" size="large" {...props}>

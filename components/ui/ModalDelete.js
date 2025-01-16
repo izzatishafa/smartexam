@@ -1,7 +1,7 @@
 "use client"
 
 import { ExclamationCircleFilled } from "@ant-design/icons";
-import { Button, Modal, Space } from "antd";
+import { Modal } from "antd";
 const { confirm } = Modal;
 
 const ModalDelete = () => {

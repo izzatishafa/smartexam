@@ -1,9 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Row, Col, Table, Input } from "antd";
 import { DetailButton, AddButton, CloneButton } from "@/components/ui/Buttons";
 import { createStyles } from "antd-style";
+import GtiAddForm from "./components/GtiAddForm";
+import GtiDetail from "./components/GtiDetail";
 const { Search } = Input;
 
 const useStyle = createStyles(({ css, token }) => {
@@ -23,56 +25,6 @@ const useStyle = createStyles(({ css, token }) => {
     `,
   };
 });
-
-const columns = [
-  {
-    title: "Quiz Code",
-    dataIndex: "quizCode",
-    key: "quizCode",
-    width: 150,
-    fixed: "left",
-  },
-  {
-    title: "Nomor",
-    dataIndex: "nomor",
-    key: "nomor",
-    width: 150,
-  },
-  {
-    title: "Soal",
-    dataIndex: "soal",
-    key: "soal",
-    width: 200,
-  },
-  {
-    title: "Jawaban",
-    dataIndex: "jawaban",
-    key: "jawaban",
-    width: 150,
-  },
-  {
-    title: "Is Tutorial",
-    dataIndex: "isTutorial",
-    key: "isTutorial",
-    width: 150,
-  },
-  {
-    title: "Action",
-    key: "action",
-    fixed: "right",
-    width: 150,
-    render: (_, record) => (
-      <Row gutter={[8, 8]}>
-        <Col>
-          <DetailButton />
-        </Col>
-        <Col>
-          <CloneButton />
-        </Col>
-      </Row>
-    ),
-  },
-];
 
 const dataSource = [
   {
@@ -158,12 +110,80 @@ const dataSource = [
 ];
 
 const GtiPage = () => {
-
+  const [open, setOpen] = useState(false);
+  const [openDetail, setOpenDetail] = useState(false);
   const { styles } = useStyle();
+
 
   const onSearch = (value) => {
     console.log("Search value:", value);
   };
+
+  const onAdd = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  const onCloseDetail = () => {
+    setOpenDetail(false);
+  };
+
+  const handleDetail = () => {
+    setOpenDetail(true);
+  };
+
+  const columns = [
+    {
+      title: "Quiz Code",
+      dataIndex: "quizCode",
+      key: "quizCode",
+      width: 150,
+      fixed: "left",
+    },
+    {
+      title: "Nomor",
+      dataIndex: "nomor",
+      key: "nomor",
+      width: 150,
+    },
+    {
+      title: "Soal",
+      dataIndex: "soal",
+      key: "soal",
+      width: 200,
+    },
+    {
+      title: "Jawaban",
+      dataIndex: "jawaban",
+      key: "jawaban",
+      width: 150,
+    },
+    {
+      title: "Is Tutorial",
+      dataIndex: "isTutorial",
+      key: "isTutorial",
+      width: 150,
+    },
+    {
+      title: "Action",
+      key: "action",
+      fixed: "right",
+      width: 150,
+      render: (_, record) => (
+        <Row gutter={[8, 8]}>
+          <Col>
+            <DetailButton onClick={() => handleDetail()} />
+          </Col>
+          <Col>
+            <CloneButton />
+          </Col>
+        </Row>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -172,10 +192,11 @@ const GtiPage = () => {
           <Search placeholder="Cari..." allowClear enterButton="Search" size="large" onSearch={onSearch} />
         </Col>
         <Col style={{ textAlign: "right" }}>
-          <AddButton text="Tambah GTI" />
-          
+          <AddButton text="Tambah GTI" onClick={onAdd} />
         </Col>
       </Row>
+      <GtiAddForm open={open} onClose={onClose} />
+      <GtiDetail open={openDetail} onClose={onCloseDetail}/>
 
       <Table
         className={styles.customTable}
