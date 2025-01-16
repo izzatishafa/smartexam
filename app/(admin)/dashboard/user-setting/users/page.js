@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Row, Col, Table, Button, Input, Tooltip } from "antd";
 import { createStyles } from "antd-style";
 import { FileTextOutlined, PictureOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
 import { AddButton, CloneButton, DeleteButton, DetailButton, EditButton, ExportButton, PrintButton } from "@/components/ui/Buttons";
+import UsersAddForm from "./components/UsersAddForm";
 const { Search } = Input;
 
 const useStyle = createStyles(({ css, token }) => {
@@ -307,6 +308,15 @@ const dataSource = [
 
 const UsersPage = () => {
   const { styles } = useStyle();
+  const [openAdd, setOpenAdd] = useState(false);
+
+  const handleAdd = () => {
+    setOpenAdd(true);
+  };
+
+  const handleAddClose = () => {
+    setOpenAdd(false);
+  }
 
   const onSearch = (value) => {
     console.log("Search value:", value);
@@ -326,10 +336,12 @@ const UsersPage = () => {
             <PrintButton />
           </Col>
           <Col style={{ textAlign: "right" }}>
-            <AddButton text="Tambah Grup Quiz" />
+            <AddButton text="Tambah Grup Quiz" onClick={handleAdd} />
           </Col>
         </Row>
       </Row>
+
+      <UsersAddForm open={openAdd} onclose={handleAddClose}/>
 
       <Table
         className={styles.customTable}
