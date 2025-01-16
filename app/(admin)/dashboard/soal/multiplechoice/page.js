@@ -1,9 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Row, Col, Table, Input } from "antd";
 import { DetailButton, AddButton, CloneButton, EditButton } from "@/components/ui/Buttons";
 import { createStyles } from "antd-style";
+import MchoiceDetail from "./components/MchoiceDetail";
+import MchoiceEditForm from "./components/MchoiceEditForm";
 const { Search } = Input;
 
 const useStyle = createStyles(({ css, token }) => {
@@ -24,70 +26,7 @@ const useStyle = createStyles(({ css, token }) => {
   };
 });
 
-const columns = [
-  {
-    title: "Jenis Soal",
-    dataIndex: "jenisSoal",
-    key: "jenisSoal",
-    width: 150,
-    fixed: "left",
-  },
-  {
-    title: "Nomor",
-    dataIndex: "nomor",
-    key: "nomor",
-    width: 150,
-  },
-  {
-    title: "Sulit",
-    dataIndex: "sulit",
-    key: "sulit",
-    width: 200,
-  },
-  {
-    title: "Question",
-    dataIndex: "question",
-    key: "question",
-    width: 150,
-  },
-  {
-    title: "Parent Nomor",
-    dataIndex: "parentNomor",
-    key: "parentNomor",
-    width: 150,
-  },
-  {
-    title: "Multiplechoice Img Code",
-    dataIndex: "multiplechoiceImgCode",
-    key: "multiplechoiceImgCode",
-    width: 150,
-  },
-  {
-    title: "Jawaban",
-    dataIndex: "jawaban",
-    key: "jawaban",
-    width: 150,
-  },
-  {
-    title: "Action",
-    key: "action",
-    fixed: "right",
-    width: 150,
-    render: (_, record) => (
-      <Row gutter={[8, 8]}>
-        <Col>
-          <DetailButton />
-        </Col>
-        <Col>
-          <CloneButton />
-        </Col>
-        <Col>
-          <EditButton />
-        </Col>
-      </Row>
-    ),
-  },
-];
+
 
 const dataSource = [
   {
@@ -195,10 +134,89 @@ const dataSource = [
 
 const MultiplechoicePage = () => {
   const { styles } = useStyle();
+  const [open, setOpen] = useState(false);
+  const [openDetail, setOpenDetail] = useState(false);
 
   const onSearch = (value) => {
     console.log("Search value:", value);
   };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  const onCloseDetail = () => {
+    setOpenDetail(false);
+  };
+
+  const handleDetail = () => {
+    setOpenDetail(true);
+  };
+
+  const columns = [
+    {
+      title: "Jenis Soal",
+      dataIndex: "jenisSoal",
+      key: "jenisSoal",
+      width: 150,
+      fixed: "left",
+    },
+    {
+      title: "Nomor",
+      dataIndex: "nomor",
+      key: "nomor",
+      width: 150,
+    },
+    {
+      title: "Sulit",
+      dataIndex: "sulit",
+      key: "sulit",
+      width: 200,
+    },
+    {
+      title: "Question",
+      dataIndex: "question",
+      key: "question",
+      width: 150,
+    },
+    {
+      title: "Parent Nomor",
+      dataIndex: "parentNomor",
+      key: "parentNomor",
+      width: 150,
+    },
+    {
+      title: "Multiplechoice Img Code",
+      dataIndex: "multiplechoiceImgCode",
+      key: "multiplechoiceImgCode",
+      width: 150,
+    },
+    {
+      title: "Jawaban",
+      dataIndex: "jawaban",
+      key: "jawaban",
+      width: 150,
+    },
+    {
+      title: "Action",
+      key: "action",
+      fixed: "right",
+      width: 150,
+      render: (_, record) => (
+        <Row gutter={[8, 8]}>
+          <Col>
+            <DetailButton onClick={() => handleDetail()} />
+          </Col>
+          <Col>
+            <CloneButton />
+          </Col>
+          <Col>
+            <EditButton onClick={() => setOpen(true)} />
+          </Col>
+        </Row>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -210,6 +228,9 @@ const MultiplechoicePage = () => {
           <AddButton text="Tambah Multiplechoice" />
         </Col>
       </Row>
+
+      <MchoiceDetail open={openDetail} onClose={onCloseDetail} />
+      <MchoiceEditForm open={open} onClose={onClose} />
 
       <Table
         className={styles.customTable}
