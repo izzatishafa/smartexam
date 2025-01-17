@@ -82,7 +82,7 @@ const MchoiceDetail = ({ open, onClose }) => {
   return (
     <>
       <Drawer
-        title="Detail Quiz"
+        title="Detail Multiplechoice"
         onClose={onClose}
         open={open}
         width={720}

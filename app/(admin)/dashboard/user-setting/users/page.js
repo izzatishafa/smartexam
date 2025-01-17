@@ -6,6 +6,10 @@ import { createStyles } from "antd-style";
 import { FileTextOutlined, PictureOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
 import { AddButton, CloneButton, DeleteButton, DetailButton, EditButton, ExportButton, PrintButton } from "@/components/ui/Buttons";
 import UsersAddForm from "./components/UsersAddForm";
+import UserDetail from "./components/UserDetail";
+import UsersEditForm from "./components/UserEditForm";
+import UserSetQuiz from "./components/UserSetQuiz";
+import UserQuizLog from "./components/UserQuizLog";
 const { Search } = Input;
 
 const useStyle = createStyles(({ css, token }) => {
@@ -25,132 +29,6 @@ const useStyle = createStyles(({ css, token }) => {
     `,
   };
 });
-
-const columns = [
-  {
-    title: "Username",
-    dataIndex: "username",
-    key: "username",
-    fixed: "left",
-    width: 150,
-  },
-  {
-    title: "Fullname",
-    dataIndex: "fullname",
-    key: "fullname",
-    width: 150,
-  },
-  {
-    title: "Password",
-    dataIndex: "password",
-    key: "password",
-    width: 150,
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-    key: "email",
-    width: 200,
-  },
-  {
-    title: "Email Sent",
-    dataIndex: "emailSent",
-    key: "emailSent",
-    width: 80,
-  },
-  {
-    title: "Tgl Lahir",
-    dataIndex: "birthDate",
-    key: "birthDate",
-    width: 80,
-  },
-  {
-    title: "Formasi",
-    dataIndex: "formasi",
-    key: "formasi",
-    width: 100,
-  },
-  {
-    title: "Sesi",
-    dataIndex: "session",
-    key: "session",
-    width: 300,
-  },
-  {
-    title: "First Login",
-    dataIndex: "firstLogin",
-    key: "firstLogin",
-    width: 150,
-  },
-  {
-    title: "Agree Code",
-    dataIndex: "agreeCode",
-    key: "agreeCode",
-    width: 80,
-  },
-  {
-    title: "Agree Time",
-    dataIndex: "agreeTime",
-    key: "agreeTime",
-    width: 150,
-  },
-  {
-    title: "Base URL",
-    dataIndex: "baseUrl",
-    key: "baseUrl",
-    width: 80,
-  },
-  {
-    title: "Action",
-    key: "action",
-    fixed: "right",
-    width: 110,
-    render: (_, record) => (
-      <Row gutter={[8, 8]}>
-        <Col>
-          <Tooltip title="Detail">
-            <DetailButton />
-          </Tooltip>
-        </Col>
-        <Col>
-          <Tooltip title="Edit">
-            <EditButton />
-          </Tooltip>
-        </Col>
-        <Col>
-          <Tooltip title="Delete">
-            <DeleteButton />
-          </Tooltip>
-        </Col>
-        <Col>
-          <Tooltip title="Copy">
-            <CloneButton />
-          </Tooltip>
-        </Col>
-        <Col>
-          <Tooltip title="Set Quiz">
-            <Button icon={<SettingOutlined />} type="primary" style={{ backgroundColor: "#2F54EB", color: "white" }} />
-          </Tooltip>
-        </Col>
-        <Col>
-          <Tooltip title="Photo">
-            <Button icon={<PictureOutlined />} type="primary" style={{ backgroundColor: "#FA8C16", color: "white" }} />
-          </Tooltip>
-        </Col>
-        <Col>
-          <Tooltip title="Quiz Log">
-            <Button icon={<FileTextOutlined />} type="primary" style={{ backgroundColor: "#722ED1", color: "white" }} />
-          </Tooltip>
-        </Col>
-        <Col>
-          <Tooltip title="User Log">
-            <Button icon={<UserOutlined />} type="primary" style={{ backgroundColor: "#13C2C2", color: "white" }} />
-          </Tooltip>
-        </Col>
-      </Row>
-    ),
-  },
-];
 
 const dataSource = [
   {
@@ -309,6 +187,10 @@ const dataSource = [
 const UsersPage = () => {
   const { styles } = useStyle();
   const [openAdd, setOpenAdd] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [openDetail, setOpenDetail] = useState(false);
+  const [openSetQuiz, setOpenSetQuiz] = useState(false);
+  const [openQuizLog, setOpenQuizLog] = useState(false);
 
   const handleAdd = () => {
     setOpenAdd(true);
@@ -318,9 +200,159 @@ const UsersPage = () => {
     setOpenAdd(false);
   }
 
+  const handleEdit = () => {
+    setOpenEdit(true);
+  };
+
+  const handleEditClose = () => {
+    setOpenEdit(false);
+  }
+
+  const handleDetail = () => {
+    setOpenDetail(true);
+  };
+
+  const handleDetailClose = () => {
+    setOpenDetail(false);
+  }
+
+  const handleSetQuiz = () => {
+    setOpenSetQuiz(true);
+  };
+
+  const handleSetQuizClose = () => {
+    setOpenSetQuiz(false);
+  }
+
   const onSearch = (value) => {
     console.log("Search value:", value);
   };
+
+  const handleQuizLog = () => {
+    setOpenQuizLog(true);
+  }
+
+  const handleQuizLogClose = () => {
+    setOpenQuizLog(false);
+  }
+
+  const columns = [
+    {
+      title: "Username",
+      dataIndex: "username",
+      key: "username",
+      fixed: "left",
+      width: 150,
+    },
+    {
+      title: "Fullname",
+      dataIndex: "fullname",
+      key: "fullname",
+      width: 150,
+    },
+    {
+      title: "Password",
+      dataIndex: "password",
+      key: "password",
+      width: 150,
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      width: 200,
+    },
+    {
+      title: "Email Sent",
+      dataIndex: "emailSent",
+      key: "emailSent",
+      width: 80,
+    },
+    {
+      title: "Tgl Lahir",
+      dataIndex: "birthDate",
+      key: "birthDate",
+      width: 80,
+    },
+    {
+      title: "Formasi",
+      dataIndex: "formasi",
+      key: "formasi",
+      width: 100,
+    },
+    {
+      title: "Sesi",
+      dataIndex: "session",
+      key: "session",
+      width: 300,
+    },
+    {
+      title: "First Login",
+      dataIndex: "firstLogin",
+      key: "firstLogin",
+      width: 150,
+    },
+    {
+      title: "Agree Code",
+      dataIndex: "agreeCode",
+      key: "agreeCode",
+      width: 80,
+    },
+    {
+      title: "Agree Time",
+      dataIndex: "agreeTime",
+      key: "agreeTime",
+      width: 150,
+    },
+    {
+      title: "Base URL",
+      dataIndex: "baseUrl",
+      key: "baseUrl",
+      width: 80,
+    },
+    {
+      title: "Action",
+      key: "action",
+      fixed: "right",
+      width: 110,
+      render: (_, record) => (
+        <Row gutter={[8, 8]}>
+          <Col>
+              <DetailButton onClick={() => handleDetail()} />
+          </Col>
+          <Col>
+              <EditButton onClick={() => handleEdit()} />
+          </Col>
+          <Col>
+              <DeleteButton />
+          </Col>
+          <Col>
+              <CloneButton />
+          </Col>
+          <Col>
+            <Tooltip title="Set Quiz">
+              <Button icon={<SettingOutlined />} type="primary" style={{ backgroundColor: "#2F54EB", color: "white" }}  onClick={() => handleSetQuiz()}/>
+            </Tooltip>
+          </Col>
+          <Col>
+            <Tooltip title="Photo">
+              <Button icon={<PictureOutlined />} type="primary" style={{ backgroundColor: "#FA8C16", color: "white" }} />
+            </Tooltip>
+          </Col>
+          <Col>
+            <Tooltip title="Quiz Log">
+              <Button icon={<FileTextOutlined />} type="primary" style={{ backgroundColor: "#722ED1", color: "white" }} onClick={() => handleQuizLog()}/>
+            </Tooltip> 
+          </Col>
+          <Col>
+            <Tooltip title="User Log">
+              <Button icon={<UserOutlined />} type="primary" style={{ backgroundColor: "#13C2C2", color: "white" }} />
+            </Tooltip>
+          </Col>
+        </Row>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -341,8 +373,11 @@ const UsersPage = () => {
         </Row>
       </Row>
 
+      <UserDetail open={openDetail} onClose={handleDetailClose}/>
       <UsersAddForm open={openAdd} onclose={handleAddClose}/>
-
+      <UsersEditForm open={openEdit} onclose={handleEditClose}/>
+      <UserSetQuiz open={openSetQuiz} onclose={handleSetQuizClose}/>
+      <UserQuizLog open={openQuizLog} onclose={handleQuizLogClose}/>
       <Table
         className={styles.customTable}
         columns={columns}
