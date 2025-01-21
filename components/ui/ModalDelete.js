@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import { Modal } from "antd";
 const { confirm } = Modal;
 
-const ModalDelete = () => {
+const ModalDelete = ({ onOk, onCancel }) => {
   confirm({
     title: "Apakah anda yakin ingin menghapus data ini?",
     icon: <ExclamationCircleFilled />,
@@ -12,14 +12,9 @@ const ModalDelete = () => {
     okText: "Yes",
     okType: "danger",
     cancelText: "No",
-    onOk() {
-      console.log("OK");
-    },
-    onCancel() {
-      console.log("Cancel");
-    },
+    onOk,
+    onCancel,
   });
 };
 
 export default ModalDelete;
-

@@ -15,15 +15,15 @@ export default function TableTestCard() {
     e.preventDefault();
   };
 
-  const dataSource = [
-    {
-      key: "1",
-      content1:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget neque ac felis cursus congue volutpat a lorem. Cras hendrerit posuere mauris. Vivamus vel diam maximus, pharetra nibh eget, convallis ligula. Vestibulum nec felis consectetur, sagittis purus sit amet, dapibus felis. Vestibulum vehicula vestibulum lectus in tincidunt. Nunc finibus sodales pulvinar. Curabitur bibendum urna urna, quis tincidunt lorem accumsan quis.",
-      content2:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget neque ac felis cursus congue volutpat a lorem. Cras hendrerit posuere mauris. Vivamus vel diam maximus, pharetra nibh eget, convallis ligula. Vestibulum nec felis consectetur, sagittis purus sit amet, dapibus felis. Vestibulum vehicula vestibulum lectus in tincidunt. Nunc finibus sodales pulvinar. Curabitur bibendum urna urna, quis tincidunt lorem accumsan quis.",
-    },
-  ];
+  // const dataSource = [
+  //   {
+  //     key: "1",
+  //     content1:
+  //       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget neque ac felis cursus congue volutpat a lorem. Cras hendrerit posuere mauris. Vivamus vel diam maximus, pharetra nibh eget, convallis ligula. Vestibulum nec felis consectetur, sagittis purus sit amet, dapibus felis. Vestibulum vehicula vestibulum lectus in tincidunt. Nunc finibus sodales pulvinar. Curabitur bibendum urna urna, quis tincidunt lorem accumsan quis.",
+  //     content2:
+  //       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget neque ac felis cursus congue volutpat a lorem. Cras hendrerit posuere mauris. Vivamus vel diam maximus, pharetra nibh eget, convallis ligula. Vestibulum nec felis consectetur, sagittis purus sit amet, dapibus felis. Vestibulum vehicula vestibulum lectus in tincidunt. Nunc finibus sodales pulvinar. Curabitur bibendum urna urna, quis tincidunt lorem accumsan quis.",
+  //   },
+  // ];
 
   const columns = [
     {
@@ -66,7 +66,7 @@ export default function TableTestCard() {
         Perhatikan data pada tabel berikut untuk menjawab soal nomor 5-10 !
       </Title>
       <Table
-        dataSource={dataSource}
+        // dataSource={dataSource}
         columns={columns}
         bordered={true}
         pagination={false}

@@ -40,36 +40,36 @@ const columns = [
   },
 ];
 
-const dataSource = [
-  {
-    key: "1",
-    jenisSoal: "English",
-  },
-  {
-    key: "2",
-    jenisSoal: "TKD",
-  },
-  {
-    key: "3",
-    jenisSoal: "TKA",
-  },
-  {
-    key: "4",
-    jenisSoal: "TKD1",
-  },
-  {
-    key: "5",
-    jenisSoal: "TKD2",
-  },
-  {
-    key: "6",
-    jenisSoal: "WPT Taxand",
-  },
-  {
-    key: "7",
-    jenisSoal: "English Taxand",
-  },
-];
+// const dataSource = [
+//   {
+//     key: "1",
+//     jenisSoal: "English",
+//   },
+//   {
+//     key: "2",
+//     jenisSoal: "TKD",
+//   },
+//   {
+//     key: "3",
+//     jenisSoal: "TKA",
+//   },
+//   {
+//     key: "4",
+//     jenisSoal: "TKD1",
+//   },
+//   {
+//     key: "5",
+//     jenisSoal: "TKD2",
+//   },
+//   {
+//     key: "6",
+//     jenisSoal: "WPT Taxand",
+//   },
+//   {
+//     key: "7",
+//     jenisSoal: "English Taxand",
+//   },
+// ];
 
 const GenerateExamPage = () => {
   const { styles } = useStyle();
@@ -89,7 +89,7 @@ const GenerateExamPage = () => {
       <Table
         className={styles.customTable}
         columns={columns}
-        dataSource={dataSource}
+        // dataSource={dataSource}
         scroll={{
           x: "max-content",
           y: 55 * 5,

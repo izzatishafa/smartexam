@@ -30,12 +30,12 @@ export default function DiscCard() {
     e.preventDefault();
   };
 
-  const dataSource = [
-    { key: "1", pref: "A Planning the work ahead" },
-    { key: "2", pref: "B Planning the work ahead" },
-    { key: "3", pref: "C Planning the work ahead" },
-    { key: "4", pref: "D Planning the work ahead" },
-  ];
+  // const dataSource = [
+  //   { key: "1", pref: "A Planning the work ahead" },
+  //   { key: "2", pref: "B Planning the work ahead" },
+  //   { key: "3", pref: "C Planning the work ahead" },
+  //   { key: "4", pref: "D Planning the work ahead" },
+  // ];
 
   const columns = [
     {
@@ -127,7 +127,7 @@ export default function DiscCard() {
       </Title>
       <Space direction="vertical">
         <Table
-          dataSource={dataSource}
+          // dataSource={dataSource}
           columns={columns}
           bordered={true}
           pagination={false}

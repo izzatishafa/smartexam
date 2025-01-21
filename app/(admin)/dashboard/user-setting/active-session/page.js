@@ -78,18 +78,18 @@ const columns = [
   },
 ];
 
-const dataSource = [
-  { key: 1, no: 1, username: "baru" },
-  { key: 2, no: 2, username: "campuran-library" },
-  { key: 3, no: 3, username: "competency" },
-  { key: 4, no: 4, username: "deletquiz" },
-  { key: 5, no: 5, username: "div_junior_adm" },
-  { key: 6, no: 6, username: "div_junior_professional" },
-  { key: 7, no: 7, username: "div_junior_tech" },
-  { key: 8, no: 8, username: "div_manager_adm" },
-  { key: 9, no: 9, username: "div_manager_prof" },
-  { key: 10, no: 10, username: "div_manager_tech" },
-];
+// const dataSource = [
+//   { key: 1, no: 1, username: "baru" },
+//   { key: 2, no: 2, username: "campuran-library" },
+//   { key: 3, no: 3, username: "competency" },
+//   { key: 4, no: 4, username: "deletquiz" },
+//   { key: 5, no: 5, username: "div_junior_adm" },
+//   { key: 6, no: 6, username: "div_junior_professional" },
+//   { key: 7, no: 7, username: "div_junior_tech" },
+//   { key: 8, no: 8, username: "div_manager_adm" },
+//   { key: 9, no: 9, username: "div_manager_prof" },
+//   { key: 10, no: 10, username: "div_manager_tech" },
+// ];
 
 const ActiveSessionPage = () => {
   const { styles } = useStyle();
@@ -116,7 +116,7 @@ const ActiveSessionPage = () => {
       <Table
         className={styles.customTable}
         columns={columns}
-        dataSource={dataSource}
+        // dataSource={dataSource}
         scroll={{
           x: "max-content",
           y: 55 * 5,

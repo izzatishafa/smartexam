@@ -1,91 +1,44 @@
-"use client";
+import SesiPage from "./ui/SesiPage";
+import { calculateDuration, getDayRange } from "@/app/(admin)/dashboard/sesi/utils/dateHelpers";
 
-import { AddButton } from "@/components/ui/Buttons";
-import CardsList from "@/components/ui/CardList";
-import { Col, Pagination, Row, Input } from "antd";
-const { Search } = Input;
-import React, { useState } from "react";
-import SessionAddForm from "./components/SessionAddForm";
-import SessionEditForm from "./components/SessionEditForm";
-import ModalDelete from "@/components/ui/ModalDelete";
+export default async function Page() {
+  const data = await fetch("http://localhost:8001/api/v1/company/sesi?page=1&total=10", { cache: "no-store" });
+  const posts = await data.json();
+  console.log("Fetched data from API:", JSON.stringify(posts, null, 2));
 
+  // Transform data sesuai format yang dibutuhkan CardsList
+  const transformedData = posts.data.list.map((item) => ({
+    id: item.id,
+    title: item.label,
+    dateRange: `${new Date(item.timeFrom).toLocaleDateString()} - ${new Date(item.timeTo).toLocaleDateString()}`,
+    // dateFrom: item.timeFrom,
+    // dateTo: item.timeTo,
+    duration: calculateDuration(item.timeFrom, item.timeTo),
+    days: getDayRange(item.timeFrom, item.timeTo),
+    time: `${new Date(item.timeFrom).toLocaleTimeString()} - ${new Date(item.timeTo).toLocaleTimeString()} WIB`,
+    participants: 0, // Sesuaikan jika ada data participants dari API
+    code: item.code,
+    part: item.part,
+    greeting: item.greeting,
+  }));
 
-const SesiPage = () => {
-  const [open, setOpen] = useState(false); 
-  const [openEdit, setOpenEdit] = useState(false);
-  const handleEdit = () => {
-    setOpenEdit(true);
-  } 
-  const handleClose = () => {
-    setOpenEdit(false);
-  };
+  console.log("Transformed data:", transformedData);
 
-  const onClose = () => {
-    setOpen(false);
-  };
+  return <SesiPage initialData={transformedData} metadata={posts.data.metadata} />;
+}
 
-  const data = [
-    {
-      id: 1,
-      title: "Sesi 1",
-      dateRange: "12 Januari 2025 - 14 Januari 2026",
-      duration: "7306 Hari",
-      days: "Kamis - Senin",
-      time: "04:00 - 22:00 WIB",
-      participants: 6,
-      onEdit: handleEdit,
-      onDelete: ModalDelete,
-    },
-    {
-      id: 2,
-      title: "Sesi 2",
-      dateRange: "13 Juli 2023 - 30 Juni 2022",
-      duration: "3276 Hari",
-      days: "Kamis - Rabu",
-      time: "03:31 - 15:31 WIB",
-      participants: 7,
-      onEdit: handleEdit,
-      onDelete: ModalDelete,
-    },
-    {
-      id: 3,
-      title: "Sesi 3",
-      dateRange: "12 Januari 2025 - 14 Januari 2027",
-      duration: "7306 Hari",
-      days: "Kamis - Senin",
-      time: "04:00 - 22:00 WIB",
-      participants: 6,
-      onEdit: handleEdit,
-      onDelete: ModalDelete,
-    },
-    {
-      id: 4,
-      title: "Sesi 4",
-      dateRange: "12 Januari 2024 - 14 Januari 2024",
-      duration: "7306 Hari",
-      days: "Kamis - Senin",
-      time: "04:00 - 22:00 WIB",
-      participants: 6,
-      onEdit: handleEdit,
-      onDelete: ModalDelete,
-    },
-  ];
+// Fungsi helper untuk menghitung durasi
+// function calculateDuration(timeFrom, timeTo) {
+//   const start = new Date(timeFrom);
+//   const end = new Date(timeTo);
+//   const diffInDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+//   return `${diffInDays} Hari`;
+// }
 
-  return (
-    <>
-      <Row gutter={[16, 16]} style={{ marginBottom: 32 }} justify="end">
-        <Col style={{ textAlign: "right" }}>
-          <AddButton text="Tambah Sesi" onClick={() => setOpen(true)} />
-        </Col>
-      </Row>
-      <CardsList data={data} />
-      <SessionAddForm title="Tambah Sesi" open={open} onClose={onClose} />
-      <SessionEditForm title="Edit Sesi" open={openEdit} onClose={handleClose} />
-      <Row justify="end" style={{ marginTop: "10px" }}>
-        <Pagination simple defaultCurrent={2} total={50} />
-      </Row>
-    </>
-  );
-};
-
-export default SesiPage;
+// // Fungsi helper untuk mendapatkan range hari
+// function getDayRange(timeFrom, timeTo) {
+//   const start = new Date(timeFrom);
+//   const end = new Date(timeTo);
+//   const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+//   return `${days[start.getDay()]} - ${days[end.getDay()]}`;
+// }

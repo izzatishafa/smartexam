@@ -26,72 +26,72 @@ const useStyle = createStyles(({ css, token }) => {
   };
 });
 
-const dataSource = [
-  {
-    key: 1,
-    no: 1,
-    code: "gti_pci",
-    label: "Subtest 1",
-    sesi: "",
-    divisi: "gti",
-    level: "",
-  },
-  {
-    key: 2,
-    no: 2,
-    code: "gti_penalaran",
-    label: "Subtest 2",
-    sesi: "",
-    divisi: "gti",
-    level: "",
-  },
-  {
-    key: 3,
-    no: 3,
-    code: "gti_jh",
-    label: "Subtest 3",
-    sesi: "",
-    divisi: "gti",
-    level: "",
-  },
-  {
-    key: 4,
-    no: 4,
-    code: "gti_kka",
-    label: "Subtest 4",
-    sesi: "",
-    divisi: "gti",
-    level: "",
-    active: 1,
-  },
-  {
-    key: 5,
-    no: 5,
-    code: "gti_orientasi",
-    label: "Subtest 5",
-    sesi: "",
-    divisi: "gti",
-    level: "",
-  },
-  {
-    key: 6,
-    no: 6,
-    code: "hexaco",
-    label: "Hexaco",
-    sesi: "",
-    divisi: "personal",
-    level: "",
-  },
-  {
-    key: 7,
-    no: 7,
-    code: "cti",
-    label: "CTI",
-    sesi: "",
-    divisi: "personal",
-    level: "",
-  }
-];
+// const dataSource = [
+//   {
+//     key: 1,
+//     no: 1,
+//     code: "gti_pci",
+//     label: "Subtest 1",
+//     sesi: "",
+//     divisi: "gti",
+//     level: "",
+//   },
+//   {
+//     key: 2,
+//     no: 2,
+//     code: "gti_penalaran",
+//     label: "Subtest 2",
+//     sesi: "",
+//     divisi: "gti",
+//     level: "",
+//   },
+//   {
+//     key: 3,
+//     no: 3,
+//     code: "gti_jh",
+//     label: "Subtest 3",
+//     sesi: "",
+//     divisi: "gti",
+//     level: "",
+//   },
+//   {
+//     key: 4,
+//     no: 4,
+//     code: "gti_kka",
+//     label: "Subtest 4",
+//     sesi: "",
+//     divisi: "gti",
+//     level: "",
+//     active: 1,
+//   },
+//   {
+//     key: 5,
+//     no: 5,
+//     code: "gti_orientasi",
+//     label: "Subtest 5",
+//     sesi: "",
+//     divisi: "gti",
+//     level: "",
+//   },
+//   {
+//     key: 6,
+//     no: 6,
+//     code: "hexaco",
+//     label: "Hexaco",
+//     sesi: "",
+//     divisi: "personal",
+//     level: "",
+//   },
+//   {
+//     key: 7,
+//     no: 7,
+//     code: "cti",
+//     label: "CTI",
+//     sesi: "",
+//     divisi: "personal",
+//     level: "",
+//   }
+// ];
 
 const FormasiPage = () => {
   const { styles } = useStyle();
@@ -189,7 +189,7 @@ const FormasiPage = () => {
       <Table
         className={styles.customTable}
         columns={columns}
-        dataSource={dataSource}
+        // dataSource={dataSource}
         scroll={{
           x: "max-content",
           y: 55 * 5,

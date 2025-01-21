@@ -1,10 +1,24 @@
 "use client";
 
 import React, { useState } from "react";
-import { DashboardOutlined, QuestionCircleOutlined, FileTextOutlined, ClockCircleOutlined, GroupOutlined, SolutionOutlined, BarChartOutlined, ControlOutlined } from "@ant-design/icons";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  DashboardOutlined,
+  QuestionCircleOutlined,
+  FileTextOutlined,
+  ClockCircleOutlined,
+  GroupOutlined,
+  SolutionOutlined,
+  BarChartOutlined,
+  ControlOutlined,
+  DownOutlined,
+  UserOutlined,
+  SettingOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
 import { usePathname } from "next/navigation";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Avatar, Breadcrumb, Button, Dropdown, Layout, Menu, Row, Space, theme } from "antd";
 import Link from "next/link";
 
 const { Header, Content, Sider } = Layout;
@@ -55,20 +69,20 @@ const items = [
     getItem("Generate Exam", "sub3-5", null, null, "/dashboard/soal/generate-exam"),
   ]),
 
-  getItem("Sesi", "3", <ClockCircleOutlined />, null, "/dashboard/sesi"),
+  getItem("Sesi", "4", <ClockCircleOutlined />, null, "/dashboard/sesi"),
 
-  getItem("Formasi", "4", <GroupOutlined />, null, "/dashboard/formasi"),
+  getItem("Formasi", "5", <GroupOutlined />, null, "/dashboard/formasi"),
 
-  getItem("User Setting", "5", <SolutionOutlined />, [getItem("Users", "sub5-1", null, null, "/dashboard/user-setting/users"), getItem("Active Session", "sub5-2", null, null, "/dashboard/user-setting/active-session")]),
+  getItem("User Setting", "6", <SolutionOutlined />, [getItem("Users", "sub6-1", null, null, "/dashboard/user-setting/users"), getItem("Active Session", "sub6-2", null, null, "/dashboard/user-setting/active-session")]),
 
-  getItem("Report", "6", <BarChartOutlined />, [getItem("Generate", "sub6-1", null, null, "/dashboard/report/generate"), getItem("Psychogram", "sub6-2", null, null, "/dashboard/report/psychogram")]),
+  getItem("Report", "7", <BarChartOutlined />, [getItem("Generate", "sub7-1", null, null, "/dashboard/report/generate"), getItem("Psychogram", "sub7-2", null, null, "/dashboard/report/psychogram")]),
 
-  getItem("System", "7", <ControlOutlined />, [
-    getItem("Custom Reports", "sub7-1", null, null, "/dashboard/system/custom-reports"),
-    getItem("Settings", "sub7-2", null, null, "/dashboard/system/settings"),
-    getItem("Email Job", "sub7-3", null, null, "/dashboard/system/email-job"),
-    getItem("Upload Users", "sub7-4", null, null, "/dashboard/system/upload-users"),
-    getItem("Users Quiz Terjadwal", "sub7-5", null, null, "/dashboard/system/users-quiz-terjadwal"),
+  getItem("System", "8", <ControlOutlined />, [
+    getItem("Custom Reports", "sub8-1", null, null, "/dashboard/system/custom-reports"),
+    getItem("Settings", "sub8-2", null, null, "/dashboard/system/settings"),
+    getItem("Email Job", "sub8-3", null, null, "/dashboard/system/email-job"),
+    getItem("Upload Users", "sub8-4", null, null, "/dashboard/system/upload-users"),
+    getItem("Users Quiz Terjadwal", "sub8-5", null, null, "/dashboard/system/users-quiz-terjadwal"),
   ]),
 ];
 
@@ -77,65 +91,102 @@ const DashboardLayout = ({ children }) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+  const [queryClient] = useState(() => new QueryClient()); // Buat QueryClient instance
 
   const pathname = usePathname();
   const pathSegments = pathname.split("/").filter((segment) => segment);
 
+  const userItems = [
+    {
+      key: "1",
+      label: "Hai!, tester20",
+      disabled: true,
+    },
+    {
+      type: "divider",
+    },
+    {
+      key: "2",
+      label: "Profile",
+      icon: <UserOutlined />,
+    },
+    {
+      key: "3",
+      label: "Logout",
+      icon: <LogoutOutlined />,
+    },
+  ];
+
   return (
-    <AntdRegistry>
-      <Layout
-        style={{
-          minHeight: "100vh",
-        }}
-      >
-        <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-          <div
-            className="demo-logo-vertical"
-            style={{
-              height: "32px",
-              margin: "16px",
-              background: "rgba(255, 255, 255, 0.3)",
-              borderRadius: "6px",
-            }}
-          />
-          <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline" items={items} />
-        </Sider>
-        <Layout>
-          <Header
-            style={{
-              padding: 0,
-              background: colorBgContainer,
-            }}
-          />
-          <Content
-            style={{
-              margin: "0 16px",
-            }}
-          >
-            <Breadcrumb
-              style={{
-                margin: "16px 0",
-              }}
-            >
-              {pathSegments.map((segment, index) => {
-                const url = `/${pathSegments.slice(0, index + 1).join("/")}`;
-                return <Breadcrumb.Item key={url}>{breadcrumbNameMap[url] || formatBreadcrumb(segment)}</Breadcrumb.Item>;
-              })}
-            </Breadcrumb>
+    <QueryClientProvider client={queryClient}>
+      <AntdRegistry>
+        <Layout
+          style={{
+            minHeight: "100vh",
+          }}
+        >
+          <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
             <div
+              className="demo-logo-vertical"
               style={{
-                padding: 24,
-                minHeight: 360,
+                height: "32px",
+                margin: "16px",
+                background: "rgba(255, 255, 255, 0.3)",
+                borderRadius: "6px",
+              }}
+            />
+            <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline" items={items} />
+          </Sider>
+          <Layout>
+            <Header
+              style={{
+                padding: 0,
                 background: colorBgContainer,
-                borderRadius: borderRadiusLG,
               }}
             >
-              {children}
-            </div>
-          </Content>
+              <Row justify="end" style={{ marginRight: "30px" }}>
+                <Dropdown menu={{ items: userItems }} trigger={["click"]}>
+                  <a onClick={(e) => e.preventDefault()}>
+                    <Space>
+                      <Button style={{ padding: "20px" }}>
+                        <Avatar icon={<UserOutlined />} />
+                        <DownOutlined />
+                      </Button>
+                    </Space>
+                  </a>
+                </Dropdown>
+              </Row>
+            </Header>
+            <Content
+              style={{
+                margin: "0 16px",
+              }}
+            >
+              <Breadcrumb
+                style={{
+                  margin: "16px 0",
+                }}
+              >
+                {pathSegments.map((segment, index) => {
+                  const url = `/${pathSegments.slice(0, index + 1).join("/")}`;
+                  return <Breadcrumb.Item key={url}>{breadcrumbNameMap[url] || formatBreadcrumb(segment)}</Breadcrumb.Item>;
+                })}
+              </Breadcrumb>
+              <div
+                style={{
+                  padding: 24,
+                  minHeight: 360,
+                  background: colorBgContainer,
+                  borderRadius: borderRadiusLG,
+                }}
+              >
+                {children}
+              </div>
+            </Content>
+          </Layout>
         </Layout>
-      </Layout>
-    </AntdRegistry>
+      </AntdRegistry>
+    </QueryClientProvider>
   );
 };
 
