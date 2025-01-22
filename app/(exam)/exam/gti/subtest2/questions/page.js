@@ -6,7 +6,7 @@ const { Title, Text } = Typography;
 import Countdown from "@/components/ui/Countdown";
 import QuizHeader from "@/components/ui/QuizHeader";
 import { Layout } from "antd";
-import ModalTutorial from "../components/ModalTutorial";
+import ModalTutorial from "../components/GtiModalTutorial";
 import GtiQuestion2 from "../components/GtiQuestion2";
 const { Content } = Layout;
 
