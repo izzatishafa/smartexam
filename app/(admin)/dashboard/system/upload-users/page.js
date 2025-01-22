@@ -14,7 +14,6 @@ const dataSource = [
     label: "Hexaco",
     group: null,
     description: null,
-    jadwal: null,
   },
   {
     key: "2",
@@ -22,7 +21,6 @@ const dataSource = [
     label: "GTI Group",
     group: "Ya",
     description: null,
-    jadwal: null,
   },
   {
     key: "3",
@@ -30,7 +28,6 @@ const dataSource = [
     label: "WPT",
     group: null,
     description: null,
-    jadwal: null,
   },
   {
     key: "4",
@@ -38,7 +35,6 @@ const dataSource = [
     label: "Accounting Staf Senior",
     group: null,
     description: null,
-    jadwal: null,
   },
   {
     key: "5",
@@ -46,7 +42,6 @@ const dataSource = [
     label: "Accounting Staf Junior",
     group: null,
     description: null,
-    jadwal: null,
   },
   {
     key: "6",
@@ -54,7 +49,6 @@ const dataSource = [
     label: "DISC",
     group: null,
     description: null,
-    jadwal: null,
   },
   {
     key: "7",
@@ -62,7 +56,6 @@ const dataSource = [
     label: "Bahasa Inggris University",
     group: "Ya",
     description: null,
-    jadwal: null,
   },
   {
     key: "8",
@@ -70,7 +63,6 @@ const dataSource = [
     label: "Test 26 Jan 2024",
     group: "Ya",
     description: null,
-    jadwal: null,
   },
   {
     key: "9",
@@ -78,7 +70,6 @@ const dataSource = [
     label: "Tes Junior Professional",
     group: "Ya",
     description: null,
-    jadwal: null,
   },
   {
     key: "10",
@@ -86,7 +77,6 @@ const dataSource = [
     label: "Tes Senior Professional",
     group: "Ya",
     description: null,
-    jadwal: null,
   },
   {
     key: "11",
@@ -94,7 +84,6 @@ const dataSource = [
     label: "Tes Supervisor Professional",
     group: "Ya",
     description: null,
-    jadwal: null,
   },
   {
     key: "12",
@@ -102,7 +91,6 @@ const dataSource = [
     label: "Tes Manager Professional",
     group: "Ya",
     description: null,
-    jadwal: null,
   },
   {
     key: "13",
@@ -110,7 +98,6 @@ const dataSource = [
     label: "Tes Junior Admin",
     group: "Ya",
     description: null,
-    jadwal: null,
   },
 ];
 
@@ -132,7 +119,7 @@ const useStyle = createStyles(({ css, token }) => {
   };
 });
 
-export default function UploadUsers() {
+export default function UploadUsersPage() {
   const { styles } = useStyle();
 
   const columns = [
@@ -160,12 +147,6 @@ export default function UploadUsers() {
       dataIndex: "description",
       key: "description",
       width: 200,
-    },
-    {
-      title: "Jadwal",
-      dataIndex: "jadwal",
-      key: "jadwal",
-      width: 100,
     },
     {
       title: "Action",
