@@ -63,9 +63,6 @@ const GtiTutorial1 = ({ upperRowLetters = [], lowerRowLetters = [], answers = []
       {isAnswerCorrect && (
         <Row gutter={[16, 16]} align="middle" justify="center" style={{ marginTop: "20px" }}>
           <Col span={24} style={{ textAlign: "center" }}>
-            {/* <Button type="primary" onClick={onNextQuestion}>
-              Pertanyaan Selanjutnya
-            </Button> */}
             <Button type="primary" onClick={onNextQuestion} style={{ marginRight: "10px" }}>
               Ulangi Tutorial
             </Button>
