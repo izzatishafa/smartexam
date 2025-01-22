@@ -40,7 +40,7 @@ const useStyle = createStyles(({ css, token }) => {
 //   { key: 10, no: 10, code: "div_manager_tech" },
 // ];
 
-const CustomReport = () => {
+const CustomReportPage = () => {
   const { styles } = useStyle();
   const [open, setOpen] = useState(false);
   const [formMode, setFormMode] = useState("add");
@@ -120,7 +120,7 @@ const CustomReport = () => {
             <PrintButton />
           </Col>
           <Col style={{ textAlign: "right" }}>
-            <AddButton text="Tambah Report" onClick={() => setOpen(true)} />
+            <AddButton text="Tambah Laporan" onClick={() => setOpen(true)} />
           </Col>
         </Row>
       </Row>
@@ -140,4 +140,4 @@ const CustomReport = () => {
   );
 };
 
-export default CustomReport;
+export default CustomReportPage;
