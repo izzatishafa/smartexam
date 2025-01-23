@@ -67,15 +67,15 @@ const columns = [
   },
 ];
 
-// const dataSource = [
-//   {
-//     key: 1,
-//     generated: "2024-09-20 16:11:58",
-//     berdasarkan: "formasi_code",
-//     code: "wiratek_admin",
-//     excel: "download",
-//   },
-// ];
+const dataSource = [
+  {
+    key: 1,
+    generated: "2024-09-20 16:11:58",
+    berdasarkan: "formasi_code",
+    code: "wiratek_admin",
+    excel: "download",
+  },
+];
 
 const GeneratePage = () => {
   const { styles } = useStyle();
@@ -89,7 +89,7 @@ const GeneratePage = () => {
       <Table
         className={styles.customTable}
         columns={columns}
-        // dataSource={dataSource}
+        dataSource={dataSource}
         scroll={{
           x: "max-content",
           y: 55 * 5,

@@ -58,71 +58,71 @@ const columns = [
   },
 ];
 
-// const dataSource = [
-//   {
-//     key: "1",
-//     quizCode: "3A",
-//     quizLabel: "Subtest 6 - 3A",
-//     paketSoalQuiz: 6,
-//     paketSoalTutorial: 0,
-//   },
-//   {
-//     key: "2",
-//     quizCode: "accounting_staf_level_junior",
-//     quizLabel: "Accounting Staf Junior",
-//     paketSoalQuiz: 12,
-//     paketSoalTutorial: 0,
-//   },
-//   {
-//     key: "3",
-//     quizCode: "accounting_staf_level_senior",
-//     quizLabel: "Accounting Staf Senior",
-//     paketSoalQuiz: 10,
-//     paketSoalTutorial: 0,
-//   },
-//   {
-//     key: "4",
-//     quizCode: "competency",
-//     quizLabel: "Competency",
-//     paketSoalQuiz: 0,
-//     paketSoalTutorial: 0,
-//   },
-//   {
-//     key: "5",
-//     quizCode: "competency_group",
-//     quizLabel: "Competency",
-//     paketSoalQuiz: 0,
-//     paketSoalTutorial: 0,
-//   },
-//   {
-//     key: "6",
-//     quizCode: "cti",
-//     quizLabel: "CTI",
-//     paketSoalQuiz: 0,
-//     paketSoalTutorial: 0,
-//   },
-//   {
-//     key: "7",
-//     quizCode: "d3ad",
-//     quizLabel: "D3AD",
-//     paketSoalQuiz: 0,
-//     paketSoalTutorial: 0,
-//   },
-//   {
-//     key: "8",
-//     quizCode: "deletequiz",
-//     quizLabel: "Deletequiz",
-//     paketSoalQuiz: 0,
-//     paketSoalTutorial: 0,
-//   },
-//   {
-//     key: "9",
-//     quizCode: "disc1",
-//     quizLabel: "DISC",
-//     paketSoalQuiz: 4,
-//     paketSoalTutorial: 0,
-//   },
-// ];
+const dataSource = [
+  {
+    key: "1",
+    quizCode: "3A",
+    quizLabel: "Subtest 6 - 3A",
+    paketSoalQuiz: 6,
+    paketSoalTutorial: 0,
+  },
+  {
+    key: "2",
+    quizCode: "accounting_staf_level_junior",
+    quizLabel: "Accounting Staf Junior",
+    paketSoalQuiz: 12,
+    paketSoalTutorial: 0,
+  },
+  {
+    key: "3",
+    quizCode: "accounting_staf_level_senior",
+    quizLabel: "Accounting Staf Senior",
+    paketSoalQuiz: 10,
+    paketSoalTutorial: 0,
+  },
+  {
+    key: "4",
+    quizCode: "competency",
+    quizLabel: "Competency",
+    paketSoalQuiz: 0,
+    paketSoalTutorial: 0,
+  },
+  {
+    key: "5",
+    quizCode: "competency_group",
+    quizLabel: "Competency",
+    paketSoalQuiz: 0,
+    paketSoalTutorial: 0,
+  },
+  {
+    key: "6",
+    quizCode: "cti",
+    quizLabel: "CTI",
+    paketSoalQuiz: 0,
+    paketSoalTutorial: 0,
+  },
+  {
+    key: "7",
+    quizCode: "d3ad",
+    quizLabel: "D3AD",
+    paketSoalQuiz: 0,
+    paketSoalTutorial: 0,
+  },
+  {
+    key: "8",
+    quizCode: "deletequiz",
+    quizLabel: "Deletequiz",
+    paketSoalQuiz: 0,
+    paketSoalTutorial: 0,
+  },
+  {
+    key: "9",
+    quizCode: "disc1",
+    quizLabel: "DISC",
+    paketSoalQuiz: 4,
+    paketSoalTutorial: 0,
+  },
+];
 
 
 const GeneratePaketSoalPage = () => {
@@ -143,7 +143,7 @@ const GeneratePaketSoalPage = () => {
       <Table
         className={styles.customTable}
         columns={columns}
-        // dataSource={dataSource}
+        dataSource={dataSource}
         scroll={{
           x: "max-content",
           y: 55 * 5,
