@@ -27,19 +27,19 @@ const useStyle = createStyles(({ css, token }) => {
   };
 });
 
-// const dataSource = [
-//   { key: 1, no: 1, "group-quiz-code": "baru", "quiz-code": "gti_penalaran", order: 0 },
-//   { key: 2, no: 2, "group-quiz-code": "baru", "quiz-code": "gti_jh", order: 1 },
-//   { key: 3, no: 3, "group-quiz-code": "campuran-library", "quiz-code": "P1v2", order: 0 },
-//   { key: 4, no: 4, "group-quiz-code": "campuran-library", "quiz-code": "gti_jh_r", order: 1 },
-//   { key: 5, no: 5, "group-quiz-code": "campuran-library", "quiz-code": "gti_kka_r", order: 2 },
-//   { key: 6, no: 6, "group-quiz-code": "campuran-library", "quiz-code": "ist_fa", order: 3 },
-//   { key: 7, no: 7, "group-quiz-code": "campuran-library", "quiz-code": "english", order: 4 },
-//   { key: 8, no: 8, "group-quiz-code": "competency", "quiz-code": "socdes", order: 0 },
-//   { key: 9, no: 9, "group-quiz-code": "competency", "quiz-code": "competency", order: 1 },
-//   { key: 10, no: 10, "group-quiz-code": "deletequiz", "quiz-code": "deletequiz", order: 0 },
-//   { key: 11, no: 11, "group-quiz-code": "deletequiz", "quiz-code": "tkd", order: 1 },
-// ];
+const dataSource = [
+  { key: 1, no: 1, "group-quiz-code": "baru", "quiz-code": "gti_penalaran", order: 0 },
+  { key: 2, no: 2, "group-quiz-code": "baru", "quiz-code": "gti_jh", order: 1 },
+  { key: 3, no: 3, "group-quiz-code": "campuran-library", "quiz-code": "P1v2", order: 0 },
+  { key: 4, no: 4, "group-quiz-code": "campuran-library", "quiz-code": "gti_jh_r", order: 1 },
+  { key: 5, no: 5, "group-quiz-code": "campuran-library", "quiz-code": "gti_kka_r", order: 2 },
+  { key: 6, no: 6, "group-quiz-code": "campuran-library", "quiz-code": "ist_fa", order: 3 },
+  { key: 7, no: 7, "group-quiz-code": "campuran-library", "quiz-code": "english", order: 4 },
+  { key: 8, no: 8, "group-quiz-code": "competency", "quiz-code": "socdes", order: 0 },
+  { key: 9, no: 9, "group-quiz-code": "competency", "quiz-code": "competency", order: 1 },
+  { key: 10, no: 10, "group-quiz-code": "deletequiz", "quiz-code": "deletequiz", order: 0 },
+  { key: 11, no: 11, "group-quiz-code": "deletequiz", "quiz-code": "tkd", order: 1 },
+];
 
 
 const searchIcon = <SearchOutlined style={{ fontSize: "20px" }} />;
@@ -184,7 +184,7 @@ const QuizGroupItemsPage = () => {
       <Table
         className={styles.customTable}
         columns={columns}
-        // dataSource={dataSource}
+        dataSource={dataSource}
         scroll={{
           x: "max-content",
           y: 55 * 5,

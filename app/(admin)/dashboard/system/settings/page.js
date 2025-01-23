@@ -27,18 +27,18 @@ const useStyle = createStyles(({ css, token }) => {
   };
 });
 
-// const dataSource = [
-//   { key: 1, no: 1, code: "baru" },
-//   { key: 2, no: 2, code: "campuran-library" },
-//   { key: 3, no: 3, code: "competency" },
-//   { key: 4, no: 4, code: "deletquiz" },
-//   { key: 5, no: 5, code: "div_junior_adm" },
-//   { key: 6, no: 6, code: "div_junior_professional" },
-//   { key: 7, no: 7, code: "div_junior_tech" },
-//   { key: 8, no: 8, code: "div_manager_adm" },
-//   { key: 9, no: 9, code: "div_manager_prof" },
-//   { key: 10, no: 10, code: "div_manager_tech" },
-// ];
+const dataSource = [
+  { key: 1, no: 1, code: "baru" },
+  { key: 2, no: 2, code: "campuran-library" },
+  { key: 3, no: 3, code: "competency" },
+  { key: 4, no: 4, code: "deletquiz" },
+  { key: 5, no: 5, code: "div_junior_adm" },
+  { key: 6, no: 6, code: "div_junior_professional" },
+  { key: 7, no: 7, code: "div_junior_tech" },
+  { key: 8, no: 8, code: "div_manager_adm" },
+  { key: 9, no: 9, code: "div_manager_prof" },
+  { key: 10, no: 10, code: "div_manager_tech" },
+];
 
 const SystemSettingPage = () => {
   const { styles } = useStyle();
@@ -130,7 +130,7 @@ const SystemSettingPage = () => {
       <Table
         className={styles.customTable}
         columns={columns}
-        // dataSource={dataSource}
+        dataSource={dataSource}
         scroll={{
           x: "max-content",
           y: 55 * 5,
