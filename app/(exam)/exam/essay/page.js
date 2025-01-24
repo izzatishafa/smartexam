@@ -49,8 +49,7 @@ const EssayPage = () => {
               <ol style={{ listStyleType: "disc" }}>
                 <li>
                   <Text>
-                    Setiap soal terdiri dari 1 pernyataan dengan 4 pilihan yang
-                    terdiri dari jawaban dengan A, B, C, dan D
+                    Baca dengan teliti setiap soal dan isikan jawaban pada kolom
                   </Text>
                 </li>
               </ol>

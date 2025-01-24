@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { Typography, Card, Space, Radio } from "antd";
+import { Typography, Card, Space, Radio, Input } from "antd";
+import TextArea from "antd/es/input/TextArea";
 
 const { Title, Text } = Typography;
 
@@ -20,6 +21,12 @@ export default function EssayCard() {
         direction="vertical"
       ></Space>
       <Title level={5}>Answer :</Title>
+      <TextArea
+        showCount
+        maxLength={100}
+        style={{ width: "100%", height: "100px", resize: "block" }}
+        placeholder="Input your answer here"
+      />
     </Card>
   );
 }
