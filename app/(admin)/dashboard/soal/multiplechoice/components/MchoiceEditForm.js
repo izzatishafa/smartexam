@@ -1,9 +1,11 @@
 "use client";
 
-import TextEditor from "@/components/ui/TextEditor";
+import dynamic from "next/dynamic";
 import { Button, Drawer, Form, Input, Space } from "antd";
 import React from "react";
 
+
+const TextEditor = dynamic(() => import("@/components/ui/TextEditor"), { ssr: false });
 const MchoiceEditForm = ({ open, onClose }) => {
   return (
     <>
