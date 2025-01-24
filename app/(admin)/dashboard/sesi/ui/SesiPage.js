@@ -139,8 +139,8 @@ const SesiPage = ({ initialData = [], metadata }) => {
     setOpen(false);
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error fetching sessions</div>;
+    if (isLoading) return <div>Loading...</div>;
+    if (isError) return <div>Error fetching sessions</div>;
 
   return (
     <>

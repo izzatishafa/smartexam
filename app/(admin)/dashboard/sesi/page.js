@@ -11,8 +11,6 @@ export default async function Page() {
     id: item.id,
     title: item.label,
     dateRange: `${new Date(item.timeFrom).toLocaleDateString()} - ${new Date(item.timeTo).toLocaleDateString()}`,
-    // dateFrom: item.timeFrom,
-    // dateTo: item.timeTo,
     duration: calculateDuration(item.timeFrom, item.timeTo),
     days: getDayRange(item.timeFrom, item.timeTo),
     time: `${new Date(item.timeFrom).toLocaleTimeString()} - ${new Date(item.timeTo).toLocaleTimeString()} WIB`,
@@ -22,23 +20,7 @@ export default async function Page() {
     greeting: item.greeting,
   }));
 
-  console.log("Transformed data:", transformedData);
+  // console.log("Transformed data:", transformedData);
 
   return <SesiPage initialData={transformedData} metadata={posts.data.metadata} />;
 }
-
-// Fungsi helper untuk menghitung durasi
-// function calculateDuration(timeFrom, timeTo) {
-//   const start = new Date(timeFrom);
-//   const end = new Date(timeTo);
-//   const diffInDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-//   return `${diffInDays} Hari`;
-// }
-
-// // Fungsi helper untuk mendapatkan range hari
-// function getDayRange(timeFrom, timeTo) {
-//   const start = new Date(timeFrom);
-//   const end = new Date(timeTo);
-//   const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-//   return `${days[start.getDay()]} - ${days[end.getDay()]}`;
-// }
