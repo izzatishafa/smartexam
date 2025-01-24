@@ -5,7 +5,21 @@ import dynamic from "next/dynamic";
 
 const TextEditor = dynamic(() => import("@/components/ui/TextEditor"), { ssr: false });
 
-const MchoiceAddForm = ({ open, onClose }) => {
+const MchoiceAddForm = ({ open, onClose, onSubmit }) => {
+  const [form] = Form.useForm();
+
+  const handleSubmit = () => {
+    form
+      .validateFields()
+      .then((values) => {
+        onSubmit(values);
+        form.resetFields();
+      })
+      .catch((errorInfo) => {
+        console.log("Validation failed:", errorInfo);
+      });
+  };
+
   return (
     <>
       <Drawer
@@ -21,15 +35,15 @@ const MchoiceAddForm = ({ open, onClose }) => {
         extra={
           <Space>
             <Button onClick={onClose}>Batal</Button>
-            <Button onClick={onClose} type="primary">
-              Edit
+            <Button onClick={handleSubmit} type="primary">
+              Tambah
             </Button>
           </Space>
         }
       >
-        <Form hideRequiredMark layout="vertical">
+        <Form form={form} hideRequiredMark layout="vertical">
           <Form.Item
-            name="jeniSoal"
+            name="jenisSoal"
             label="Jenis Soal"
             rules={[
               {
@@ -72,7 +86,7 @@ const MchoiceAddForm = ({ open, onClose }) => {
             label="Parent nomor"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the parent number",
               },
             ]}
@@ -84,15 +98,19 @@ const MchoiceAddForm = ({ open, onClose }) => {
             label="Multiplechoice img code"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the img code",
               },
             ]}
+            getValueFromEvent={(e) => {
+              const value = e.target.value.trim();
+              return value === "" ? null : value; // Konversi ke null jika kosong
+            }}
           >
             <Input placeholder="Masukan kode gambar" />
           </Form.Item>
           <Form.Item
-            name="jawaban"
+            name="answer"
             label="Jawaban"
             rules={[
               {
@@ -111,14 +129,15 @@ const MchoiceAddForm = ({ open, onClose }) => {
             label="Multiplechoice story code"
             rules={[
               {
-                required: true,
+                required: false,
               },
             ]}
+            getValueFromEvent={(e) => (e.target.value.trim() === "" ? null : e.target.value)}
           >
             <Button type="primary">Edit Story</Button>
           </Form.Item>
           <Form.Item
-            name=" groupName"
+            name=" group_name"
             label=" Group name"
             rules={[
               {
@@ -150,6 +169,7 @@ const MchoiceAddForm = ({ open, onClose }) => {
                 message: "Please input id question category",
               },
             ]}
+            getValueFromEvent={(e) => (e.target.value.trim() === "" ? null : e.target.value)}
           >
             <Input placeholder="Masukan id kategori soal" />
           </Form.Item>
