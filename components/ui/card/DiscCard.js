@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import { Typography, Card, Space, Table, Radio } from "antd";
+import { Typography, Card, Space, Table, Radio, Tag } from "antd";
 
 const { Title, Text } = Typography;
 
-export default function DiscCard() {
+export default function DiscCard({ data }) {
   const [selectedOption, setSelectedOption] = useState({
     most: null,
     least: null,
@@ -30,50 +30,29 @@ export default function DiscCard() {
     e.preventDefault();
   };
 
-  // const dataSource = [
-  //   { key: "1", pref: "A Planning the work ahead" },
-  //   { key: "2", pref: "B Planning the work ahead" },
-  //   { key: "3", pref: "C Planning the work ahead" },
-  //   { key: "4", pref: "D Planning the work ahead" },
-  // ];
-
   const columns = [
     {
-      title: "",
+      title: "Pernyataan",
       dataIndex: "pref",
       key: "pref",
       render: (text) => {
+        if (!text) {
+          return "";
+        }
         const [firstLetter, ...restText] = text.split(" ");
         return (
           <span>
-            <span
-              style={{
-                color: "#0A01FF",
-                backgroundColor: "#e6e7e7",
-                borderRadius: "100%",
-                padding: "4px 8px",
-                margin: "0px 12px 2px 8px",
-                display: "inline-block",
-              }}
-            >
-              {firstLetter}
-            </span>
-            <Text style={{ fontWeight: "bold", fontSize: "15px" }}>
-              {restText.join(" ")}
-            </Text>
+            <Tag color="blue">{firstLetter}</Tag>
+            <Text style={{ fontSize: "15px" }}>{restText.join(" ")}</Text>
           </span>
         );
       },
       onHeaderCell: () => ({
-        style: { backgroundColor: "#8D97A0", border: "none" },
+        style: { backgroundColor: "lightgray", textAlign: "center" },
       }),
     },
     {
-      title: (
-        <p style={{ fontSize: "16px", color: "white", textAlign: "center" }}>
-          Most
-        </p>
-      ),
+      title: "Most",
       dataIndex: "most",
       key: "most",
       render: (_, record) => (
@@ -86,15 +65,11 @@ export default function DiscCard() {
         </div>
       ),
       onHeaderCell: () => ({
-        style: { backgroundColor: "#8D97A0", border: "none" },
+        style: { backgroundColor: "lightgray", textAlign: "center" },
       }),
     },
     {
-      title: (
-        <p style={{ fontSize: "16px", color: "white", textAlign: "center" }}>
-          Least
-        </p>
-      ),
+      title: "Least",
       dataIndex: "least",
       key: "least",
       render: (_, record) => (
@@ -107,7 +82,7 @@ export default function DiscCard() {
         </div>
       ),
       onHeaderCell: () => ({
-        style: { backgroundColor: "#8D97A0", border: "none" },
+        style: { backgroundColor: "lightgray", textAlign: "center" },
       }),
     },
   ];
@@ -122,14 +97,15 @@ export default function DiscCard() {
       }}
       onCopy={handleCopy}
     >
-      <Title level={4} style={{ fontWeight: "normal", paddingLeft: "10px" }}>
+      <Title level={5} style={{ fontWeight: "normal" }}>
         Pilihlah opsi yang sesuai dengan kriteria Anda!
       </Title>
       <Space direction="vertical">
         <Table
-          // dataSource={dataSource}
+          dataSource={data}
           columns={columns}
           bordered={true}
+          size="small"
           pagination={false}
           rowHoverable={false}
           style={{ minWidth: "550px" }}

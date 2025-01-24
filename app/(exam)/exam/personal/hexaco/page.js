@@ -27,7 +27,7 @@ const Hexaco = () => {
         <Space>
           <Modal
             width={1000}
-            title={ 
+            title={
               <Title
                 level={5}
                 style={{
@@ -48,8 +48,18 @@ const Hexaco = () => {
             <div>
               <ol>
                 <li>
-                  <Text>Setiap soal terdiri dari 1 pernyataan dengan 5 pilihan jawaban yaitu Sangat Setuju, Setuju, Netral, Tidak Setuju, dan Sangat Tidak Setuju. Seperti contoh di bawah ini.</Text>
-                  <div style={{ marginTop: "10px", marginBottom: "10px", textAlign: "center" }}>
+                  <Text>
+                    Setiap soal terdiri dari 1 pernyataan dengan 5 pilihan
+                    jawaban yaitu Sangat Setuju, Setuju, Netral, Tidak Setuju,
+                    dan Sangat Tidak Setuju. Seperti contoh di bawah ini.
+                  </Text>
+                  <div
+                    style={{
+                      marginTop: "10px",
+                      marginBottom: "10px",
+                      textAlign: "center",
+                    }}
+                  >
                     <Space size="middle">
                       <Button>Sangat Setuju</Button>
                       <Button>Setuju</Button>
@@ -60,18 +70,27 @@ const Hexaco = () => {
                   </div>
                 </li>
                 <li>
-                  <Text>Pilihlah jawaban yang paling sesuai dengan diri Anda.</Text>
-                </li>
-                <li>
-                  <Text>Jawablah secara jujur dan spontan dengan mengklik salah satu dari pilihan jawaban tersebut.</Text>
-                </li>
-                <li>
                   <Text>
-                    Jika sudah memahami petunjuk, silakan klik tombol <b>Mulai Test</b> untuk melanjutkan ke soal berikutnya.
+                    Pilihlah jawaban yang paling sesuai dengan diri Anda.
                   </Text>
                 </li>
                 <li>
-                  <Text>Waktu pengerjaan tes ini terbatas, untuk itu gunakan waktu Anda semaksimal mungkin.</Text>
+                  <Text>
+                    Jawablah secara jujur dan spontan dengan mengklik salah satu
+                    dari pilihan jawaban tersebut.
+                  </Text>
+                </li>
+                <li>
+                  <Text>
+                    Jika sudah memahami petunjuk, silakan klik tombol{" "}
+                    <b>Mulai Test</b> untuk melanjutkan ke soal berikutnya.
+                  </Text>
+                </li>
+                <li>
+                  <Text>
+                    Waktu pengerjaan tes ini terbatas, untuk itu gunakan waktu
+                    Anda semaksimal mungkin.
+                  </Text>
                 </li>
                 <li>
                   <Text>Selamat mengerjakan dan semoga sukses!</Text>

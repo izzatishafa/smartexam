@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Divider, Space, Button, Flex } from "antd";
 
-const QuizHeader = ({ title, onGuideClick, children }) => {
+const QuizHeader = ({ title, onGuideClick, children, hideGuideButton }) => {
   return (
     <div>
       <Typography
@@ -13,7 +13,10 @@ const QuizHeader = ({ title, onGuideClick, children }) => {
           margin: 0,
         }}
       >
-        <Typography.Title level={4} style={{ color: "white", textAlign: "center", margin: 0 }}>
+        <Typography.Title
+          level={4}
+          style={{ color: "white", textAlign: "center", margin: 0 }}
+        >
           {title}
         </Typography.Title>
       </Typography>
@@ -28,11 +31,15 @@ const QuizHeader = ({ title, onGuideClick, children }) => {
             marginBottom: "15px",
           }}
         />
-        <Space style={{ width: "100%", justifyContent: "end", marginBottom: "15px" }} />
+        <Space
+          style={{ width: "100%", justifyContent: "end", marginBottom: "15px" }}
+        />
         <Flex justify="flex-end">
-          <Button type="primary" onClick={onGuideClick}>
-            Panduan
-          </Button>
+          {!hideGuideButton && (
+            <Button type="primary" onClick={onGuideClick}>
+              Panduan
+            </Button>
+          )}
         </Flex>
       </div>
     </div>

@@ -1,11 +1,18 @@
 "use client";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Typography, Col, Row, Card, Button, Checkbox, Space, message } from "antd";
+import {
+  Typography,
+  Col,
+  Row,
+  Card,
+  Button,
+  Checkbox,
+  Space,
+  message,
+} from "antd";
 const { Title, Text } = Typography;
 
-const guidelines = () => {
-  const router = useRouter();
+const Guidelines = () => {
+  const router = router();
   const [checkedItems, setCheckedItems] = useState({
     item1: false,
     item2: false,
@@ -36,9 +43,11 @@ const guidelines = () => {
     if (Object.values(checkedItems).every(Boolean)) {
       router.push("./exam");
     } else {
-      message.error("Anda harus menerima semua pernyataan sebelum melanjutkan ke tes.");
+      message.error(
+        "Anda harus menerima semua pernyataan sebelum melanjutkan ke tes."
+      );
     }
-  }
+  };
   return (
     <>
       <Typography style={{ textAlign: "center" }}>
@@ -170,21 +179,21 @@ const guidelines = () => {
               Accept All
             </Button>
           </Card>
-          <Space style={{width: "100%", justifyContent: "center"}}>
-          <Button
-            htmlType="submit"
-            type="primary"
-            onClick={handleStart}
-            style={{
-              fontWeight: "bold",
-              fontSize: "16px",
-              width: "500px",
-              padding: "17px",
-              marginTop: "17px",
-            }}
-          >
-            Start Test
-          </Button>
+          <Space style={{ width: "100%", justifyContent: "center" }}>
+            <Button
+              htmlType="submit"
+              type="primary"
+              onClick={handleStart}
+              style={{
+                fontWeight: "bold",
+                fontSize: "16px",
+                width: "500px",
+                padding: "17px",
+                marginTop: "17px",
+              }}
+            >
+              Start Test
+            </Button>
           </Space>
         </Col>
       </Row>
@@ -192,4 +201,4 @@ const guidelines = () => {
   );
 };
 
-export default guidelines;
+export default Guidelines;
