@@ -2,6 +2,8 @@
 
 import React from 'react'
 import { Tabs } from "antd";
+import DivisiTab from './components/DivisiTab';
+import LevelTab from './components/LevelTab';
 const onChange = (key) => {
   console.log(key);
 };
@@ -10,12 +12,12 @@ const items = [
   {
     key: "1",
     label: "Level",
-    children: "Content of Tab Pane 1",
+    children: <LevelTab />,
   },
   {
     key: "2",
     label: "Divisi",
-    children: "Content of Tab Pane 2",
+    children: <DivisiTab />,
   },
 ];
 
