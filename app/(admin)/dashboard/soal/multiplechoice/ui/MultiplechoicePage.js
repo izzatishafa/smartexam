@@ -7,6 +7,7 @@ import { createStyles } from "antd-style";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import MchoiceDetail from "../components/MchoiceDetail";
 import MchoiceEditForm from "../components/MchoiceEditForm";
+import MchoiceAddForm from "../components/MchoiceAddFrom";
 const { Search } = Input;
 
 const fetchSessions = async (page, keyword = "") => {
@@ -140,8 +141,13 @@ const MultiplechoicePage = ({ initialData = [] }, metadata) => {
   };
 
   const handleEditClick = (record) => {
-    setEditItem(record);
+    const mappedRecord = mapSessionData(record); // Pastikan data terstruktur
+    setEditItem(mappedRecord);
     setOpenEdit(true);
+  };
+
+  const handleCloseEdit = () => {
+    setOpenEdit(false);
   };
 
   const columns = [
@@ -224,7 +230,8 @@ const MultiplechoicePage = ({ initialData = [] }, metadata) => {
       </Row>
 
       <MchoiceDetail open={openDetail} onClose={onCloseDetail} />
-      <MchoiceEditForm open={openEdit} onClose={onClose} initialValues={editItem} onSubmit={handleEdit} />
+      <MchoiceEditForm open={openEdit} onClose={handleCloseEdit} initialValues={editItem} onSubmit={handleEdit} />
+      <MchoiceAddForm open={open} onClose={onClose} onSubmit={handleAdd} />
 
       <Table
         rowKey="id"

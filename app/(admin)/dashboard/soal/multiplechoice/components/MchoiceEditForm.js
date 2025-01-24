@@ -2,11 +2,33 @@
 
 import dynamic from "next/dynamic";
 import { Button, Drawer, Form, Input, Space } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 
 
 const TextEditor = dynamic(() => import("@/components/ui/TextEditor"), { ssr: false });
-const MchoiceEditForm = ({ open, onClose }) => {
+const MchoiceEditForm = ({ open, onClose, initialValues, onSubmit }) => {
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (initialValues) {
+      form.setFieldsValue(initialValues); // Sinkronkan nilai form
+    }
+  }, [initialValues, form]);
+
+
+  const handleSubmit = () => {
+    form
+      .validateFields()
+      .then((values) => {
+        onSubmit({ ...values, id: initialValues.id });
+        onClose();
+      })
+      .catch((errorInfo) => {
+        console.log("Validation failed:", errorInfo);
+      });
+  };
+
+
   return (
     <>
       <Drawer
@@ -22,15 +44,15 @@ const MchoiceEditForm = ({ open, onClose }) => {
         extra={
           <Space>
             <Button onClick={onClose}>Batal</Button>
-            <Button onClick={onClose} type="primary">
+            <Button onClick={handleSubmit} type="primary">
               Edit
             </Button>
           </Space>
         }
       >
-        <Form hideRequiredMark layout="vertical">
+        <Form hideRequiredMark layout="vertical" form={form} initialValues={initialValues}>
           <Form.Item
-            name="jeniSoal"
+            name="jenisSoal"
             label="Jenis Soal"
             rules={[
               {
@@ -66,7 +88,7 @@ const MchoiceEditForm = ({ open, onClose }) => {
             <Input placeholder="Masukan nomor soal" />
           </Form.Item>
           <Form.Item name="question" label="Question">
-            <TextEditor />
+            <TextEditor value={form.getFieldValue("question")} />
           </Form.Item>
           <Form.Item
             name="parentNomor"
@@ -85,7 +107,7 @@ const MchoiceEditForm = ({ open, onClose }) => {
             label="Multiplechoice img code"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the img code",
               },
             ]}
@@ -93,7 +115,7 @@ const MchoiceEditForm = ({ open, onClose }) => {
             <Input placeholder="Masukan kode gambar" />
           </Form.Item>
           <Form.Item
-            name="jawaban"
+            name="answer"
             label="Jawaban"
             rules={[
               {
@@ -112,14 +134,14 @@ const MchoiceEditForm = ({ open, onClose }) => {
             label="Multiplechoice story code"
             rules={[
               {
-                required: true,
+                required: false,
               },
             ]}
           >
             <Button type="primary">Edit Story</Button>
           </Form.Item>
           <Form.Item
-            name=" groupName"
+            name="groupName"
             label=" Group name"
             rules={[
               {
@@ -143,11 +165,11 @@ const MchoiceEditForm = ({ open, onClose }) => {
             <Input placeholder="Masukan id kesulitan" />
           </Form.Item>
           <Form.Item
-            name="multiplechoiceQuestionCategoryId"
+            name="multipleCHoiceQUestionCategoryId"
             label="Multiplechoice question category id"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input id question category",
               },
             ]}

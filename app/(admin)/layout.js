@@ -83,6 +83,7 @@ const items = [
     getItem("Email Job", "sub8-3", null, null, "/dashboard/system/email-job"),
     getItem("Upload Users", "sub8-4", null, null, "/dashboard/system/upload-users"),
     getItem("Users Quiz Terjadwal", "sub8-5", null, null, "/dashboard/system/users-quiz-terjadwal"),
+    getItem("Level & Divisi", "sub8-6", null, null, "/dashboard/system/level-divisi"),
   ]),
 ];
 
