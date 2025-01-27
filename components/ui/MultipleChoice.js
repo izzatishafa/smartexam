@@ -39,15 +39,25 @@ const MultipleChoice = () => {
                     : "1px solid lightgray",
               }}
             >
-              <Tag
+              <div
                 style={{
+                  width: "30px",
+                  height: "30px",
+                  borderRadius: "50%",
                   fontWeight: "bold",
+                  border: "1px solid",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginRight: "10px",
+                  backgroundColor:
+                    selectedOption === choice ? "cornflowerblue" : "",
                   color: selectedOption === choice ? "white" : "gray",
                 }}
                 color={selectedOption === choice ? "cornflowerblue" : "default"}
               >
                 {choice}
-              </Tag>
+              </div>
 
               <p
                 style={{

@@ -69,7 +69,7 @@ const Disc = () => {
   return (
     <>
       <QuizHeader
-        title="DISC"
+        title="Online Test - DISC (Dominance, Influence, Steadiness, Conscientiousness)"
         onGuideClick={showModal}
         hideGuideButton={showInstructions}
       >

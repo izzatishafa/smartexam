@@ -3,16 +3,21 @@
 import React from "react";
 import { Col, Row, Typography } from "antd";
 import HeaderComponent from "@/components/ui/Header";
-const { Title, Text } = Typography;
 import QuizBankCard from "@/components/ui/card/QuizBankCard";
+
+const { Title, Text } = Typography;
 
 const QuizBankList = [
   { title: "Hexaco", route: "/exam/personal/hexaco" },
+  { title: "WPT", route: "/exam/wpt_taxand" },
   { title: "GTI Group", route: "/exam/gti/subtest1/tutorial" },
   { title: "DISC", route: "/exam/disc" },
   { title: "Essay", route: "/exam/essay" },
+  { title: "Accounting Junior", route: "/exam/accounting_junior" },
+  { title: "Accounting Senior", route: "/exam/accounting_senior" },
   { title: "English University", route: "/exam/english" },
 ];
+
 const HomePage = () => {
   return (
     <>
@@ -23,7 +28,6 @@ const HomePage = () => {
           backgroundImage: "url('/assets/white-texture-bg.png')",
           width: "100%",
           minHeight: "100vh",
-          height: "fit-content",
           display: "flex",
           justifyContent: "center",
           alignItems: "flex-start",
@@ -31,18 +35,22 @@ const HomePage = () => {
         }}
       >
         <Row
-          gutter={[24, 16]} // Menambahkan jarak horizontal (24px) dan vertikal (16px)
+          gutter={[24, 16]} // Horizontal (24px) and Vertical (16px) spacing
           style={{
-            width: "75%",
+            width: "90%", // Adjusted for smaller screens
+            maxWidth: "1200px", // Prevents too wide on large screens
             display: "flex",
-            justifyContent: "space-between", // Memastikan jarak antar Col
-            rowGap: "1rem", // Opsional: Jarak antar baris
-            columnGap: "1rem", // Menambahkan jarak antar Col
+            justifyContent: "space-between",
+            flexWrap: "wrap", // Allows wrapping on smaller screens
           }}
         >
-          {/* Bagian Kiri */}
+          {/* Left Panel (User Info) */}
           <Col
-            span={6}
+            xs={24}
+            sm={24}
+            md={8}
+            lg={6}
+            xl={6}
             style={{
               backgroundColor: "white",
               display: "flex",
@@ -51,7 +59,6 @@ const HomePage = () => {
               height: "fit-content",
               padding: "1rem",
               border: "4px solid orange",
-              // border: "4px solid darkslategray",
             }}
           >
             <Col
@@ -60,24 +67,19 @@ const HomePage = () => {
                 height: "100%",
                 backgroundColor: "white",
                 border: "1px solid white",
-                display: "flex", // Membuat elemen di dalamnya flexbox
-                flexDirection: "column", // Mengatur elemen secara vertikal
-                gap: "1rem", // Memberikan jarak antar div
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
               }}
             >
               <div>
                 <Title
-                  style={{ marginTop: "0.25rem", color: "gray" }}
                   level={5}
+                  style={{ marginTop: "0.25rem", color: "gray" }}
                 >
                   Nama Peserta
                 </Title>
-                <Text
-                  style={{
-                    fontSize: "1.5rem",
-                    fontWeight: "bold",
-                  }}
-                >
+                <Text style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
                   John Doe
                 </Text>
               </div>
@@ -89,12 +91,7 @@ const HomePage = () => {
                 >
                   Kode Peserta
                 </Title>
-                <Text
-                  style={{
-                    fontSize: "1.5rem",
-                    fontWeight: "bold",
-                  }}
-                >
+                <Text style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
                   1101110111
                 </Text>
               </div>
@@ -106,22 +103,22 @@ const HomePage = () => {
                 >
                   Waktu Ujian
                 </Title>
-                <Text style={{ marginTop: "0.25rem" }}>
-                  9 January 2025, 09:06:00
-                </Text>
+                <Text>9 January 2025, 09:06:00</Text>
                 <br />
                 <Text style={{ margin: "0.5rem 0" }}>sampai</Text>
                 <br />
-                <Text style={{ marginTop: "0.25rem" }}>
-                  30 January 2025, 09:06:00
-                </Text>
+                <Text>30 January 2025, 09:06:00</Text>
               </div>
             </Col>
           </Col>
 
-          {/* Bagian Kanan */}
+          {/* Right Panel (Quiz List) */}
           <Col
-            span={16}
+            xs={24}
+            sm={24}
+            md={16}
+            lg={17}
+            xl={17}
             style={{
               backgroundColor: "transparent",
               display: "flex",
@@ -137,18 +134,16 @@ const HomePage = () => {
                 backgroundColor: "transparent",
               }}
             >
-              {/* Pembungkus untuk kotak-kotak */}
               <Col span={25}>
                 <Row
                   style={{
                     height: "fit-content",
                     backgroundColor: "white",
                     border: "4px solid orange",
-                    marginBottom: "1rem",
+                    marginBottom: "2rem",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    marginBottom: "2rem",
                   }}
                 >
                   <Title level={4} style={{ marginTop: "0.5rem" }}>

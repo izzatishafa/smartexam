@@ -16,12 +16,12 @@ export default function WptCard() {
   };
 
   const choices = [
-    {label: "A", value: "Pegunungan"},
-    {label: "B", value: "Hutan"},
-    {label: "C", value: "Pohon"},
-    {label: "D", value: "Hijau"},
-    {label: "E", value: "Tinggi"},
-  ]
+    { label: "A", value: "Pegunungan" },
+    { label: "B", value: "Hutan" },
+    { label: "C", value: "Pohon" },
+    { label: "D", value: "Hijau" },
+    { label: "E", value: "Tinggi" },
+  ];
 
   return (
     <Card
@@ -36,12 +36,10 @@ export default function WptCard() {
       </Title>
       <Space style={{ paddingLeft: "30px" }} direction="vertical">
         <Text style={{ fontSize: "17px", fontWeight: "bold" }}>
-            Tropis : Iklim <br />
-            Cemara : ...
+          Tropis : Iklim <br />
+          Cemara : ...
         </Text>
-        <Text style={{ fontSize: "17px" }}>
-            Manakah jawaban yang sesuai?
-        </Text>
+        <Text style={{ fontSize: "17px" }}>Manakah jawaban yang sesuai?</Text>
         <ol
           style={{
             color: "#000",
@@ -50,7 +48,7 @@ export default function WptCard() {
             fontSize: "15px",
             display: "flex",
             flexWrap: "wrap",
-            gap: "15px"
+            gap: "15px",
           }}
         >
           {choices.map((choice, index) => (
@@ -60,25 +58,37 @@ export default function WptCard() {
               style={{
                 color: "#1B3042",
                 backgroundColor:
-                  selectedOption === choice.label ? "#D6E4FF" : "#E9F0FC",
-                padding: "8px 15px",
-                borderRadius: "15px",
+                  selectedOption === choice.label ? "aliceblue" : "transparent",
+                padding: "8px 16px",
+                borderRadius: "12px",
                 marginBottom: "10px",
-                display: "inline-flex",
+                display: "flex",
                 alignItems: "center",
                 cursor: "pointer",
                 border:
-                  selectedOption === choice.label ? "2px solid #0A01FF" : "none",
+                  selectedOption === choice.label
+                    ? "1px solid cornflowerblue"
+                    : "1px solid lightgray",
               }}
             >
               <span
                 style={{
-                  backgroundColor: "white",
-                  color: "#0A01FF",
-                  padding: "5px 10px",
-                  borderRadius: "100%",
-                  marginRight: "15px",
+                  width: "30px",
+                  height: "30px",
+                  borderRadius: "50%",
+                  fontWeight: "bold",
+                  border: "1px solid",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginRight: "10px",
+                  backgroundColor:
+                    selectedOption === choice.label ? "cornflowerblue" : "",
+                  color: selectedOption === choice.label ? "white" : "gray",
                 }}
+                color={
+                  selectedOption === choice.label ? "cornflowerblue" : "default"
+                }
               >
                 {choice.label}
               </span>
