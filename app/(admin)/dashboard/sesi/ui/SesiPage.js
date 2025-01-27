@@ -15,7 +15,13 @@ const fetchSessions = async (page, keyword = "") => {
     cache: "no-store",
   });
   if (!res.ok) throw new Error("Failed to fetch sessions");
-  return res.json();
+  const data = await res.json();
+  return {
+    data: {
+      list: data.list.sesiRes, // Sesuaikan dengan struktur API
+      metadata: data.metadata,
+    },
+  };
 };
 
 const SesiPage = ({ initialData = [], metadata }) => {
@@ -161,7 +167,13 @@ const SesiPage = ({ initialData = [], metadata }) => {
       <SessionEditForm title="Edit Sesi" open={openEdit} onClose={handleCloseEdit} initialValues={editItem} onSubmit={handleEdit} />
 
       <Row justify="end" style={{ marginTop: "10px" }}>
-        <Pagination simple current={currentPage} total={parseInt(data.data.metadata.total_pages || 1) * 3} pageSize={parseInt(data.data.metadata.per_page || 3)} onChange={handlePageChange} />
+        <Pagination
+          simple
+          current={currentPage}
+          total={parseInt(data?.data?.metadata?.total_pages || metadata?.total_pages || 1) * 3}
+          pageSize={parseInt(data?.data?.metadata?.per_page || metadata?.per_page || 3)}
+          onChange={handlePageChange}
+        />
       </Row>
     </>
   );

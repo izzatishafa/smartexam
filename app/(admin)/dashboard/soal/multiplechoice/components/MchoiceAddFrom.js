@@ -7,6 +7,7 @@ const TextEditor = dynamic(() => import("@/components/ui/TextEditor"), { ssr: fa
 
 const MchoiceAddForm = ({ open, onClose, onSubmit }) => {
   const [form] = Form.useForm();
+  
 
   const handleSubmit = () => {
     form
@@ -153,7 +154,7 @@ const MchoiceAddForm = ({ open, onClose, onSubmit }) => {
             label="Ref kesulitan id"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the id difficulty",
               },
             ]}
@@ -165,7 +166,7 @@ const MchoiceAddForm = ({ open, onClose, onSubmit }) => {
             label="Multiplechoice question category id"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input id question category",
               },
             ]}
