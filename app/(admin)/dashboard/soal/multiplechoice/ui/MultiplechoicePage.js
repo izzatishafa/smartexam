@@ -10,13 +10,22 @@ import MchoiceEditForm from "../components/MchoiceEditForm";
 import MchoiceAddForm from "../components/MchoiceAddFrom";
 const { Search } = Input;
 
-const fetchSessions = async (page, keyword = "") => {
-  const res = await fetch(`http://localhost:8001/api/v1/company/soal/multiple_choice?page=${page}&total=3&search=${keyword}`, {
+const fetchSessions = async (page, keyword = "", pageSize = 10) => {
+  const res = await fetch(`http://localhost:8001/api/v1/company/soal/multiple_choice?page=${page}&total=${pageSize}&search=${keyword}`, {
     cache: "no-store",
   });
   if (!res.ok) throw new Error("Failed to fetch sessions");
   return res.json();
 };
+
+const fetchDetail = async (id) => {
+  const res = await fetch(`http://localhost:8001/api/v1/company/soal/multiple_choice/${id}`, {
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error("Failed to fetch detail");
+  return res.json();
+};
+
 
 const useStyle = createStyles(({ css, token }) => {
   const { antCls } = token;
@@ -45,11 +54,29 @@ const MultiplechoicePage = ({ initialData = [] }, metadata) => {
   const [currentPage, setCurrentPage] = useState(parseInt(metadata?.page || 1));
   const [openEdit, setOpenEdit] = useState(false);
   const [editItem, setEditItem] = useState(null);
+  const [pageSize, setPageSize] = useState(10);
+  const [detailData, setDetailData] = useState(null);
+
+  const handleDetail = async (record) => {
+    try {
+      const response = await fetchDetail(record.id);
+      setDetailData(response.data);
+      setOpenDetail(true);
+    } catch (error) {
+      console.error("Error fetching detail:", error);
+      // Tambahkan handling error sesuai kebutuhan
+    }
+  };
+
+  const stripHtmlTags = (html) => {
+    if (!html) return "";
+    return html.replace(/<\/?[^>]+(>|$)/g, "");
+  };
 
   // Fetching data with React Query
   const { data, isLoading, isError } = useQuery({
     queryKey: ["sessions", currentPage, searchKeyword],
-    queryFn: () => fetchSessions(currentPage, searchKeyword),
+    queryFn: () => fetchSessions(currentPage, searchKeyword, pageSize),
     initialData: {
       data: {
         list: initialData,
@@ -107,7 +134,6 @@ const MultiplechoicePage = ({ initialData = [] }, metadata) => {
       setEditItem(null);
     },
   });
-  
 
   const handleAdd = (newSession) => {
     addMutation.mutate(newSession);
@@ -134,10 +160,6 @@ const MultiplechoicePage = ({ initialData = [] }, metadata) => {
 
   const onCloseDetail = () => {
     setOpenDetail(false);
-  };
-
-  const handleDetail = (record) => {
-    setOpenDetail(true);
   };
 
   const handleEditClick = (record) => {
@@ -175,6 +197,7 @@ const MultiplechoicePage = ({ initialData = [] }, metadata) => {
       dataIndex: "question",
       key: "question",
       width: 150,
+      render: (text) => stripHtmlTags(text),
     },
     {
       title: "Parent Nomor",
@@ -190,8 +213,8 @@ const MultiplechoicePage = ({ initialData = [] }, metadata) => {
     },
     {
       title: "Jawaban",
-      dataIndex: "jawaban",
-      key: "jawaban",
+      dataIndex: "answer",
+      key: "answer",
       width: 150,
     },
     {
@@ -229,7 +252,7 @@ const MultiplechoicePage = ({ initialData = [] }, metadata) => {
         </Col>
       </Row>
 
-      <MchoiceDetail open={openDetail} onClose={onCloseDetail} />
+      <MchoiceDetail open={openDetail} onClose={onCloseDetail} data={detailData} />
       <MchoiceEditForm open={openEdit} onClose={handleCloseEdit} initialValues={editItem} onSubmit={handleEdit} />
       <MchoiceAddForm open={open} onClose={onClose} onSubmit={handleAdd} />
 
@@ -244,9 +267,14 @@ const MultiplechoicePage = ({ initialData = [] }, metadata) => {
         }}
         pagination={{
           current: currentPage,
-          pageSize: 3,
+          pageSize: pageSize,
           total: data?.data?.metadata?.total || 0,
           onChange: handlePageChange,
+          onShowSizeChange: (current, size) => {
+            setPageSize(size);
+            setCurrentPage(1);
+          },
+          showSizeChanger: true,
         }}
       />
     </>
