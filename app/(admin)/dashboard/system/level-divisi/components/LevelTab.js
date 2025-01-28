@@ -7,7 +7,19 @@ import { CheckOutlined } from "@ant-design/icons";
 import { AddButton, DeleteButton, DetailButton, EditButton, ExportButton, PrintButton } from "@/components/ui/Buttons";
 // import GroupFrom from "./components/GroupFrom";
 import Link from "next/link";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import LevelAddForm from "./LevelAddForm";
+import LevelEditForm from "./LevelEditFrom";
+import ModalDelete from "@/components/ui/ModalDelete";
 const { Search } = Input;
+
+const fetchLevels = async (keyword = "") => {
+  const res = await fetch(`http://localhost:8001/api/v1/company/level?search=${keyword}`, {
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error("Failed to fetch levels");
+  return res.json();
+};
 
 const useStyle = createStyles(({ css, token }) => {
   const { antCls } = token;
@@ -27,41 +39,103 @@ const useStyle = createStyles(({ css, token }) => {
   };
 });
 
-const dataSource = [
-  { key: 1, no: 1, code: "baru" },
-  { key: 2, no: 2, code: "campuran-library" },
-  { key: 3, no: 3, code: "competency" },
-  { key: 4, no: 4, code: "deletquiz" },
-  { key: 5, no: 5, code: "div_junior_adm" },
-  { key: 6, no: 6, code: "div_junior_professional" },
-  { key: 7, no: 7, code: "div_junior_tech" },
-  { key: 8, no: 8, code: "div_manager_adm" },
-  { key: 9, no: 9, code: "div_manager_prof" },
-  { key: 10, no: 10, code: "div_manager_tech" },
-];
-
-const LevelTab = () => {
+const LevelTab = ({ levelData = [] }) => {
   const { styles } = useStyle();
+  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
+  const [openAddForm, setOpenAddForm] = useState(false);
+  const [openEditForm, setOpenEditForm] = useState(false);
+  const [editingLevel, setEditingLevel] = useState(null);
   const [formMode, setFormMode] = useState("add");
+  const [searchKeyword, setSearchKeyword] = useState("");
+
+  // Query untuk fetch data
+  const { data, isLoading } = useQuery({
+    queryKey: ["levels", searchKeyword],
+    queryFn: () => fetchLevels(searchKeyword),
+    initialData: { data: { list: levelData } }, // Sesuaikan dengan struktur API
+  });
+
+  // Mutation untuk tambah level
+  const addMutation = useMutation({
+    mutationFn: (newLevel) =>
+      fetch("http://localhost:8001/api/v1/company/level/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newLevel),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["levels"] });
+      setOpenAddForm(false);
+      message.success("Level berhasil ditambahkan");
+    },
+    onError: () => {
+      message.error("Gagal menambahkan level");
+    },
+  });
+
+  // Mutation untuk edit level
+  const editMutation = useMutation({
+    mutationFn: (updatedLevel) =>
+      fetch(`http://localhost:8001/api/v1/company/level/update/${updatedLevel.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedLevel),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["levels"] });
+      setOpenEditForm(false);
+      setEditingLevel(null);
+      message.success("Level berhasil diupdate");
+    },
+    onError: () => {
+      message.error("Gagal mengupdate level");
+    },
+  });
+
+  // Mutation untuk hapus level
+  const deleteMutation = useMutation({
+    mutationFn: (id) =>
+      fetch(`http://localhost:8001/api/v1/company/level/delete/${id}`, {
+        method: "DELETE",
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["levels"] });
+      message.success("Level berhasil dihapus");
+    },
+    onError: () => {
+      message.error("Gagal menghapus level");
+    },
+  });
 
   const onClose = () => {
     setOpen(false);
+    setOpenAddForm(false);
+    setOpenEditForm(false);
+    setEditingLevel(null);
   };
 
-  const handleEdit = () => {
-    setFormMode("edit");
-    setOpen(true);
+  const handleAdd = (values) => {
+    addMutation.mutate(values);
   };
 
-  const handleDetail = () => {
-    // setSelectedData(record); // Simpan data yang dipilih
-    setFormMode("detail");
-    setOpen(true);
+  const handleEdit = (record) => {
+    setEditingLevel(record);
+    setOpenEditForm(true);
   };
 
+  const handleEditSubmit = (values) => {
+    editMutation.mutate({ id: editingLevel.key, ...values });
+  };
+
+  const handleDelete = (id) => {
+    ModalDelete({
+      onOk: () => deleteMutation.mutate(id),
+      onCancel: () => console.log("Penghapusan dibatalkan"),
+    });
+  };
   const onSearch = (value) => {
-    console.log("Search value:", value);
+    setSearchKeyword(value);
   };
 
   const columns = [
@@ -73,9 +147,9 @@ const LevelTab = () => {
       fixed: "left",
     },
     {
-      title: "Code",
-      dataIndex: "code",
-      key: "code",
+      title: "Label",
+      dataIndex: "label",
+      key: "label",
       width: 150,
     },
     {
@@ -86,15 +160,28 @@ const LevelTab = () => {
       render: (_, record) => (
         <Row gutter={[8, 8]}>
           <Col>
-            <EditButton onClick={() => handleEdit()} />
+            <EditButton onClick={() => handleEdit(record)} />
           </Col>
           <Col>
-            <DeleteButton />
+            <DeleteButton onClick={() => handleDelete(record.key)} />
           </Col>
         </Row>
       ),
     },
   ];
+
+  const dataSource =
+    data?.data?.list?.map((item, index) => ({
+      key: item.id,
+      no: index + 1,
+      label: item.label,
+    })) ||
+    levelData.map((item, index) => ({
+      key: item.id,
+      no: index + 1,
+      label: item.label,
+    })) ||
+    [];
 
   return (
     <>
@@ -104,17 +191,19 @@ const LevelTab = () => {
         </Col>
         <Row gutter={[16, 16]}>
           <Col style={{ textAlign: "right" }}>
-            <AddButton text="Tambah Level" onClick={() => setOpen(true)} />
+            <AddButton text="Tambah Level" onClick={() => setOpenAddForm(true)} />
           </Col>
         </Row>
       </Row>
 
-      {/* <GroupFrom mode={formMode} open={open} onClose={onClose} title={formMode === "add" ? "Tambah Group" : formMode === "edit" ? "Edit Group" : "Detail Group"} /> */}
+      <LevelAddForm onClose={onClose} open={openAddForm} onSubmit={handleAdd} loading={addMutation.isLoading} />
+      <LevelEditForm onClose={onClose} open={openEditForm} onSubmit={handleEditSubmit} initialValues={editingLevel} loading={editMutation.isLoading} />
 
       <Table
         className={styles.customTable}
         columns={columns}
         dataSource={dataSource}
+        loading={isLoading}
         scroll={{
           x: "max-content",
           y: 55 * 5,
