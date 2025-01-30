@@ -8,6 +8,7 @@ export default async function Page() {
 
   const transformedData = posts.data.list.map((item) => ({
     id: item.id,
+    label: item.label,
     code: item.code,
     posisi: item.posisi,
     tingkatan: item.tingkatan,
