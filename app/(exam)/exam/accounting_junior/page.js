@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Typography, Flex, Button, Space, Divider, Modal } from "antd";
 const { Title, Text } = Typography;
 const { Content } = Layout;
-import Countdown from "@/components/ui/Countdown";
 import QuizHeader from "@/components/ui/QuizHeader";
 import { Layout } from "antd";
 import AccountingJuniorCard from "@/components/ui/card/AccountingJuniorCard";
@@ -20,9 +19,10 @@ const AccountingJuniorPage = () => {
 
   return (
     <>
-      <QuizHeader title="Online Test - Sub test 1" onGuideClick={showModal}>
-        <Countdown />
-      </QuizHeader>
+      <QuizHeader
+        title="Online Test - Sub test 1"
+        onGuideClick={showModal}
+      ></QuizHeader>
       <Content style={{ margin: "20px" }}>
         <Space>
           <Modal

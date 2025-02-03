@@ -25,7 +25,7 @@ const WptTaxandPage = () => {
         title="Online Test - WPT (Wonderlic Personal Test)"
         onGuideClick={showModal}
       >
-        <Countdown />
+        {/* <Countdown /> */}
       </QuizHeader>
       <Content style={{ margin: "20px" }}>
         <Space>
