@@ -1,0 +1,33 @@
+.button {
+  padding: 8px 20px; /* Ukuran tombol tetap */
+  min-width: 80px; /* Pastikan tombol memiliki lebar minimum */
+  border: none;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confused {
+  background-color: #E9BD1F;
+  border-radius: 18px;
+  padding: 8px 24px;
+}
+
+.previous {
+  background-color: #2B78C9;
+  border-top-left-radius: 18px;
+  border-bottom-left-radius: 18px;
+  padding: 8px 16px; /* Sesuaikan padding agar tidak terlalu lebar */
+}
+
+.next {
+  background-color: #2B78C9;
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
+  padding: 8px 16px; /* Sesuaikan padding agar tidak terlalu lebar */
+}

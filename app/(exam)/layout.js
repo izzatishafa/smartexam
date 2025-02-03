@@ -1,143 +1,52 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
-import Header from "@/components/ui/Header.js";
-import Sider from "@/components/ui/Sider.js";
-import "../globals.css";
 
-import { Layout, Spin } from "antd";
-const { Content, Footer } = Layout;
+import React from "react";
+import { Col, Layout, Row, theme, Progress } from "antd";
+import HeaderExam from "./components-layout/HeaderExam";
+import FooterExam from "./components-layout/FooterExam";
+import SiderExam from "./components-layout/SiderExam";
+import { ExamProvider } from "./exam/gti/subtest1/questions/contexts/ExamContext";
 
-const footerStyle = {
-  display: "flex",
-  justifyContent: "space-between",
-  textAlign: "center",
-  color: "#fff",
-  backgroundColor: "#D9D9D9",
-  position: "sticky",
-  bottom: 0,
-  zIndex: 1000,
-};
 
-const data = [
-  { text: "Answered", bulletColor: "#1B3042", bulletSize: "10px" },
-  { text: "Not Answered", bulletColor: "#c0c0c0", bulletSize: "10px" },
-  { text: "Confused", bulletColor: "#E3C72A", bulletSize: "10px" },
-];
+const { Content, Sider } = Layout;
 
-export default function ExamLayout({ children }) {
-  const [isLoading, setIsLoading] = useState(true);
+const ExamLayout = ({ children }) => {
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
 
-  // simulate loading delay
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 0);
-  }, []);
-
-  if (isLoading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          flexDirection: "column",
-        }}
-      >
-        <Spin size="large" />
-        <p>Loading...</p>
-      </div>
-    );
-  }
   return (
-    <html lang="en">
-      <body>
-        <Header />
+    <Layout style={{ minHeight: "100vh" }}>
+      <ExamProvider>
+        <HeaderExam />
         <Layout>
           <Layout>
-            <Content style={{ backgroundColor: "white" }}>
-              <AntdRegistry>{children}</AntdRegistry>
-            </Content>
-            <Footer style={footerStyle}>
+            <Content
+              style={{
+                padding: 32,
+                borderRadius: borderRadiusLG,
+                backgroundColor: "white",
+              }}
+            >
               <div
                 style={{
-                  display: "flex",
-                  justifyContent: "left",
-                  gap: "20px",
+                  padding: 24,
+                  minHeight: 360,
+                  background: colorBgContainer,
+                  borderRadius: borderRadiusLG,
+                  border: "1px solid #E0E0E0",
                 }}
               >
-                {data.map((item, index) => (
-                  <div key={index} style={{ display: "flex", alignItems: "center" }}>
-                    <span
-                      style={{
-                        display: "inline-block",
-                        width: item.bulletSize,
-                        height: item.bulletSize,
-                        backgroundColor: item.bulletColor,
-                        borderRadius: "50%",
-                        marginRight: "8px",
-                      }}
-                    ></span>
-                    <span style={{ color: "#000" }}>{item.text}</span>
-                  </div>
-                ))}
+                {children}
               </div>
-              <div style={{ display: "flex", gap: "15px" }}>
-                <button
-                  style={{
-                    outline: "none",
-                    border: "none",
-                    boxShadow: "none",
-                    backgroundColor: "#E3C72A",
-                    padding: "15px",
-                    borderRadius: "25px",
-                    color: "white",
-                    fontWeight: "bold",
-                    cursor: "pointer",
-                  }}
-                >
-                  Mark Confused
-                </button>
-                <button
-                  style={{
-                    outline: "none",
-                    border: "none",
-                    boxShadow: "none",
-                    backgroundColor: "#2D7CC1",
-                    padding: "15px",
-                    borderRadius: "25px 0px 0px 25px",
-                    color: "white",
-                    fontWeight: "bold",
-                    width: "80px",
-                    cursor: "pointer",
-                  }}
-                >
-                  Previous
-                </button>
-                <button
-                  style={{
-                    outline: "none",
-                    border: "none",
-                    boxShadow: "none",
-                    backgroundColor: "#2D7CC1",
-                    padding: "15px",
-                    borderRadius: "0px 25px 25px 0px",
-                    color: "white",
-                    fontWeight: "bold",
-                    width: "80px",
-                    cursor: "pointer",
-                  }}
-                >
-                  Next
-                </button>
-              </div>
-            </Footer>
+            </Content>
+            <FooterExam />
           </Layout>
-          <Sider />
+          <SiderExam />
         </Layout>
-      </body>
-    </html>
+      </ExamProvider>
+    </Layout>
   );
-}
+};
+
+export default ExamLayout;

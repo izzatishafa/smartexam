@@ -1,0 +1,79 @@
+/* components/LetterQuiz.module.css */
+.container {
+  padding: 20px;
+  max-width: 600px;
+}
+
+.question {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #000;
+}
+
+.letterContainer {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.letterGroup {
+  width: 80px;
+}
+
+.letterCard {
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.letterCard :global(.ant-card-body) {
+  padding: 0 !important;
+}
+
+.highlighted {
+  border: 2px solid #1890ff;
+}
+
+.upperLetter {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 500;
+  background: white;
+}
+
+.lowerLetter {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: #B8B8B8;
+  color: black;
+}
+
+.optionsContainer {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.option {
+  width: 80px;
+  height: 40px;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: white;
+}
+
+.option:hover {
+  border-color: #1890ff;
+}

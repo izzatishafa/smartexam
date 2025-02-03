@@ -59,17 +59,17 @@ const SessionEditForm = ({ title, open, onClose, initialValues, onSubmit }) => {
         </Row>
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item name="part" label="Part" rules={[{ required: true, message: "Please enter session part" }]}>
-              <Input placeholder="Masukkan bagian sesi" />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
             <Form.Item name="dateTime" label="DateTime" rules={[{ required: true, message: "Please select the date and time range" }]}>
               <DatePicker.RangePicker
                 style={{ width: "100%" }}
                 showTime // Tambahkan ini jika ingin menampilkan pemilih waktu
                 format="YYYY-MM-DD HH:mm:ss" // Format tampilan
               />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item name="part" label="Part" rules={[{ required: true, message: "Please enter session part" }]}>
+              <Input placeholder="Masukkan bagian sesi" />
             </Form.Item>
           </Col>
         </Row>

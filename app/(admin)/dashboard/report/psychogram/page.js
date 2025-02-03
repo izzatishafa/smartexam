@@ -75,9 +75,9 @@ const columns = [
   },
 ];
 
-// const dataSource = [
-//   { key: 1, no: 1, sesiTes: "TestCase", jumlahPeserta: "10 Peserta", status: "Selesai" },
-// ];
+const dataSource = [
+  { key: 1, no: 1, sesiTes: "TestCase", jumlahPeserta: "10 Peserta", status: "Selesai" },
+];
 
 const PsychogramPage = () => {
   const { styles } = useStyle();
@@ -104,7 +104,7 @@ const PsychogramPage = () => {
       <Table
         className={styles.customTable}
         columns={columns}
-        // dataSource={dataSource}
+        dataSource={dataSource}
         scroll={{
           x: "max-content",
           y: 55 * 5,
