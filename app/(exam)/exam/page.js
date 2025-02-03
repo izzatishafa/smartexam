@@ -10,8 +10,10 @@ import StoryCard from "@/components/ui/card/StoryCard";
 import GtiCard from "@/components/ui/card/GtiCard";
 import TableTestCard from "@/components/ui/card/TableTestCard";
 import { Layout } from "antd";
+
 const { Content } = Layout;
 const { Title, Text } = Typography;
+
 
 const Exam = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
