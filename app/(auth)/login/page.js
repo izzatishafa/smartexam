@@ -45,31 +45,34 @@ export default function Page() {
 
   return (
     <Flex
+      className="login-page"
       style={{
         height: "100vh",
-        margin: 0,
-        padding: 0,
+        width: "100%",
         flexDirection: "row",
         flexWrap: "wrap",
       }}
     >
       {/* Bagian Kiri - Intro */}
       <Flex
-        style={{
-          backgroundImage: 'url("/assets/white-texture-bg.png")',
-          width: "50%",
-          padding: 20,
-        }}
-        vertical
         className="left-panel"
+        vertical
+        style={{
+          flex: 1,
+          width: "50%",
+          padding: "20px",
+          backgroundImage: 'url("/assets/white-texture-bg.png")',
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
       >
         <Flex
           style={{
-            display: "flex",
+            border: "1px solid black",
+            flexDirection: "row",
             alignItems: "center",
-            gap: "10px",
-            marginBottom: "40px",
           }}
+          horizontal
         >
           <img
             src="/assets/logo-smartexam.png"
@@ -77,23 +80,53 @@ export default function Page() {
             style={{ width: 40 }}
           />
           <Text
-            style={{ fontSize: "22px", fontWeight: "bold", color: "#1B3042" }}
+            style={{
+              marginLeft: "16px",
+              fontSize: "22px",
+              fontWeight: "bold",
+              color: "#1B3042",
+            }}
           >
             SMARTEXAM
           </Text>
         </Flex>
-        <Flex vertical>
-          <Title level={1} style={{ color: "#1B3042", fontWeight: "bold" }}>
-            Welcome ...
-          </Title>
-          <Title level={4} style={{ color: "#1B3042", marginTop: "-10px" }}>
-            Di platform online test{" "}
-            <span style={{ fontWeight: "bold" }}>SMARTEXAM</span> oleh{" "}
-            <span style={{ fontWeight: "bold", color: "#E3C72A" }}>
-              PB TAXAND
-            </span>
-            !
-          </Title>
+        <Flex
+          style={{
+            border: "1px solid black",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "40px",
+          }}
+        >
+          <Flex style={{ flexDirection: "column", width: "100%" }} vertical>
+            <Title
+              className="title"
+              level={1}
+              style={{
+                marginTop: 0,
+                color: "#1B3042",
+                fontWeight: "bold",
+                textAlign: "left",
+              }}
+            >
+              Welcome ...
+            </Title>
+            <Title
+              level={4}
+              style={{
+                color: "#1B3042",
+                marginTop: "0",
+                textAlign: "left",
+              }}
+            >
+              Di platform online test{" "}
+              <span style={{ fontWeight: "bold" }}>SMARTEXAM</span> oleh{" "}
+              <span style={{ fontWeight: "bold", color: "#E3C72A" }}>
+                PB TAXAND
+              </span>
+              !
+            </Title>
+          </Flex>
           <img
             src="/assets/mobile-testing.png"
             style={{
@@ -105,28 +138,37 @@ export default function Page() {
             alt="Mobile Testing"
           />
         </Flex>
+        <div />
       </Flex>
 
       {/* Bagian Kanan - Login */}
       <Flex
+        className="right-panel"
         style={{
+          flex: 1,
           width: "50%",
-          backgroundColor: "#1B3042",
-          color: "white",
-          padding: 20,
+          padding: "80px",
+          height: "100%",
+          backgroundColor: "#1b3042",
           justifyContent: "center",
           alignItems: "center",
         }}
         vertical
-        className="right-panel"
       >
-        <Flex vertical style={{ width: "100%", maxWidth: "400px" }}>
+        <Flex
+          vertical
+          style={{
+            width: "100%",
+            maxWidth: "430px",
+            // border: "1px solid white",
+          }}
+        >
           <Title level={1} style={{ color: "white" }}>
             Login
           </Title>
           <Text
             style={{
-              fontSize: "18px",
+              fontSize: "16px",
               color: "white",
               marginBottom: "30px",
             }}
@@ -212,22 +254,53 @@ export default function Page() {
             </Form.Item>
           </Form>
         </Flex>
-      </Flex>
 
-      {/* Tambahkan CSS Responsif */}
-      <style jsx>{`
-        @media (max-width: 768px) {
-          .left-panel {
+        {/* CSS Responsif */}
+        <style jsx>{`
+          .login-page {
+            height: 100vh;
             width: 100%;
-            text-align: center;
-            padding: 10px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: stretch;
+          }
+          .left-panel {
+            width: 50%;
+            padding: 20px;
           }
           .right-panel {
-            width: 100%;
-            padding: 30px;
+            width: 50%;
+            color: white;
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
           }
-        }
-      `}</style>
+          @media (max-width: 768px) {
+            .login-page {
+              flex-direction: column;
+            }
+            .left-panel,
+            .right-panel {
+              border: 2px solid red;
+              width: 100%;
+            }
+            .left-panel {
+              text-align: center;
+              padding: 10px;
+              .title {
+                fontsize: "22px";
+              }
+            }
+
+            .right-panel {
+              padding: 30px;
+            }
+          }
+        `}</style>
+      </Flex>
     </Flex>
   );
 }
