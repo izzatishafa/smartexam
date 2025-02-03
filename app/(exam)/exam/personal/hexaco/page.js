@@ -20,9 +20,10 @@ const Hexaco = () => {
 
   return (
     <>
-      <QuizHeader title="Online Test - HEXACO Test" onGuideClick={showModal}>
-        <Countdown />
-      </QuizHeader>
+      <QuizHeader
+        title="Online Test - HEXACO Test"
+        onGuideClick={showModal}
+      ></QuizHeader>
       <Content style={{ margin: "20px" }}>
         <Space>
           <Modal

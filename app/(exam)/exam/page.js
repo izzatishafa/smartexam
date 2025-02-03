@@ -2,13 +2,7 @@
 import React, { useState } from "react";
 import { Typography, Card, Button, Space, Divider, Modal } from "antd";
 import Countdown from "@/components/ui/Countdown";
-import BasicCard from "@/components/ui/card/BasicCard";
-import DiscCard from "@/components/ui/card/DiscCard";
-import WptCard from "@/components/ui/card/WptCard";
-import HexacoCard from "@/components/ui/card/HexacoCard";
 import StoryCard from "@/components/ui/card/StoryCard";
-import GtiCard from "@/components/ui/card/GtiCard";
-import TableTestCard from "@/components/ui/card/TableTestCard";
 import { Layout } from "antd";
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -61,7 +55,7 @@ const Exam = () => {
           >
             Grammar - Question 1
           </Title>
-          <Countdown />
+          {/* <Countdown /> */}
         </Space>
         <Divider
           style={{ color: "lightgray", marginTop: "0px", marginBottom: "15px" }}
@@ -69,7 +63,7 @@ const Exam = () => {
         <Space
           style={{ width: "100%", justifyContent: "end", marginBottom: "15px" }}
         >
-          <Button type="primary" onClick={showModal}>
+          <Button variant="outlined" onClick={showModal}>
             Panduan
           </Button>
           <Modal
@@ -105,16 +99,16 @@ const Exam = () => {
               <li>Klik Submit setelah selesai.</li>
             </ol>
             <Text
-                style={{
-                  color: "#2F2F2F",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                  margin: 2,
-                }}
-              >
-                Semoga Sukses! 🤩
-              </Text>
+              style={{
+                color: "#2F2F2F",
+                fontSize: "16px",
+                fontWeight: "bold",
+                textAlign: "center",
+                margin: 2,
+              }}
+            >
+              Semoga Sukses! 🤩
+            </Text>
           </Modal>
         </Space>
         <StoryCard />

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Typography, Space, Modal, Card, Button } from "antd";
 const { Title, Text } = Typography;
 const { Content } = Layout;
-import Countdown from "@/components/ui/Countdown";
 import QuizHeader from "@/components/ui/QuizHeader";
 import { Layout } from "antd";
 import DiscRadioQuestion from "@/components/ui/DiscRadioQuestion";
@@ -72,9 +71,7 @@ const Disc = () => {
         title="Online Test - DISC (Dominance, Influence, Steadiness, Conscientiousness)"
         onGuideClick={showModal}
         hideGuideButton={showInstructions}
-      >
-        <Countdown />
-      </QuizHeader>
+      ></QuizHeader>
       <Content style={{ margin: "20px" }}>
         {showInstructions ? (
           <Card>

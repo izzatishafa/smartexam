@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-import { Button, Typography } from "antd";
+import React, { useState } from "react";
+import { Button, Flex, Typography } from "antd";
 const { Title, Text } = Typography;
 import { HomeOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
@@ -8,31 +8,150 @@ import { useRouter } from "next/navigation";
 const EndPage = () => {
   const router = useRouter();
 
+  const [status, setStatus] = useState("time-up-subtest");
+
   const handleClick = () => {
     router.push("/");
   };
   return (
-    <Typography style={{ textAlign: "center", paddingTop: "80px" }}>
-      <Title level={1}>Terima Kasih</Title>
-      <Text style={{ textAlign: "center", fontSize: "20px" }}>
-        Anda sudah mengerjakan test online{" "}
-        <span style={{ fontWeight: "bold" }}>SMARTEXAM</span> oleh{" "}
-        <span style={{ fontWeight: "bold", color: "#E3C72A" }}>PB TAXAND </span>
-        !
-        <br />
-        Semoga sukses untuk Anda ! ✨
-      </Text>
-      <br />
-      <Button
-        style={{ width: "fit-content", marginTop: "1rem" }}
-        type="primary"
-        color="orange"
-        icon={<HomeOutlined />}
-        onClick={handleClick}
+    <Flex style={{ height: "80vh" }} justify="center" align="middle">
+      <div
+        style={{
+          height: "100%",
+          padding: "20px",
+          backgroundColor: "white",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
-        Ke Beranda
-      </Button>
-    </Typography>
+        {/* all-done */}
+        {status === "all-done" && (
+          <Flex
+            style={{
+              width: "100%",
+              flexDirection: "column",
+              height: "fit-content",
+              justifyContent: "center",
+              alignItems: "center",
+              alignContent: "center",
+              backgroundColor: "white",
+            }}
+          >
+            <Title level={1}>Terima Kasih</Title>
+            <Text style={{ textAlign: "center", fontSize: "20px" }}>
+              Anda sudah mengerjakan test online{" "}
+              <span style={{ fontWeight: "bold" }}>SMARTEXAM</span> oleh{" "}
+              <span style={{ fontWeight: "bold", color: "#E3C72A" }}>
+                PB TAXAND{" "}
+              </span>
+              !
+              <br />
+              Semoga sukses untuk Anda ! ✨
+            </Text>
+            <br />
+            <Button
+              style={{ width: "fit-content", marginTop: "1rem" }}
+              type="primary"
+              color="orange"
+              icon={<HomeOutlined />}
+              onClick={handleClick}
+            >
+              Ke Beranda
+            </Button>
+          </Flex>
+        )}
+        {/* all-done */}
+
+        {/* time-up */}
+        {status === "time-up" && (
+          <Flex
+            style={{
+              width: "100%",
+              flexDirection: "column",
+              height: "fit-content",
+              justifyContent: "center",
+              alignItems: "center",
+              alignContent: "center",
+              backgroundColor: "white",
+            }}
+          >
+            <Title level={2} style={{ marginTop: 0 }}>
+              Waktu Mengerjakan Tes Sudah Habis
+            </Title>
+            <Text style={{ marginTop: "1rem", fontSize: "1.1rem" }}>
+              Jawaban yang telah Anda isi akan otomatis tersimpan.
+            </Text>
+            <Text
+              style={{
+                marginTop: "1rem",
+                fontSize: "1.1rem",
+                textAlign: "center",
+              }}
+            >
+              Terima kasih atas partisipasi Anda! Silakan tunggu hasilnya <br />{" "}
+              atau hubungi tim kami jika ada pertanyaan. 😊
+            </Text>
+            <Button
+              style={{
+                marginTop: "2rem",
+                width: "fit-content",
+                padding: "1rem 8rem",
+              }}
+              type="primary"
+              color="qhite"
+              onClick={handleClick}
+            >
+              Akhiri Test
+            </Button>
+          </Flex>
+        )}
+        {/* time-up */}
+
+        {/* time-up-subtest */}
+        {status === "time-up-subtest" && (
+          <Flex
+            style={{
+              width: "100%",
+              flexDirection: "column",
+              height: "fit-content",
+              justifyContent: "center",
+              alignItems: "center",
+              alignContent: "center",
+              backgroundColor: "white",
+            }}
+          >
+            <Title level={2} style={{ marginTop: 0 }}>
+              Waktu Mengerjakan Tes Sudah Habis
+            </Title>
+            <Text
+              style={{
+                marginTop: "1rem",
+                fontSize: "1.1rem",
+                textAlign: "center",
+              }}
+            >
+              Waktu pengerjaan tes sudah habis. <br /> Jawaban yang telah Anda
+              isi akan otomatis tersimpan.
+            </Text>
+            <Button
+              style={{
+                marginTop: "2rem",
+                width: "fit-content",
+                padding: "1rem 8rem",
+                fontSize: "1.1rem",
+              }}
+              type="primary"
+              color="qhite"
+              onClick={handleClick}
+            >
+              Akhiri Test
+            </Button>
+          </Flex>
+        )}
+        {/* time-up-subtest */}
+      </div>
+    </Flex>
   );
 };
 
