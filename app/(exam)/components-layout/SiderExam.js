@@ -69,9 +69,10 @@ const SiderExam = () => {
               let backgroundColor = "#f5f5f5"; // default
               let color = "#000";
 
-              if (confusedQuestions.includes(question.id)) {
-                backgroundColor = "#ffd700"; // confused - kuning
-              } else if (answers[question.id] !== undefined) {
+              // if (confusedQuestions.includes(question.id)) {
+              //   backgroundColor = "#ffd700"; // confused - kuning
+              // } else 
+              if (answers[question.id] !== undefined) {
                 backgroundColor = "#36454F"; // answered - abu-abu gelap
                 color = "#fff";
               }

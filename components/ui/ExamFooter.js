@@ -28,7 +28,7 @@ const ExamFooter = () => {
   const legendItems = [
     { text: "Answered", color: "#1B3042" },
     { text: "Not answered", color: "#D9D9D9" },
-    { text: "Confused", color: "#E3C72A" },
+    // { text: "Confused", color: "#E3C72A" },
   ];
 
   return (
@@ -53,7 +53,7 @@ const ExamFooter = () => {
         <Button type="primary" icon={<LeftOutlined />} style={{ marginRight: "8px", backgroundColor: "#1677ff" }}>
           Previous
         </Button>
-        <Button
+        {/* <Button
           className="mark-confused"
           style={{
             marginRight: "8px",
@@ -63,7 +63,7 @@ const ExamFooter = () => {
           }}
         >
           Mark confused
-        </Button>
+        </Button> */}
         <Button type="primary" icon={<RightOutlined />} style={{ backgroundColor: "#1677ff" }}>
           Next
         </Button>

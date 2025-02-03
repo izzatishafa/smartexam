@@ -7,19 +7,19 @@ const ExamContext = createContext();
 
 export const ExamProvider = ({ children }) => {
   const [currentQuestion, setCurrentQuestion] = useState(1);
-  const [confusedQuestions, setConfusedQuestions] = useState([]);
+  // const [confusedQuestions, setConfusedQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
 
-  const markConfused = () => {
-    setConfusedQuestions(prev => {
-      const isConfused = prev.includes(currentQuestion);
-      if (isConfused) {
-        return prev.filter(q => q !== currentQuestion);
-      } else {
-        return [...prev, currentQuestion];
-      }
-    });
-  };
+  // const markConfused = () => {
+  //   setConfusedQuestions(prev => {
+  //     const isConfused = prev.includes(currentQuestion);
+  //     if (isConfused) {
+  //       return prev.filter(q => q !== currentQuestion);
+  //     } else {
+  //       return [...prev, currentQuestion];
+  //     }
+  //   });
+  // };
 
   const setAnswer = (questionId, answer) => {
     setAnswers((prev) => ({
@@ -45,10 +45,10 @@ export const ExamProvider = ({ children }) => {
     <ExamContext.Provider
       value={{
         currentQuestion,
-        confusedQuestions,
+        // confusedQuestions,
         answers,
         questionData,
-        markConfused,
+        // markConfused,
         setAnswer,
         goToNext,
         goToPrevious,
