@@ -67,6 +67,7 @@ const NumberOption = ({ number, isSelected, onClick }) => (
 );
 
 const GtiQuestion1 = ({ data, onAnswer, currentAnswer }) => {
+  
   return (
     <>
       <Text style={{ fontSize: 24 }}>

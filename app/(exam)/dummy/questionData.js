@@ -1,6 +1,7 @@
 export const questionData = [
   {
     id: 1,
+    type: "GTI",
     question: "Berapa jumlah pasangan huruf yang memiliki kesamaan?",
     letters: [
       { upperLetter: "Q", lowerLetter: "r" },
@@ -12,6 +13,7 @@ export const questionData = [
   },
   {
     id: 2,
+    type: "GTI",
     question: "Manakah pasangan huruf yang tidak memiliki kemiripan dengan yang lain?",
     letters: [
       { upperLetter: "P", lowerLetter: "d" },
@@ -23,6 +25,7 @@ export const questionData = [
   },
   {
     id: 3,
+    type: "GTI",
     question: "Tentukan pasangan huruf yang memiliki rotasi 180 derajat!",
     letters: [
       { upperLetter: "M", lowerLetter: "w" },
@@ -34,6 +37,7 @@ export const questionData = [
   },
   {
     id: 4,
+    type: "GTI",
     question: "Berapa banyak pasangan huruf yang memiliki cerminan vertikal?",
     letters: [
       { upperLetter: "A", lowerLetter: "v" },
@@ -45,6 +49,7 @@ export const questionData = [
   },
   {
     id: 5,
+    type: "GTI",
     question: "Manakah pasangan huruf yang memiliki cerminan horizontal?",
     letters: [
       { upperLetter: "B", lowerLetter: "d" },
@@ -54,4 +59,31 @@ export const questionData = [
     ],
     options: [1, 2, 3, 4],
   },
+  {
+    id: 6,
+    type: "GTITutorial",
+    question: "Manakah pasangan huruf yang memiliki cerminan horizontal?",
+    letters: [
+      { upperLetter: "B", lowerLetter: "d" },
+      { upperLetter: "C", lowerLetter: "c" },
+      { upperLetter: "K", lowerLetter: "k" },
+      { upperLetter: "L", lowerLetter: "l" },
+    ],
+    options: [1, 2, 3, 4],
+    answer: 1,
+  },
+  {
+    id: 7,
+    type: "GTITutorial",
+    question: "Manakah pasangan huruf yang memiliki cerminan horizontal?",
+    letters: [
+      { upperLetter: "B", lowerLetter: "d" },
+      { upperLetter: "C", lowerLetter: "c" },
+      { upperLetter: "K", lowerLetter: "k" },
+      { upperLetter: "L", lowerLetter: "l" },
+    ],
+    options: [1, 2, 3, 4],
+    answer: 3,
+  },
+  
 ];

@@ -16,8 +16,8 @@ const GtiTutorial1 = ({ upperRowLetters = [], lowerRowLetters = [], answers = []
     };
 
   return (
-    <Card>
-      <Row gutter={[16, 16]} align="middle" justify="center" style={{ marginTop: "20px" }}>
+    <>
+      <Row gutter={[16, 16]} align="middle" justify="center">
         {upperRowLetters.map((letter, index) => (
           <Col span={4} key={`upper-${index}`}>
             <Title level={1} style={{ textAlign: "center" }}>
@@ -72,7 +72,7 @@ const GtiTutorial1 = ({ upperRowLetters = [], lowerRowLetters = [], answers = []
           </Col>
         </Row>
       )}
-    </Card>
+    </>
   );
 };
 

@@ -1,20 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
-import { Layout, Row, Col, Progress } from "antd";
+import { Layout, Row, Col, Progress, Button } from "antd";
 import Title from "antd/es/typography/Title";
 import { theme } from "antd";
-import { useExam } from "../exam/gti/subtest1/questions/contexts/ExamContext";
+import { useExam } from "../contexts/ExamContext";
 
 const { Sider } = Layout;
 
 const SiderExam = () => {
-  const { currentQuestion, confusedQuestions, answers, questionData, goToQuestion } = useExam();
+  const { currentQuestion, confusedQuestions, handleSubmit, answers, questionData, goToQuestion } = useExam();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-
 
   const getProgress = () => {
     const answered = Object.keys(answers).length;
@@ -71,7 +70,7 @@ const SiderExam = () => {
 
               // if (confusedQuestions.includes(question.id)) {
               //   backgroundColor = "#ffd700"; // confused - kuning
-              // } else 
+              // } else
               if (answers[question.id] !== undefined) {
                 backgroundColor = "#36454F"; // answered - abu-abu gelap
                 color = "#fff";
@@ -100,6 +99,9 @@ const SiderExam = () => {
               );
             })}
           </div>
+          <Button type="primary" shape="round" onClick={handleSubmit} style={{ marginTop: "20px" }}>
+            Submit Quiz
+          </Button>
         </Col>
       </Row>
     </Sider>
