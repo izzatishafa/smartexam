@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Col, Layout, Row, theme, Progress } from "antd";
+import { Layout, theme } from "antd";
 import HeaderExam from "./components-layout/HeaderExam";
 import FooterExam from "./components-layout/FooterExam";
 import SiderExam from "./components-layout/SiderExam";
@@ -11,7 +11,7 @@ const { Content, Sider } = Layout;
 
 const ExamLayout = ({ children }) => {
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { borderRadiusLG },
   } = theme.useToken();
 
   return (
@@ -22,22 +22,12 @@ const ExamLayout = ({ children }) => {
           <Layout>
             <Content
               style={{
-                padding: 32,
+                padding: "0 10px 20px 10px",
                 borderRadius: borderRadiusLG,
                 backgroundColor: "white",
               }}
             >
-              <div
-                style={{
-                  padding: 24,
-                  minHeight: 360,
-                  background: colorBgContainer,
-                  borderRadius: borderRadiusLG,
-                  border: "1px solid #E0E0E0",
-                }}
-              >
-                {children}
-              </div>
+              {children}
             </Content>
             <FooterExam />
           </Layout>

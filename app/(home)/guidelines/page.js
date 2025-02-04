@@ -9,10 +9,12 @@ import {
   Space,
   message,
 } from "antd";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 const { Title, Text } = Typography;
 
 const Guidelines = () => {
-  const router = router();
+  const router = useRouter();
   const [checkedItems, setCheckedItems] = useState({
     item1: false,
     item2: false,

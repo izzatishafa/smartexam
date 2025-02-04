@@ -1,16 +1,14 @@
 "use client";
 import React, { useState } from "react";
-import { Typography, Space, Modal, Card, Button } from "antd";
+import { Typography, Space, Modal, Card, Button, Flex } from "antd";
 const { Title, Text } = Typography;
 const { Content } = Layout;
-import QuizHeader from "@/components/ui/QuizHeader";
 import { Layout } from "antd";
-import DiscRadioQuestion from "@/components/ui/DiscRadioQuestion";
+// import DiscRadioQuestion from "@/components/ui/DiscRadioQuestion";
 import DiscCard from "@/components/ui/card/DiscCard";
 
-const Disc = () => {
+const DiscPage = ({ title }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showInstructions, setShowInstructions] = useState(true);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -41,7 +39,7 @@ const Disc = () => {
   const data = [
     {
       key: "1",
-      pref: "Mudah bergaul, menyenangkan.",
+      pref: "Mudah bergaul, menyenangkan. kcsjacasjcnakjsnckascnaksjcnkascnaksj",
       most: false,
       least: false,
     },
@@ -67,14 +65,33 @@ const Disc = () => {
 
   return (
     <>
-      <QuizHeader
-        title="Online Test - DISC (Dominance, Influence, Steadiness, Conscientiousness)"
-        onGuideClick={showModal}
-        hideGuideButton={showInstructions}
-      ></QuizHeader>
       <Content style={{ margin: "20px" }}>
-        {showInstructions ? (
-          <Card>
+        <Flex
+          style={{
+            width: "100%",
+            justifyContent: "flex-end",
+            backgroundColor: "white",
+            margin: "0 10px 20px 0",
+          }}
+        >
+          <Button variant="outlined" color="green" onClick={showModal}>
+            Panduan
+          </Button>
+        </Flex>
+        <div
+          style={{
+            padding: "10px 20px",
+            minHeight: 360,
+            background: "white",
+            borderRadius: "1rem",
+            border: "1px solid #E0E0E0",
+          }}
+        >
+          <DiscCard data={data}></DiscCard>
+        </div>
+        <Modal
+          width={700}
+          title={
             <Title
               level={5}
               style={{
@@ -82,132 +99,84 @@ const Disc = () => {
                 fontSize: "18px",
                 fontWeight: "bold",
                 textAlign: "center",
-                marginBottom: "2rem",
+                margin: 2,
               }}
             >
-              Petunjuk Pengerjaan
+              Petunjuk Pengerjaan DISC 🧠 :
             </Title>
-            <ol
+          }
+          open={isModalOpen}
+          onCancel={handleClose}
+          footer={null}
+        >
+          <Flex style={{ flexDirection: "column" }}>
+            <ul
               style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: "10px",
+                gap: "6px",
+                marginBottom: "20px",
+              }}
+            >
+              <li>
+                <Text>Pilihlah salah satu opsi yang sesuai dengan Anda</Text>
+              </li>
+              <li>
+                <Text>
+                  Jawab sesuai dengan kriteria diri Anda Setiap soal memiliki 4
+                  pertanyaan
+                </Text>
+              </li>
+              <li>
+                <Text>Setiap soal memiliki 4 pertanyaan</Text>
+              </li>
+            </ul>
+            <Text style={{ marginLeft: "20px", fontWeight: "bold" }}>
+              Pilihan :
+            </Text>
+            <ul
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "6px",
+                marginBottom: "20px",
               }}
             >
               <li>
                 <Text>
-                  Saat mengerjakan, bayangkan Anda berada dalam situasi kerja
+                  M (Most): Yang paling sesuai dan paling menggambarkan Anda.
                 </Text>
               </li>
               <li>
                 <Text>
-                  Dalam setiap persoalan terdapat 4 (empat) pernyataan
+                  L (Least): Yang paling tidak sesuai dan tidak menggambarkan
+                  Anda
                 </Text>
               </li>
-              <li>
-                <Text>
-                  Tugas Anda adalah memilih pernyataan yang dianggap{" "}
-                  <b>Paling Menggambarkan </b> diri Anda dengan memberi tanda
-                  pada kolom &quot;<b>M</b>&quot; (MOST) dan memilih 1 (satu)
-                  pernyataan yang dianggap<b> Paling Tidak Menggambarkan </b>{" "}
-                  diri Anda dengan memberi tanda pada kolom &quot;<b>L</b>
-                  &quot; (LEAST)
-                </Text>
-              </li>
-              <li>
-                <Text>
-                  jadi untuk setiap pernyataan terdapat 1 (satu) buah pilihan
-                  &quot;<b>M</b>&quot; (MOST) dan 1 (satu) buah pilihan &quot;
-                  <b>L</b>&quot; (LEAST).
-                </Text>
-              </li>
-              <Text>Contoh Soal :</Text>
-              <DiscRadioQuestion
-                defaultMost="1"
-                defaultLeast="3"
-                dataSource={dataSource}
-              />
-              <Button
-                type="primary"
-                style={{ marginTop: "1rem", width: "12rem" }}
-                onClick={() => setShowInstructions(false)}
-              >
-                Mulai Pengerjaan
-              </Button>
-            </ol>
-          </Card>
-        ) : (
-          <DiscCard data={data}></DiscCard>
-        )}
-        {/* </Modal> */}
+            </ul>
+            <Text style={{ marginLeft: "20px" }}>
+              ✨{" "}
+              <span style={{ fontSize: "1rem", fontWeight: "bold" }}>
+                Tips:
+              </span>{" "}
+              Pastikan Anda menjawab dengan jujur sesuai dengan keadaan diri
+              Anda !
+            </Text>
+            <Text
+              style={{
+                marginTop: "1rem",
+                fontSize: "1rem",
+                fontWeight: "bold",
+                marginLeft: "20px",
+              }}
+            >
+              Semoga sukses! 💡
+            </Text>
+          </Flex>
+        </Modal>
       </Content>
-      <Modal
-        width={1000}
-        style={{
-          top: 20,
-        }}
-        title={
-          <Title
-            level={5}
-            style={{
-              color: "#2F2F2F",
-              fontSize: "18px",
-              fontWeight: "bold",
-              textAlign: "center",
-              margin: 2,
-            }}
-          >
-            Petunjuk Pengerjaan
-          </Title>
-        }
-        open={isModalOpen}
-        onCancel={handleClose}
-        footer={null}
-      >
-        <Card>
-          <ol
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "10px",
-            }}
-          >
-            <li>
-              <Text>
-                Saat mengerjakan, bayangkan Anda berada dalam situasi kerja
-              </Text>
-            </li>
-            <li>
-              <Text>Dalam setiap persoalan terdapat 4 (empat) pernyataan</Text>
-            </li>
-            <li>
-              <Text>
-                Tugas Anda adalah memilih pernyataan yang dianggap{" "}
-                <b>Paling Menggambarkan </b> diri Anda dengan memberi tanda pada
-                kolom &quot;<b>M</b>&quot; (MOST) dan memilih 1 (satu)
-                pernyataan yang dianggap<b> Paling Tidak Menggambarkan </b> diri
-                Anda dengan memberi tanda pada kolom &quot;<b>L</b>
-                &quot; (LEAST)
-              </Text>
-            </li>
-            <li>
-              <Text>
-                jadi untuk setiap pernyataan terdapat 1 (satu) buah pilihan
-                &quot;<b>M</b>&quot; (MOST) dan 1 (satu) buah pilihan &quot;
-                <b>L</b>&quot; (LEAST).
-              </Text>
-            </li>
-            <Text>Contoh Soal :</Text>
-            <DiscRadioQuestion
-              defaultMost="1"
-              defaultLeast="3"
-              dataSource={dataSource}
-            />
-          </ol>
-        </Card>
-      </Modal>
     </>
   );
 };
 
-export default Disc;
+export default DiscPage;

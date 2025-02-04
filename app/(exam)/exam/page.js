@@ -8,7 +8,6 @@ import { Layout } from "antd";
 const { Content } = Layout;
 const { Title, Text } = Typography;
 
-
 const Exam = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 

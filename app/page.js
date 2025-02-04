@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Col, Row, Typography } from "antd";
+import { Col, Flex, Row, Typography } from "antd";
 import HeaderComponent from "@/components/ui/Header";
 import QuizBankCard from "@/components/ui/card/QuizBankCard";
 
@@ -22,22 +22,35 @@ const HomePage = () => {
   return (
     <>
       <HeaderComponent />
-      <Row
+      <Flex
         style={{
-          backgroundColor: "lightgray",
-          backgroundImage: "url('/assets/white-texture-bg.png')",
+          backgroundColor: "white",
           width: "100%",
           minHeight: "100vh",
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
-          alignItems: "flex-start",
+          alignItems: "center",
           paddingTop: "2rem",
         }}
       >
         <Row
+          style={{
+            width: "90%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: "2rem",
+          }}
+        >
+          <Title level={2} style={{ marginTop: "0.5rem" }}>
+            Selamat Datang di Online Test SMARTEXAM
+          </Title>
+        </Row>
+        <Row
           gutter={[24, 16]} // Horizontal (24px) and Vertical (16px) spacing
           style={{
-            width: "90%", // Adjusted for smaller screens
+            width: "90%",
             maxWidth: "1200px", // Prevents too wide on large screens
             display: "flex",
             justifyContent: "space-between",
@@ -52,13 +65,13 @@ const HomePage = () => {
             lg={6}
             xl={6}
             style={{
+              height: "330px",
               backgroundColor: "white",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "fit-content",
+              justifyContent: "space-between",
+              alignItems: "end",
               padding: "1rem",
-              border: "4px solid orange",
+              border: "1px solid #1B3042",
+              borderRadius: "10px",
             }}
           >
             <Col
@@ -66,33 +79,43 @@ const HomePage = () => {
                 width: "100%",
                 height: "100%",
                 backgroundColor: "white",
-                border: "1px solid white",
+                // border: "1px solid black",
                 display: "flex",
                 flexDirection: "column",
-                gap: "1rem",
+                justifyContent: "space-between", // Perubahan utama untuk sebaran vertikal
+                alignItems: "stretch",
+                padding: "2rem 0",
               }}
             >
               <div>
                 <Title
                   level={5}
-                  style={{ marginTop: "0.25rem", color: "gray" }}
+                  style={{
+                    marginTop: "0.25rem",
+                    marginBottom: 0,
+                    color: "gray",
+                  }}
                 >
-                  Nama Peserta
+                  Nama Peserta :
                 </Title>
                 <Text style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-                  John Doe
+                  Gwkerenbgt15
                 </Text>
               </div>
 
               <div>
                 <Title
                   level={5}
-                  style={{ marginTop: "0.25rem", color: "gray" }}
+                  style={{
+                    marginTop: "0.25rem",
+                    marginBottom: 0,
+                    color: "gray",
+                  }}
                 >
-                  Kode Peserta
+                  Kode Peserta :
                 </Title>
                 <Text style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-                  1101110111
+                  0123412
                 </Text>
               </div>
 
@@ -103,11 +126,9 @@ const HomePage = () => {
                 >
                   Waktu Ujian
                 </Title>
-                <Text>9 January 2025, 09:06:00</Text>
-                <br />
-                <Text style={{ margin: "0.5rem 0" }}>sampai</Text>
-                <br />
-                <Text>30 January 2025, 09:06:00</Text>
+                <Text style={{ fontWeight: "bold" }}>
+                  03/02/2025, 07.00 - 09.00 WIB
+                </Text>
               </div>
             </Col>
           </Col>
@@ -125,6 +146,7 @@ const HomePage = () => {
               justifyContent: "center",
               alignItems: "center",
               height: "fit-content",
+              padding: "0",
             }}
           >
             <div
@@ -134,24 +156,10 @@ const HomePage = () => {
                 backgroundColor: "transparent",
               }}
             >
-              <Col span={25}>
-                <Row
-                  style={{
-                    height: "fit-content",
-                    backgroundColor: "white",
-                    border: "4px solid orange",
-                    marginBottom: "2rem",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Title level={4} style={{ marginTop: "0.5rem" }}>
-                    Selamat datang di SmartExam
-                  </Title>
-                </Row>
+              <Col span={25} style={{ rowGap: "2rem" }}>
                 {QuizBankList.map((item, key) => (
                   <QuizBankCard
+                    isPackage={false}
                     key={key}
                     title={item.title}
                     route={item.route}
@@ -161,7 +169,7 @@ const HomePage = () => {
             </div>
           </Col>
         </Row>
-      </Row>
+      </Flex>
     </>
   );
 };

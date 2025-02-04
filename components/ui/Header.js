@@ -1,8 +1,20 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Layout, Divider, Flex, Typography, Space, Dropdown, Button, theme, Row, Col } from "antd";
+import {
+  Layout,
+  Divider,
+  Flex,
+  Typography,
+  Space,
+  Dropdown,
+  Button,
+  theme,
+  Row,
+  Col,
+} from "antd";
 import { CaretDownFilled } from "@ant-design/icons";
 import "../../app/globals.css";
+import { useRouter } from "next/navigation";
 
 const { Header } = Layout;
 const { Text } = Typography;
@@ -25,11 +37,16 @@ const items = [
 export default function HeaderComponent() {
   const { useToken } = theme;
   const { token } = useToken();
-  const [examTitle, setExamTitle] = useState("Online Test - Bahasa Inggris University");
+  const [examTitle, setExamTitle] = useState(
+    "Online Test - Bahasa Inggris University"
+  );
   const [timeLeft, setTimeLeft] = useState("Timer Left"); // Ini bisa diubah menjadi perhitungan waktu yang sebenarnya
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(58);
   const [seconds, setSeconds] = useState(49);
+
+  const router = useRouter();
+  const isHomePage = router.pathname === "/";
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -78,7 +95,14 @@ export default function HeaderComponent() {
         }}
       >
         <Row style={{ width: "100%" }}>
-          <Row justify="space-between" style={{ width: "100%", padding: "15px 20px" }}>
+          <Row
+            justify="space-between"
+            style={{
+              width: "100%",
+              padding: "15px 20px",
+              borderBottom: "1px solid #BFBFBF",
+            }}
+          >
             <Row>
               <Row
                 style={{
@@ -87,7 +111,11 @@ export default function HeaderComponent() {
                 }}
                 horizontal="true"
               >
-                <img src="/assets/logo-smartexam.png" alt="logo" style={{ width: 35 }} />
+                <img
+                  src="/assets/logo-smartexam.png"
+                  alt="logo"
+                  style={{ width: 35 }}
+                />
                 <Text
                   style={{
                     fontSize: "25px",
@@ -125,13 +153,17 @@ export default function HeaderComponent() {
                     gap: "10px",
                   }}
                 >
-                  <img src="/assets/profile-pict.png" alt="profile picture" style={{ width: 40 }} />
+                  <img
+                    src="/assets/profile-pict.png"
+                    alt="profile picture"
+                    style={{ width: 40 }}
+                  />
                   <CaretDownFilled />
                 </a>
               </Dropdown>
             </Row>
           </Row>
-          <Row style={{ width: "100%", height: "60px" }}>
+          <Row style={{ width: "100%", height: "60px", display: "none" }}>
             <Row
               style={{
                 backgroundColor: "#1B3042",
@@ -139,7 +171,10 @@ export default function HeaderComponent() {
                 width: "100%",
               }}
             >
-              <Col flex={5} style={{ height: 50, borderRight: "1px solid #a9a9a9" }}></Col>
+              <Col
+                flex={5}
+                style={{ height: 50, borderRight: "1px solid #a9a9a9" }}
+              ></Col>
               <Col flex={1.66} style={{ height: 50 }}></Col>
             </Row>
             <Row align="middle" style={{ height: "60px", width: "100%" }}>
@@ -178,11 +213,51 @@ export default function HeaderComponent() {
                     alignItems: "center",
                   }}
                 >
-                  <span style={{ fontSize: "18px", fontWeight: "500", gridColumn: "1" }}>{formatNumber(hours)}</span>
-                  <span style={{ fontSize: "18px", fontWeight: "500", margin: "0 10px" }}>:</span>
-                  <span style={{ fontSize: "18px", fontWeight: "500", gridColumn: "3" }}>{formatNumber(minutes)}</span>
-                  <span style={{ fontSize: "18px", fontWeight: "500", margin: "0 10px" }}>:</span>
-                  <span style={{ fontSize: "18px", fontWeight: "500", gridColumn: "5" }}>{formatNumber(seconds)}</span>
+                  <span
+                    style={{
+                      fontSize: "18px",
+                      fontWeight: "500",
+                      gridColumn: "1",
+                    }}
+                  >
+                    {formatNumber(hours)}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "18px",
+                      fontWeight: "500",
+                      margin: "0 10px",
+                    }}
+                  >
+                    :
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "18px",
+                      fontWeight: "500",
+                      gridColumn: "3",
+                    }}
+                  >
+                    {formatNumber(minutes)}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "18px",
+                      fontWeight: "500",
+                      margin: "0 10px",
+                    }}
+                  >
+                    :
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "18px",
+                      fontWeight: "500",
+                      gridColumn: "5",
+                    }}
+                  >
+                    {formatNumber(seconds)}
+                  </span>
                 </div>
 
                 {/* Timer Labels */}
@@ -196,11 +271,23 @@ export default function HeaderComponent() {
                     marginBottom: "20px",
                   }}
                 >
-                  <Text style={{ color: "#666", gridColumn: "1", fontSize: "12px" }}>Hours</Text>
+                  <Text
+                    style={{ color: "#666", gridColumn: "1", fontSize: "12px" }}
+                  >
+                    Hours
+                  </Text>
                   <span style={{ width: "20px" }}></span>
-                  <Text style={{ color: "#666", gridColumn: "3", fontSize: "12px" }}>Minutes</Text>
+                  <Text
+                    style={{ color: "#666", gridColumn: "3", fontSize: "12px" }}
+                  >
+                    Minutes
+                  </Text>
                   <span style={{ width: "20px" }}></span>
-                  <Text style={{ color: "#666", gridColumn: "5", fontSize: "12px" }}>Seconds</Text>
+                  <Text
+                    style={{ color: "#666", gridColumn: "5", fontSize: "12px" }}
+                  >
+                    Seconds
+                  </Text>
                 </div>
               </Col>
             </Row>
