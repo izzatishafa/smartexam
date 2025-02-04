@@ -1,33 +1,30 @@
-"use client"
+"use client";
 
-import { Button,Layout, Col, Divider, Dropdown, Row, Space, Typography } from "antd";
-import React, { useEffect, useState } from 'react'
-import {CaretDownFilled} from "@ant-design/icons";
+import {
+  Button,
+  Layout,
+  Col,
+  Divider,
+  Dropdown,
+  Row,
+  Space,
+  Typography,
+} from "antd";
+import React, { useEffect, useState } from "react";
+import {
+  CaretDownFilled,
+  LoginOutlined,
+  QuestionCircleOutlined,
+} from "@ant-design/icons";
 import Title from "antd/es/typography/Title";
+import { useRouter } from "next/navigation";
 const { Text } = Typography;
 const { Header } = Layout;
 
-const items = [
-  {
-    key: "1",
-    label: "Username: Jhon Doe",
-  },
-  {
-    key: "2",
-    label: "Kode: 12345678",
-  },
-  {
-    key: "3",
-    label: "Waktu Ujian: sekian - sekian",
-  },
-];
-
-
-const HeaderExam = () => {
-const [hours, setHours] = useState(0);
+const HeaderExam = ({ title }) => {
+  const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(58);
   const [seconds, setSeconds] = useState(49);
-  
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -50,6 +47,73 @@ const [hours, setHours] = useState(0);
     return num.toString().padStart(2, "0");
   };
 
+  const router = useRouter();
+
+  const handleLogout = () => {
+    router.push("/login");
+  };
+
+  const items = [
+    {
+      key: "1",
+      label: (
+        <Text>
+          <span style={{ fontWeight: "bold" }}>Username:</span> Jhon Doe
+        </Text>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <Text>
+          <span style={{ fontWeight: "bold" }}>Kode:</span> 12345678
+        </Text>
+      ),
+    },
+    {
+      key: "3",
+      label: (
+        <Text>
+          <span style={{ fontWeight: "bold" }}>Waktu Ujian:</span> sekian -
+          sekian
+        </Text>
+      ),
+    },
+    {
+      key: "4",
+      label: (
+        <Button
+          marginLeft="0"
+          style={{ padding: 0 }}
+          type="text"
+          icon={<QuestionCircleOutlined size={20} />}
+          iconPosition="start"
+        >
+          FAQ
+        </Button>
+      ),
+    },
+    {
+      key: "5",
+      label: <Divider style={{ margin: "0" }} />,
+    },
+    {
+      key: "6",
+      label: (
+        <Button
+          marginLeft="0"
+          onClick={handleLogout}
+          style={{ padding: 0, color: "red" }}
+          type="text"
+          icon={<LoginOutlined size={20} />}
+          iconPosition="start"
+        >
+          Logout
+        </Button>
+      ),
+    },
+  ];
+
   return (
     <>
       <Header
@@ -62,9 +126,20 @@ const [hours, setHours] = useState(0);
         }}
       >
         <Row style={{ width: "100%" }}>
-          <Row style={{ width: "100%", justifyContent: "space-between", border: "1px solid #E0E0E0", padding: "15px 30px" }}>
+          <Row
+            style={{
+              width: "100%",
+              justifyContent: "space-between",
+              border: "1px solid #E0E0E0",
+              padding: "15px 30px",
+            }}
+          >
             <Col style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <img src="/assets/logo-smartexam.png" alt="logo" style={{ width: 35 }} />
+              <img
+                src="/assets/logo-smartexam.png"
+                alt="logo"
+                style={{ width: 35 }}
+              />
               <Text
                 style={{
                   fontSize: "25px",
@@ -75,20 +150,34 @@ const [hours, setHours] = useState(0);
                 SMARTEXAM
               </Text>
             </Col>
-            <Col>
+            <Col
+              style={{
+                // border: "1px solid black",
+                padding: "6px 12px",
+                borderRadius: "5px",
+                // boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.3)",
+              }}
+            >
               <Dropdown
                 menu={{
                   items,
                 }}
                 dropdownRender={(menu) => (
-                  <div className="no-hover" style={contentStyle}>
+                  <div
+                    className="hover"
+                    style={{
+                      padding: "0",
+                      minWidth: "260px",
+                      height: "fit-content",
+                    }}
+                  >
                     {React.cloneElement(menu, {
-                      style: menuStyle,
+                      style: {
+                        borderRadius: "5px",
+                        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
+                        padding: "8px 0",
+                      },
                     })}
-                    <Divider style={{ margin: 0 }} />
-                    <Space style={{ padding: 8 }}>
-                      <Button danger>Log Out</Button>
-                    </Space>
                   </div>
                 )}
               >
@@ -101,7 +190,11 @@ const [hours, setHours] = useState(0);
                     gap: "10px",
                   }}
                 >
-                  <img src="/assets/profile-pict.png" alt="profile picture" style={{ width: 40 }} />
+                  <img
+                    src="/assets/profile-pict.png"
+                    alt="profile picture"
+                    style={{ width: 40 }}
+                  />
                   <CaretDownFilled />
                 </a>
               </Dropdown>
@@ -120,11 +213,13 @@ const [hours, setHours] = useState(0);
               >
                 <Col>
                   <Title level={4} style={{ color: "white", margin: 0 }}>
-                    Judul
+                    {title}
                   </Title>
                 </Col>
               </Row>
-              <Row style={{ width: "100%", height: "65px", padding: "0px 30px" }}>
+              <Row
+                style={{ width: "100%", height: "65px", padding: "0px 30px" }}
+              >
                 <Col
                   style={{
                     width: "100%",
@@ -140,7 +235,12 @@ const [hours, setHours] = useState(0);
                 </Col>
               </Row>
             </Col>
-            <Col xs={24} sm={6} lg={6} style={{ borderLeft: "1px solid #E0E0E0" }}>
+            <Col
+              xs={24}
+              sm={6}
+              lg={6}
+              style={{ borderLeft: "1px solid #E0E0E0" }}
+            >
               <Row
                 style={{
                   width: "100%",
@@ -156,7 +256,14 @@ const [hours, setHours] = useState(0);
                   </Title>
                 </Col>
               </Row>
-              <Row style={{ width: "100%", height: "65px", borderBottom: "1px solid #AAAAAA" }} align="middle">
+              <Row
+                style={{
+                  width: "100%",
+                  height: "65px",
+                  borderBottom: "1px solid #AAAAAA",
+                }}
+                align="middle"
+              >
                 <Col
                   span={24}
                   style={{
@@ -176,11 +283,51 @@ const [hours, setHours] = useState(0);
                       alignItems: "center",
                     }}
                   >
-                    <span style={{ fontSize: "18px", fontWeight: "500", gridColumn: "1" }}>{formatNumber(hours)}</span>
-                    <span style={{ fontSize: "18px", fontWeight: "500", margin: "0 10px" }}>:</span>
-                    <span style={{ fontSize: "18px", fontWeight: "500", gridColumn: "3" }}>{formatNumber(minutes)}</span>
-                    <span style={{ fontSize: "18px", fontWeight: "500", margin: "0 10px" }}>:</span>
-                    <span style={{ fontSize: "18px", fontWeight: "500", gridColumn: "5" }}>{formatNumber(seconds)}</span>
+                    <span
+                      style={{
+                        fontSize: "18px",
+                        fontWeight: "500",
+                        gridColumn: "1",
+                      }}
+                    >
+                      {formatNumber(hours)}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "18px",
+                        fontWeight: "500",
+                        margin: "0 10px",
+                      }}
+                    >
+                      :
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "18px",
+                        fontWeight: "500",
+                        gridColumn: "3",
+                      }}
+                    >
+                      {formatNumber(minutes)}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "18px",
+                        fontWeight: "500",
+                        margin: "0 10px",
+                      }}
+                    >
+                      :
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "18px",
+                        fontWeight: "500",
+                        gridColumn: "5",
+                      }}
+                    >
+                      {formatNumber(seconds)}
+                    </span>
                   </div>
 
                   {/* Timer Labels */}
@@ -194,11 +341,35 @@ const [hours, setHours] = useState(0);
                       marginBottom: "20px",
                     }}
                   >
-                    <Text style={{ color: "#666", gridColumn: "1", fontSize: "12px" }}>Hours</Text>
+                    <Text
+                      style={{
+                        color: "#666",
+                        gridColumn: "1",
+                        fontSize: "12px",
+                      }}
+                    >
+                      Hours
+                    </Text>
                     <span style={{ width: "20px" }}></span>
-                    <Text style={{ color: "#666", gridColumn: "3", fontSize: "12px" }}>Minutes</Text>
+                    <Text
+                      style={{
+                        color: "#666",
+                        gridColumn: "3",
+                        fontSize: "12px",
+                      }}
+                    >
+                      Minutes
+                    </Text>
                     <span style={{ width: "20px" }}></span>
-                    <Text style={{ color: "#666", gridColumn: "5", fontSize: "12px" }}>Seconds</Text>
+                    <Text
+                      style={{
+                        color: "#666",
+                        gridColumn: "5",
+                        fontSize: "12px",
+                      }}
+                    >
+                      Seconds
+                    </Text>
                   </div>
                 </Col>
               </Row>
@@ -208,6 +379,6 @@ const [hours, setHours] = useState(0);
       </Header>
     </>
   );
-}
+};
 
 export default HeaderExam;

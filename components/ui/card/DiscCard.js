@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Typography, Card, Space, Table, Radio, Tag } from "antd";
+import { Typography, Card, Space, Table, Radio, Tag, Flex } from "antd";
 
 const { Title, Text } = Typography;
 
@@ -32,7 +32,7 @@ export default function DiscCard({ data }) {
 
   const columns = [
     {
-      title: "Pernyataan",
+      title: "",
       dataIndex: "pref",
       key: "pref",
       render: (text) => {
@@ -48,7 +48,13 @@ export default function DiscCard({ data }) {
         );
       },
       onHeaderCell: () => ({
-        style: { backgroundColor: "lightgray", textAlign: "center" },
+        style: {
+          borderRadius: "6px 0 0 0",
+          backgroundColor: "#8D97A0",
+          color: "white",
+          textAlign: "center",
+          border: "none",
+        },
       }),
     },
     {
@@ -65,7 +71,12 @@ export default function DiscCard({ data }) {
         </div>
       ),
       onHeaderCell: () => ({
-        style: { backgroundColor: "lightgray", textAlign: "center" },
+        style: {
+          backgroundColor: "#8D97A0",
+          color: "white",
+          textAlign: "center",
+          border: "none",
+        },
       }),
     },
     {
@@ -75,6 +86,10 @@ export default function DiscCard({ data }) {
       render: (_, record) => (
         <div style={{ textAlign: "center" }}>
           <Radio
+            size="large"
+            style={{
+              borderColor: "yellow",
+            }}
             checked={selectedOption.least === record.key}
             disabled={selectedOption.most === record.key}
             onChange={() => handleOptionChange(record.key, "least")}
@@ -82,22 +97,31 @@ export default function DiscCard({ data }) {
         </div>
       ),
       onHeaderCell: () => ({
-        style: { backgroundColor: "lightgray", textAlign: "center" },
+        style: {
+          borderRadius: "0 6px 0 0",
+          backgroundColor: "#8D97A0",
+          color: "white",
+          textAlign: "center",
+          border: "none",
+        },
       }),
     },
   ];
 
   return (
-    <Card
+    <Flex
       style={{
         width: "100%",
+        flexDirection: "column",
         userSelect: "none",
-        marginBottom: "70px",
-        padding: "0px 0px 10px 10px",
+        // border: "1px solid #1B3042",
       }}
       onCopy={handleCopy}
     >
-      <Title level={5} style={{ fontWeight: "normal" }}>
+      <Title
+        level={5}
+        style={{ fontWeight: "normal", marginTop: "0", marginBottom: "1rem" }}
+      >
         Pilihlah opsi yang sesuai dengan kriteria Anda!
       </Title>
       <Space direction="vertical">
@@ -105,12 +129,16 @@ export default function DiscCard({ data }) {
           dataSource={data}
           columns={columns}
           bordered={true}
-          size="small"
+          size="large"
           pagination={false}
           rowHoverable={false}
-          style={{ minWidth: "550px" }}
+          style={{
+            minWidth: "500px",
+            maxWidth: "800px",
+            width: "fit-content",
+          }}
         />
       </Space>
-    </Card>
+    </Flex>
   );
 }
