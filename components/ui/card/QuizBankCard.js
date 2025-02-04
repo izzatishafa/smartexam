@@ -6,7 +6,7 @@ const { Title } = Typography;
 import { LoginOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
-const QuizBankCard = ({ title, route }) => {
+const QuizBankCard = ({ title, route, isPackage }) => {
   const router = useRouter();
 
   const handleClick = () => {
@@ -16,16 +16,18 @@ const QuizBankCard = ({ title, route }) => {
   return (
     <Row
       style={{
-        minHeight: "200px", // Tinggi minimum agar tidak terlalu kecil
-        height: "auto", // Tinggi mengikuti isi
+        minHeight: "240px",
+        height: isPackage ? "330px" : "240px",
         backgroundColor: "white",
-        border: "4px solid orange",
+        border: "1px solid #1B3042",
+        borderRadius: "10px",
         marginBottom: "1rem",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
         padding: "1rem 2rem",
         flexWrap: "nowrap",
+        marginBottom: "2rem",
       }}
     >
       {/* Bagian Title & Button */}
@@ -37,8 +39,11 @@ const QuizBankCard = ({ title, route }) => {
         xl={12}
         style={{
           display: "flex",
+          height: "100%",
+          minHeight: "120px",
           flexDirection: "column",
           justifyContent: "space-between",
+          alignItems: "stretch",
           flexGrow: 1, // Mengatur agar konten berkembang mengikuti tinggi
         }}
       >
@@ -47,12 +52,13 @@ const QuizBankCard = ({ title, route }) => {
         </Title>
         <Button
           style={{ width: "fit-content" }}
-          type="primary"
-          color="orange"
+          color="default"
+          variant="solid"
           icon={<LoginOutlined />}
+          iconPosition="end"
           onClick={handleClick}
         >
-          Open
+          Start
         </Button>
       </Col>
 
@@ -60,9 +66,9 @@ const QuizBankCard = ({ title, route }) => {
       <Col
         xs={10}
         sm={10}
-        md={6}
+        md={8}
         lg={6}
-        xl={6}
+        xl={isPackage ? 8 : 6}
         style={{
           display: "flex",
           justifyContent: "flex-end",
@@ -70,7 +76,7 @@ const QuizBankCard = ({ title, route }) => {
         }}
       >
         <img
-          src="/assets/exam-boy.jpg"
+          src="/assets/mobile-testing.svg"
           alt="image"
           style={{
             maxWidth: "100%",
