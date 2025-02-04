@@ -9,7 +9,7 @@ import { ExamProvider } from "./exam/gti/subtest1/questions/contexts/ExamContext
 
 const { Content } = Layout;
 
-const ExamLayout = ({ children }) => {
+const ExamLayout = ({ children, hideSidebar = false }) => {
   const {
     token: { borderRadiusLG },
   } = theme.useToken();
@@ -31,7 +31,7 @@ const ExamLayout = ({ children }) => {
             </Content>
             <FooterExam />
           </Layout>
-          <SiderExam />
+          {!hideSidebar && <SiderExam />}
         </Layout>
       </ExamProvider>
     </Layout>
