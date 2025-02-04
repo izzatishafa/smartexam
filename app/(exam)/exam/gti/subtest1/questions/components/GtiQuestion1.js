@@ -1,7 +1,7 @@
 "use client";
 
-import { Col, Row, Typography, Card } from "antd";
-import React from "react";
+import { Col, Row, Typography, Card, Button, Modal } from "antd";
+import React, { useState } from "react";
 const { Text } = Typography;
 
 const LetterCard = ({ upperLetter, lowerLetter, isHighlighted }) => (
@@ -35,7 +35,6 @@ const LetterCard = ({ upperLetter, lowerLetter, isHighlighted }) => (
         color: "white",
         fontSize: 30,
       }}
-      
     >
       {lowerLetter}
     </div>
@@ -67,28 +66,49 @@ const NumberOption = ({ number, isSelected, onClick }) => (
 );
 
 const GtiQuestion1 = ({ data, onAnswer, currentAnswer }) => {
-  
   return (
     <>
-      <Text style={{ fontSize: 24 }}>
-        {data.id}. {data.question}
-      </Text>
+      <Button
+        variant="outlined"
+        color="green"
+        onClick={showModal}
+        style={{ margin: "16px 0px" }}
+      >
+        Panduan
+      </Button>
+      <Card style={{ margin: "0px 24px 0px 24px" }}>
+        <Text style={{ fontSize: 24 }}>
+          {data.id}. {data.question}
+        </Text>
 
-      <Row gutter={32} style={{ margin: "24px 0px" }} justify="center">
-        {data.letters.map((letter, index) => (
-          <Col key={index}>
-            <LetterCard upperLetter={letter.upperLetter} lowerLetter={letter.lowerLetter} />
-          </Col>
-        ))}
-      </Row>
+        <Row gutter={32} style={{ margin: "24px 0px" }} justify="center">
+          {data.letters.map((letter, index) => (
+            <Col key={index}>
+              <LetterCard
+                upperLetter={letter.upperLetter}
+                lowerLetter={letter.lowerLetter}
+              />
+            </Col>
+          ))}
+        </Row>
 
-      <Row gutter={32} justify="center">
-        {data.options.map((number) => (
-          <Col key={number}>
-            <NumberOption number={number} isSelected={currentAnswer === number} onClick={() => onAnswer(data.id, number)} />
-          </Col>
-        ))}
-      </Row>
+        <Row gutter={32} justify="center">
+          {data.options.map((number) => (
+            <Col key={number}>
+              <NumberOption
+                number={number}
+                isSelected={currentAnswer === number}
+                onClick={() => onAnswer(data.id, number)}
+              />
+            </Col>
+          ))}
+        </Row>
+      </Card>
+      <Modal title="Basic Modal" onCancel={handleClose}>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal>
     </>
   );
 };
