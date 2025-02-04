@@ -5,8 +5,7 @@ import { Col, Layout, Row, theme, Progress } from "antd";
 import HeaderExam from "./components-layout/HeaderExam";
 import FooterExam from "./components-layout/FooterExam";
 import SiderExam from "./components-layout/SiderExam";
-import { ExamProvider } from "./exam/gti/subtest1/questions/contexts/ExamContext";
-
+import { ExamProvider } from "./contexts/ExamContext";
 
 const { Content, Sider } = Layout;
 
