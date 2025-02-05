@@ -54,7 +54,7 @@ export const ExamProvider = ({ children }) => {
     setIsModalOpen(false);
 
     // Navigasikan user ke tutorial sebelum soal
-    router.push(`/exam/gti/subtest${currentSubtest}/tutorial-intro`);
+    router.push(`/exam/gti/subtest${currentSubtest + 1}/tutorial-intro`);
   };
 
   const goToNext = () => {

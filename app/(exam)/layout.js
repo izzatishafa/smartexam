@@ -16,8 +16,16 @@ const ExamLayout = ({ children}) => {
   } = theme.useToken();
 
   const pathname = usePathname(); // Dapatkan path URL saat ini
-  const hideSidebar = pathname.includes("/exam/gti/subtest1/tutorial");
-  const hideFooter = pathname.includes("/exam/gti/subtest1/tutorial");
+  // const hideSidebar = pathname.includes("/exam/gti/subtest1/tutorial");
+  // const hideFooter = pathname.includes("/exam/gti/subtest1/tutorial");
+
+  const hideSidebar = () => {
+    return pathname.includes("/tutorial");
+  }
+
+  const hideFooter = () => {
+    return pathname.includes("/tutorial");
+  }
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -34,9 +42,9 @@ const ExamLayout = ({ children}) => {
             >
               {children}
             </Content>
-            {!hideFooter && <FooterExam />}
+            {!hideFooter() && <FooterExam />}
           </Layout>
-          {!hideSidebar && <SiderExam />}
+          {!hideSidebar ()&& <SiderExam />}
         </Layout>
       </ExamProvider>
     </Layout>
