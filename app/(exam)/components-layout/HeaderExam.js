@@ -17,7 +17,9 @@ const HeaderExam = () => {
   const [seconds, setSeconds] = useState(49);
 
   const pathname = usePathname(); // Dapatkan path URL saat ini
-  const isTutorialPage = pathname.includes("/exam/gti/subtest1/tutorial");
+  const isTutorialPage = () => {
+    return pathname.includes("/tutorial");
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -171,7 +173,9 @@ const HeaderExam = () => {
               </Dropdown>
             </Col>
           </Row>
-          {isTutorialPage ? (
+          {!isTutorialPage() && <HeaderContent judul="Judul" subJudul="Sub Judul" hours={hours} minutes={minutes} seconds={seconds} />}
+
+          {isTutorialPage() && (
             <Row style={{ width: "100%", height: "50px", backgroundColor: "#1b3042" }} justify="center" align="middle">
               <Col>
                 <Title level={4} style={{ color: "white", margin: 0 }}>
@@ -179,8 +183,6 @@ const HeaderExam = () => {
                 </Title>
               </Col>
             </Row>
-          ) : (
-            <HeaderContent judul="Judul" subJudul="Sub Judul" hours={hours} minutes={minutes} seconds={seconds} />
           )}
         </Row>
       </Header>

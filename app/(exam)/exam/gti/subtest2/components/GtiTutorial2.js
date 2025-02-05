@@ -1,80 +1,104 @@
 "use client";
 
-import { Typography, Row, Col, Button, Card } from "antd";
-import { useRouter } from "next/navigation";
+import { Card, Row, Typography, Col, Button, notification } from "antd";
+const { Text } = Typography;
 import React, { useState } from "react";
-const { Title, Text } = Typography;
+import styles from "../styles/style.module.css";
+import { useRouter } from "next/navigation";
 
-const GtiTutorial2 = ({ selectedOption, onNextQuestion, setSelectedOption }) => {
-  const answers = ["Galang", "Helma", "Akmal"];
-  const correctAnswer = "Helma"; // Jawaban yang benar
+const data = {
+  name: ["Doni", "Toni", "Roni", "Boni"],
+  options: [0, 1, 2, 3],
+};
+
+const GtiTutorial2 = () => {
   const router = useRouter();
+  const [isCorrect, setIsCorrect] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
 
-  // Menentukan apakah jawaban benar atau tidak
-  const isAnswerCorrect = selectedOption === correctAnswer;
+  const checkAnswer = (number) => {
+    setSelectedAnswer(number);
 
-  const handleStartTest = () => {
-    router.push("http://localhost:3000/exam/gti/subtest2/questions");
+    if (number === 0) {
+      setIsCorrect(true);
+      notification.success({
+        message: "Jawaban Benar!",
+        description: "Selamat, jawaban Anda benar.",
+        placement: "topRight",
+        className: "custom-notification",
+        style: {
+          background: "#f6ffed",
+          border: "1px solid #b7eb8f",
+          borderRadius: 6,
+        },
+      });
+    } else {
+      setIsCorrect(false);
+      notification.error({
+        message: "Jawaban Salah",
+        description: "Silakan coba lagi.",
+        placement: "topRight",
+        className: "custom-notification",
+        style: {
+          background: "#fff2f0",
+          border: "1px solid #ffccc7",
+          borderRadius: 6,
+        },
+      });
+    }
   };
 
-  const handleOptionClick = (value) => {
-    setSelectedOption(value); // Memperbarui pilihan yang dipilih
+  const NumberOption = ({ number, name, onClick }) => {
+    return (
+      <Button
+        className={styles["user-button"]}
+        onClick={() => onClick(number)}
+      >
+        <div className={styles.avatar}>{number}</div>
+        <span className={styles.name}>{name}</span>
+      </Button>
+    );
   };
 
   return (
-    <Card>
-      <div style={{ margin: "20px 20px" }}>
-        <Row justify="center" align="middle" style={{ textAlign: "center" }}>
-          <Col>
-            <Title level={3} style={{ margin: 0 }}>
-              Galang lebih Cepat dari Akmal <br />
-              Akmal lebih Cepat dari Helma
-            </Title>
-            <Title level={3} style={{ margin: 0 }}>
-              Siapa yang terlamban?
-            </Title>
-          </Col>
+    <>
+      <Card style={{ margin: "32px 64px 32px" }}>
+        <Row style={{ width: "100%", marginBottom: "16px" }}>
+          <Text style={{ fontSize: 20 }}>Perhatikan soal berikut !</Text>
         </Row>
-        <br />
-        <Row gutter={[16, 16]} align="middle" justify="center" style={{ marginTop: "10px" }}>
-          {answers.map((answer, index) => (
-            <Col span={8} key={`answer-${index}`}>
-              <Button
-                type={selectedOption === answer ? "primary" : "default"}
-                onClick={() => handleOptionClick(answer)}
-                style={{
-                  width: "100%",
-                  height: "50px",
-                  borderRadius: "8px",
-                  fontSize: "16px",
-                }}
-              >
-                {answer}
-              </Button>
-            </Col>
-          ))}
+        <Row style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ flexDirection: "column", display: "flex", marginBottom: "8px" }}>
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>Doni lebih cepat dari Toni</Text>
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>Toni lebih cepat dari Roni</Text>
+          </div>
+          <div>
+            <Text style={{ fontSize: 20 }}>Siapa yang tercepat?</Text>
+          </div>
+          <Row gutter={54} style={{ marginTop: "16px" }}>
+            {data.options.map((number, index) => (
+              <Col key={number}>
+                <NumberOption number={number} name={data.name[index]} isSelected={selectedAnswer === number} onClick={checkAnswer} />
+              </Col>
+            ))}
+          </Row>
         </Row>
-        {selectedOption && (
-          <Row gutter={[16, 16]} align="middle" justify="center" style={{ marginTop: "70px" }}>
-            <Col span={24} style={{ textAlign: "center" }}>
-              <Text type={isAnswerCorrect ? "success" : "danger"}>{isAnswerCorrect ? "Jawaban Benar" : "Jawaban Salah"}</Text>
-            </Col>
-          </Row>
-        )}
-        {isAnswerCorrect && (
-          <Row gutter={[16, 16]} align="middle" justify="center" style={{ marginTop: "20px" }}>
-            <Col span={24} style={{ textAlign: "center" }}>
-              <Button type="primary" onClick={onNextQuestion} style={{ marginRight: "10px" }}>
-                Ulangi Tutorial
-              </Button>
-              <Button style={{ backgroundColor: "#52c41a", color: "white" }} onClick={handleStartTest}>
-                Mulai Test
-              </Button>
-            </Col>
-          </Row>
-        )}
-      </div>
-    </Card>
+      </Card>
+      {isCorrect && (
+        <Row style={{ width: "100%" }} justify="center" className="mt-4">
+          <Button
+            size="large"
+            style={{
+              backgroundColor: "#1b3042",
+              color: "white",
+              width: "400px",
+            }}
+            onClick={() => router.push("/exam/gti/subtest2/questions")}
+          >
+            Mulai Test
+          </Button>
+        </Row>
+      )}
+    </>
   );
 };
 

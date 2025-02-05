@@ -34,15 +34,7 @@ const GtiTutorial2Page = () => {
 
   return (
     <>
-      <QuizHeader title="Tutorial Subtest 2" onGuideClick={showModal}>
-        <Countdown />
-      </QuizHeader>
-      <Content style={{ margin: "20px" }}>
-        <Space>
-          <ModalTutorial open={isModalOpen} onCancel={handleClose} />
-        </Space>
         <GtiTutorial2 selectedOption={selectedOption} setSelectedOption={setSelectedOption} onNextQuestion={handleNextQuestion} />
-      </Content>
     </>
   );
 };

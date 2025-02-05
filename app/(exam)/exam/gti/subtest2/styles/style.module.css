@@ -1,0 +1,34 @@
+.user-button {
+  height: 40px !important;
+  padding: 4px 16px !important;
+  background-color: #e9f0fc !important;
+  border: none !important;
+  border-radius: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  box-shadow: none !important;
+}
+
+.user-button:hover {
+  background-color: #d0d8f0 !important;
+}
+
+.user-button .avatar {
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0000ff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.user-button .name {
+  font-size: 16px;
+  color: #000000;
+  margin: 0;
+}
