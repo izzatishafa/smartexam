@@ -76,14 +76,13 @@ const GtiQuestion1 = ({ data, onAnswer, currentAnswer }) => {
   };
   return (
     <>
-      <Button variant="outlined" color="green" onClick={showModal} style={{ margin: "16px 0px" }}>
+      <Button variant="outlined" size="small" color="green" onClick={showModal} style={{ margin: "16px 0px" }}>
         Panduan
       </Button>
       <Card style={{ margin: "0px 24px 0px 24px" }}>
         <Text style={{ fontSize: 24 }}>
           {data.id}. {data.question}
         </Text>
-
         <Row gutter={32} style={{ margin: "24px 0px" }} justify="center">
           {data.letters.map((letter, index) => (
             <Col key={index}>

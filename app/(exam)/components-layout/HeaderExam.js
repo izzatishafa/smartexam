@@ -1,30 +1,23 @@
 "use client";
 
-import {
-  Button,
-  Layout,
-  Col,
-  Divider,
-  Dropdown,
-  Row,
-  Space,
-  Typography,
-} from "antd";
+import { Button, Layout, Col, Divider, Dropdown, Row, Space, Typography } from "antd";
 import React, { useEffect, useState } from "react";
-import {
-  CaretDownFilled,
-  LoginOutlined,
-  QuestionCircleOutlined,
-} from "@ant-design/icons";
+import { CaretDownFilled, LoginOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import Title from "antd/es/typography/Title";
 import { useRouter } from "next/navigation";
+import HeaderContent from "./HeaderContent";
+import { usePathname } from "next/navigation";
+
 const { Text } = Typography;
 const { Header } = Layout;
 
-const HeaderExam = ({ title }) => {
+const HeaderExam = () => {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(58);
   const [seconds, setSeconds] = useState(49);
+
+  const pathname = usePathname(); // Dapatkan path URL saat ini
+  const isTutorialPage = pathname.includes("/exam/gti/subtest1/tutorial");
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -74,21 +67,14 @@ const HeaderExam = ({ title }) => {
       key: "3",
       label: (
         <Text>
-          <span style={{ fontWeight: "bold" }}>Waktu Ujian:</span> sekian -
-          sekian
+          <span style={{ fontWeight: "bold" }}>Waktu Ujian:</span> sekian - sekian
         </Text>
       ),
     },
     {
       key: "4",
       label: (
-        <Button
-          marginLeft="0"
-          style={{ padding: 0 }}
-          type="text"
-          icon={<QuestionCircleOutlined size={20} />}
-          iconPosition="start"
-        >
+        <Button marginLeft="0" style={{ padding: 0 }} type="text" icon={<QuestionCircleOutlined size={20} />} iconPosition="start">
           FAQ
         </Button>
       ),
@@ -100,14 +86,7 @@ const HeaderExam = ({ title }) => {
     {
       key: "6",
       label: (
-        <Button
-          marginLeft="0"
-          onClick={handleLogout}
-          style={{ padding: 0, color: "red" }}
-          type="text"
-          icon={<LoginOutlined size={20} />}
-          iconPosition="start"
-        >
+        <Button marginLeft="0" onClick={handleLogout} style={{ padding: 0, color: "red" }} type="text" icon={<LoginOutlined size={20} />} iconPosition="start">
           Logout
         </Button>
       ),
@@ -135,11 +114,7 @@ const HeaderExam = ({ title }) => {
             }}
           >
             <Col style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <img
-                src="/assets/logo-smartexam.png"
-                alt="logo"
-                style={{ width: 35 }}
-              />
+              <img src="/assets/logo-smartexam.png" alt="logo" style={{ width: 35 }} />
               <Text
                 style={{
                   fontSize: "25px",
@@ -190,191 +165,23 @@ const HeaderExam = ({ title }) => {
                     gap: "10px",
                   }}
                 >
-                  <img
-                    src="/assets/profile-pict.png"
-                    alt="profile picture"
-                    style={{ width: 40 }}
-                  />
+                  <img src="/assets/profile-pict.png" alt="profile picture" style={{ width: 40 }} />
                   <CaretDownFilled />
                 </a>
               </Dropdown>
             </Col>
           </Row>
-          <Row style={{ width: "100%", justifyContent: "space-between" }}>
-            <Col xs={24} sm={18} lg={18}>
-              <Row
-                style={{
-                  width: "100%",
-                  height: "50px",
-                  backgroundColor: "#1b3042",
-                }}
-                justify="center"
-                align="middle"
-              >
-                <Col>
-                  <Title level={4} style={{ color: "white", margin: 0 }}>
-                    {title}
-                  </Title>
-                </Col>
-              </Row>
-              <Row
-                style={{ width: "100%", height: "65px", padding: "0px 30px" }}
-              >
-                <Col
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    borderBottom: "1px solid #AAAAAA",
-                    display: "flex", // Mengaktifkan flexbox
-                    alignItems: "center", // Menjadikan teks di tengah vertikal
-                  }}
-                >
-                  <Title level={4} style={{ color: "black", margin: 0 }}>
-                    Sub Judul
-                  </Title>
-                </Col>
-              </Row>
-            </Col>
-            <Col
-              xs={24}
-              sm={6}
-              lg={6}
-              style={{ borderLeft: "1px solid #E0E0E0" }}
-            >
-              <Row
-                style={{
-                  width: "100%",
-                  height: "50px",
-                  backgroundColor: "#1b3042",
-                }}
-                justify="center"
-                align="middle"
-              >
-                <Col>
-                  <Title level={4} style={{ color: "white", margin: 0 }}>
-                    Waktu
-                  </Title>
-                </Col>
-              </Row>
-              <Row
-                style={{
-                  width: "100%",
-                  height: "65px",
-                  borderBottom: "1px solid #AAAAAA",
-                }}
-                align="middle"
-              >
-                <Col
-                  span={24}
-                  style={{
-                    backgroundColor: "white",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                  }}
-                >
-                  {/* Timer Numbers */}
-                  <div
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "1fr auto 1fr auto 1fr",
-                      justifyItems: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontSize: "18px",
-                        fontWeight: "500",
-                        gridColumn: "1",
-                      }}
-                    >
-                      {formatNumber(hours)}
-                    </span>
-                    <span
-                      style={{
-                        fontSize: "18px",
-                        fontWeight: "500",
-                        margin: "0 10px",
-                      }}
-                    >
-                      :
-                    </span>
-                    <span
-                      style={{
-                        fontSize: "18px",
-                        fontWeight: "500",
-                        gridColumn: "3",
-                      }}
-                    >
-                      {formatNumber(minutes)}
-                    </span>
-                    <span
-                      style={{
-                        fontSize: "18px",
-                        fontWeight: "500",
-                        margin: "0 10px",
-                      }}
-                    >
-                      :
-                    </span>
-                    <span
-                      style={{
-                        fontSize: "18px",
-                        fontWeight: "500",
-                        gridColumn: "5",
-                      }}
-                    >
-                      {formatNumber(seconds)}
-                    </span>
-                  </div>
-
-                  {/* Timer Labels */}
-                  <div
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "1fr auto 1fr auto 1fr",
-                      justifyItems: "center",
-                      alignItems: "center",
-                      marginTop: "-15px",
-                      marginBottom: "20px",
-                    }}
-                  >
-                    <Text
-                      style={{
-                        color: "#666",
-                        gridColumn: "1",
-                        fontSize: "12px",
-                      }}
-                    >
-                      Hours
-                    </Text>
-                    <span style={{ width: "20px" }}></span>
-                    <Text
-                      style={{
-                        color: "#666",
-                        gridColumn: "3",
-                        fontSize: "12px",
-                      }}
-                    >
-                      Minutes
-                    </Text>
-                    <span style={{ width: "20px" }}></span>
-                    <Text
-                      style={{
-                        color: "#666",
-                        gridColumn: "5",
-                        fontSize: "12px",
-                      }}
-                    >
-                      Seconds
-                    </Text>
-                  </div>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
+          {isTutorialPage ? (
+            <Row style={{ width: "100%", height: "50px", backgroundColor: "#1b3042" }} justify="center" align="middle">
+              <Col>
+                <Title level={4} style={{ color: "white", margin: 0 }}>
+                  Header Tutorial
+                </Title>
+              </Col>
+            </Row>
+          ) : (
+            <HeaderContent judul="Judul" subJudul="Sub Judul" hours={hours} minutes={minutes} seconds={seconds} />
+          )}
         </Row>
       </Header>
     </>

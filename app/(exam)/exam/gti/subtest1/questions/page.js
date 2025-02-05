@@ -7,7 +7,7 @@ import { useExam } from "../../../../contexts/ExamContext";
 import { Layout } from "antd";
 import GtiQuestion1 from "@/app/(exam)/exam/gti/subtest1/questions/components/GtiQuestion1";
 
-const GtiSubtest = () => {
+const GtiSubtest1 = () => {
   const { currentQuestion, questionData, answers, setAnswer } = useExam();
   const currentQuestionData = questionData.find((q) => q.id === currentQuestion);
 
@@ -23,8 +23,8 @@ const GtiSubtest = () => {
 };
 
 
-const GtiSubtestPage = () => {
-  return <GtiSubtest />;
+const GtiSubtestPage1 = () => {
+  return <GtiSubtest1 />;
 };
 
-export default GtiSubtestPage;
+export default GtiSubtestPage1;

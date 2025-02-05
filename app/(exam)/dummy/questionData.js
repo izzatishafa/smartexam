@@ -59,31 +59,31 @@ export const questionData = [
     ],
     options: [1, 2, 3, 4],
   },
-  {
-    id: 6,
-    type: "GTITutorial",
-    question: "Manakah pasangan huruf yang memiliki cerminan horizontal?",
-    letters: [
-      { upperLetter: "B", lowerLetter: "d" },
-      { upperLetter: "C", lowerLetter: "c" },
-      { upperLetter: "K", lowerLetter: "k" },
-      { upperLetter: "L", lowerLetter: "l" },
-    ],
-    options: [1, 2, 3, 4],
-    answer: 1,
-  },
-  {
-    id: 7,
-    type: "GTITutorial",
-    question: "Manakah pasangan huruf yang memiliki cerminan horizontal?",
-    letters: [
-      { upperLetter: "B", lowerLetter: "d" },
-      { upperLetter: "C", lowerLetter: "c" },
-      { upperLetter: "K", lowerLetter: "k" },
-      { upperLetter: "L", lowerLetter: "l" },
-    ],
-    options: [1, 2, 3, 4],
-    answer: 3,
-  },
+  // {
+  //   id: 6,
+  //   type: "GTITutorial",
+  //   question: "Manakah pasangan huruf yang memiliki cerminan horizontal?",
+  //   letters: [
+  //     { upperLetter: "B", lowerLetter: "d" },
+  //     { upperLetter: "C", lowerLetter: "c" },
+  //     { upperLetter: "K", lowerLetter: "k" },
+  //     { upperLetter: "L", lowerLetter: "l" },
+  //   ],
+  //   options: [1, 2, 3, 4],
+  //   answer: 1,
+  // },
+  // {
+  //   id: 7,
+  //   type: "GTITutorial",
+  //   question: "Manakah pasangan huruf yang memiliki cerminan horizontal?",
+  //   letters: [
+  //     { upperLetter: "B", lowerLetter: "d" },
+  //     { upperLetter: "C", lowerLetter: "c" },
+  //     { upperLetter: "K", lowerLetter: "k" },
+  //     { upperLetter: "L", lowerLetter: "l" },
+  //   ],
+  //   options: [1, 2, 3, 4],
+  //   answer: 3,
+  // },
   
 ];
