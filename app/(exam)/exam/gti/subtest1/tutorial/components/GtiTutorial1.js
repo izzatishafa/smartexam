@@ -1,75 +1,155 @@
 "use client";
-import React from "react";
-import { Typography, Row, Col, Button, Card } from "antd";
-import { useRouter } from "next/navigation";
-// import { useRouter } from "next/router";
 
+import { Button, Card, Row, Typography, Col, notification } from "antd";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 const { Title, Text } = Typography;
 
 
-const GtiTutorial1 = ({ upperRowLetters = [], lowerRowLetters = [], answers = [], selectedOption, onOptionClick, isAnswerCorrect, onNextQuestion }) => {
+const GtiTutorial1 = () => {
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [isCorrect, setIsCorrect] = useState(false);
 
-    const router = useRouter(); 
+  const router = useRouter();
 
-    const handleStartTest = () => {
-      router.push("http://localhost:3000/exam/gti/subtest1/questions");
-    };
+  const data = {
+    letters: [
+      { upperLetter: "Q", lowerLetter: "r" },
+      { upperLetter: "H", lowerLetter: "n" },
+      { upperLetter: "E", lowerLetter: "b" },
+      { upperLetter: "T", lowerLetter: "a" },
+    ],
+    options: [0, 1, 2, 3, 4],
+  };
+
+  const checkAnswer = (number) => {
+    setSelectedAnswer(number);
+
+    if (number === 0) {
+      setIsCorrect(true);
+      notification.success({
+        message: "Jawaban Benar!",
+        description: "Selamat, jawaban Anda benar.",
+        placement: "topRight",
+        className: "custom-notification",
+        style: {
+          background: "#f6ffed",
+          border: "1px solid #b7eb8f",
+          borderRadius: 6,
+        },
+      });
+    } else {
+      setIsCorrect(false);
+      notification.error({
+        message: "Jawaban Salah",
+        description: "Silakan coba lagi.",
+        placement: "topRight",
+        className: "custom-notification",
+        style: {
+          background: "#fff2f0",
+          border: "1px solid #ffccc7",
+          borderRadius: 6,
+        },
+      });
+    }
+  };
+
+  const LetterCard = ({ upperLetter, lowerLetter, isHighlighted }) => (
+    <Card
+      style={{
+        width: 180,
+        padding: 0,
+        border: isHighlighted ? "2px solid #1890ff" : "1px solid #d9d9d9",
+        borderRadius: 2,
+      }}
+      bodyStyle={{ padding: 0 }}
+    >
+      <div
+        style={{
+          height: 100,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: 80,
+        }}
+      >
+        {upperLetter}
+      </div>
+      <div
+        style={{
+          height: 50,
+          backgroundColor: "#bfbfbf",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "white",
+          fontSize: 20,
+        }}
+      >
+        {lowerLetter}
+      </div>
+    </Card>
+  );
+
+  const NumberOption = ({ number, isSelected, onClick }) => (
+    <Card
+      style={{
+        width: 110,
+        height: 34,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        border: isSelected ? "2px solid #1890ff" : "1px solid #d9d9d9",
+        borderRadius: 6,
+      }}
+      bodyStyle={{
+        padding: 0,
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+      onClick={() => onClick(number)}
+    >
+      <div style={{ fontSize: 20 }}>{number}</div>
+    </Card>
+  );
 
   return (
     <>
-      <Row gutter={[16, 16]} align="middle" justify="center">
-        {upperRowLetters.map((letter, index) => (
-          <Col span={4} key={`upper-${index}`}>
-            <Title level={1} style={{ textAlign: "center" }}>
-              {letter}
-            </Title>
-          </Col>
-        ))}
-      </Row>
-      <Row gutter={[16, 16]} align="middle" justify="center">
-        {lowerRowLetters.map((letter, index) => (
-          <Col span={4} key={`lower-${index}`}>
-            <Title level={3} style={{ textAlign: "center" }}>
-              {letter}
-            </Title>
-          </Col>
-        ))}
-      </Row>
-      <Row gutter={[16, 16]} align="middle" justify="center" style={{ marginTop: "20px" }}>
-        {answers.map((answer, index) => (
-          <Col span={4} key={`answer-${index}`}>
-            <Button
-              type={selectedOption === answer ? "primary" : "default"}
-              onClick={() => onOptionClick(answer)}
-              style={{
-                width: "100%",
-                height: "50px",
-                borderRadius: "8px",
-                fontSize: "16px",
-              }}
-            >
-              {answer}
-            </Button>
-          </Col>
-        ))}
-      </Row>
-      {isAnswerCorrect !== null && (
-        <Row gutter={[16, 16]} align="middle" justify="center" style={{ marginTop: "70px" }}>
-          <Col span={24} style={{ textAlign: "center" }}>
-            <Text type={isAnswerCorrect ? "success" : "danger"}>{isAnswerCorrect ? "Jawaban Benar" : "Jawaban Salah"}</Text>
-          </Col>
+      <Card style={{ margin: "24px 64px" }}>
+        <Row style={{ width: "100%" }} justify="center">
+          <Text style={{ fontSize: 24 }}>Berapa jumlah pasangan huruf yang memiliki kesamaan?</Text>
         </Row>
-      )}
-      {isAnswerCorrect && (
-        <Row gutter={[16, 16]} align="middle" justify="center" style={{ marginTop: "20px" }}>
-          <Col span={24} style={{ textAlign: "center" }}>
-            <Button type="primary" onClick={onNextQuestion} style={{ marginRight: "10px" }}>
-              Ulangi Tutorial
-            </Button>
-            <Button style={{ backgroundColor: "#52c41a", color: "white" }} onClick={handleStartTest}>
-              Mulai Test
-            </Button>
-          </Col>
+        <Row gutter={32} style={{ margin: "24px 0px" }} justify="center">
+          {data.letters.map((letter, index) => (
+            <Col key={index}>
+              <LetterCard upperLetter={letter.upperLetter} lowerLetter={letter.lowerLetter} />
+            </Col>
+          ))}
+        </Row>
+
+        <Row gutter={32} justify="center">
+          {data.options.map((number) => (
+            <Col key={number}>
+              <NumberOption number={number} isSelected={selectedAnswer === number} onClick={checkAnswer} />
+            </Col>
+          ))}
+        </Row>
+      </Card>
+      {isCorrect && (
+        <Row style={{ width: "100%" }} justify="center" className="mt-4">
+          <Button
+            size="large"
+            style={{
+              backgroundColor: "#1b3042",
+              color: "white",
+              width: "400px",
+            }}
+            onClick={() => router.push("/exam/gti/subtest1/questions")}
+          >
+            Mulai Test
+          </Button>
         </Row>
       )}
     </>

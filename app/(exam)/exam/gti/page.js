@@ -6,7 +6,7 @@ const { Content } = Layout;
 import Countdown from "@/components/ui/Countdown";
 import QuizHeader from "@/components/ui/QuizHeader";
 import { Layout } from "antd";
-import GtiTutorial1 from "@/app/(exam)/exam/gti/subtest1/tutorial/components/GtiTutorial1";
+import GtiTutorial1 from "@/app/(exam)/exam/gti/subtest1/tutorial-intro/components/GtiTutorialIntro1";
 
 const GtiGroupPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
