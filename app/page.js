@@ -10,7 +10,7 @@ const { Title, Text } = Typography;
 const QuizBankList = [
   { title: "Hexaco", route: "/exam/personal/hexaco" },
   { title: "WPT", route: "/exam/wpt_taxand" },
-  { title: "GTI Group", route: "/exam/gti/subtest1/tutorial" },
+  { title: "GTI Group", route: "/exam/gti/subtest1/tutorial-intro" },
   { title: "DISC", route: "/exam/disc" },
   { title: "Essay", route: "/exam/essay" },
   { title: "Accounting Junior", route: "/exam/accounting_junior" },
