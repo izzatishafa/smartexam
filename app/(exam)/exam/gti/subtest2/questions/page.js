@@ -2,54 +2,35 @@
 
 import React, { useState } from "react";
 import { Typography, Row, Col, Space, Modal, Button, Flex } from "antd";
-const { Title, Text } = Typography;
-import Countdown from "@/components/ui/Countdown";
-import QuizHeader from "@/components/ui/QuizHeader";
 import { Layout } from "antd";
 import ModalTutorial from "../components/GtiModalTutorial";
-import GtiQuestion2 from "../components/GtiQuestion2";
+import GtiQuestion2 from "./components/GtiQuestion2";
+import { useExam } from "../../../../contexts/ExamContext";
 const { Content } = Layout;
+const { Title, Text } = Typography;
 
-const GtiSubtest2Page = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const GtiSubtest2 = () => {
   const [selectedOption, setSelectedOption] = useState(null);
-  const handleOptionClick = (value) => setSelectedOption(value);
-  const [isAnswerCorrect, setIsAnswerCorrect] = useState(null);
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
+  const { currentQuestion, questionData, answers, setAnswer, subtestInfo, currentQuestionData, currentSubtest } = useExam();
 
-  const handleClose = () => {
-    setIsModalOpen(false);
-  };
+  console.log("currentSubtest222", currentSubtest);
+  console.log("currentQuestionData", currentQuestionData);
+  // const currentQuestionData = questionData.find((q) => q.id === currentQuestion);
 
-  const handleOptionQuestionsClick = (value) => {
-    setSelectedOption(value);
-    setIsAnswerCorrect(value === correctAnswer);
-  };
-
-  const handleNextQuestion = () => {
-    setSelectedOption(null);
-    setIsAnswerCorrect(null);
-    // Logic to fetch the next question will go here
-  };
-
-  const tutorialAnswers = ["Galang", "Helma"];
+  if (!currentQuestionData) {
+    return <Text>Soal tidak ditemukan</Text>;
+  }
 
   return (
     <>
-      <QuizHeader title="Subtest 2" onGuideClick={showModal}>
-        <Countdown />
-      </QuizHeader>
-      <Content style={{ margin: "20px" }}>
-        <Space>
-          <ModalTutorial open={isModalOpen} onCancel={handleClose} />
-        </Space>
-        <GtiQuestion2 selectedOption={selectedOption} setSelectedOption={setSelectedOption} onNextQuestion={handleNextQuestion} />
-      </Content>
+      <Content>{currentQuestionData.type === "GTI" && <GtiQuestion2 data={currentQuestionData} onAnswer={setAnswer} currentAnswer={answers[currentQuestion]} />}</Content>
     </>
   );
+};
+
+const GtiSubtest2Page = () => {
+  return <GtiSubtest2 />;
 };
 
 export default GtiSubtest2Page;

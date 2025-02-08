@@ -50,10 +50,7 @@ const GtiTutorial2 = () => {
 
   const NumberOption = ({ number, name, onClick }) => {
     return (
-      <Button
-        className={styles["user-button"]}
-        onClick={() => onClick(number)}
-      >
+      <Button className={styles["user-button"]} onClick={() => onClick(number)}>
         <div className={styles.avatar}>{number}</div>
         <span className={styles.name}>{name}</span>
       </Button>

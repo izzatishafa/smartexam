@@ -9,7 +9,7 @@ import { useExam } from "../contexts/ExamContext";
 const { Sider } = Layout;
 
 const SiderExam = () => {
-  const { currentQuestion, confusedQuestions, handleSubmit, answers, questionData, goToQuestion } = useExam();
+  const { currentQuestion, subtestInfo, confusedQuestions, handleSubmit, answers, questionData, goToQuestion } = useExam();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -35,7 +35,7 @@ const SiderExam = () => {
       }}
     >
       <Row style={{ padding: "0px 20px", height: "45px", borderBottom: "1px solid #E0E0E0", alignItems: "center" }}>
-        <Progress percent={getProgress()} format={(percent) => `${Object.keys(answers).length} /${questionData.length}`} />
+        <Progress percent={getProgress()} format={(percent) => `${Object.keys(answers).length} /${subtestInfo.totalQuestions}`} />
       </Row>
       <Row
         style={{
