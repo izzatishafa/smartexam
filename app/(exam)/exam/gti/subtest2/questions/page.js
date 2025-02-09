@@ -10,8 +10,6 @@ const { Content } = Layout;
 const { Title, Text } = Typography;
 
 const GtiSubtest2 = () => {
-  const [selectedOption, setSelectedOption] = useState(null);
-
   const { currentQuestion, questionData, answers, setAnswer, subtestInfo, currentQuestionData, currentSubtest } = useExam();
 
   console.log("currentSubtest222", currentSubtest);
