@@ -70,9 +70,6 @@ const GtiQuestion1 = ({ data, onAnswer, currentAnswer, index }) => {
     setIsModalOpen(true);
   };
 
-  const upperLetter = data.question.replace(/[^A-Z]/g, ""); // Ambil huruf besar
-  const lowerLetter = data.question.replace(/[^a-z]/g, ""); // Ambil huruf kecil
-
   const handleClose = () => {
     setIsModalOpen(false);
   };
@@ -91,7 +88,6 @@ const GtiQuestion1 = ({ data, onAnswer, currentAnswer, index }) => {
 
   // Proses data huruf
   const letterPairs = processLetterPairs(data.question);
-
 
   console.log("ahai", data);
   return (
