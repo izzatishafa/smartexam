@@ -1,0 +1,46 @@
+.orientation-test-card {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.question-card {
+  margin-bottom: 20px;
+  background: #fff;
+  box-shadow: none;
+}
+
+.image-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.rotation-label {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.bottom-image {
+  background-color: #f0f0f0;
+}
+
+@media (max-width: 576px) {
+  .image-container img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .image-wrapper {
+    margin-bottom: 20px;
+  }
+}

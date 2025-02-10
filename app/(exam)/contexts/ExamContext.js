@@ -85,7 +85,7 @@ export const ExamProvider = ({ children }) => {
 
   const confirmSubmit = async () => {
     setIsModalOpen(false);
-    subtestTotal = getTotalSubtests();
+    const subtestTotal = getTotalSubtests();
 
     if (currentSubtest < subtestTotal) {
       // Reset answers dan currentQuestion sebelum mengubah subtest
