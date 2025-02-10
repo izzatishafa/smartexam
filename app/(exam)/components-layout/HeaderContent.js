@@ -5,9 +5,24 @@ import { Col, Row, Typography } from "antd";
 
 const { Title, Text } = Typography;
 
-const HeaderContent = ({ judul, subJudul, hours, minutes, seconds }) => {
+const HeaderContent = ({ examType, subtest, questionNumber, hours, minutes, seconds }) => {
   const formatNumber = (num) => {
     return num.toString().padStart(2, "0");
+  };
+
+  // Menentukan judul sesuai examType
+  const getTitle = (type) => `Online Test - ${type.toUpperCase()}`;
+
+  // Menentukan subjudul sesuai examType
+  const getSubTitle = (type, subtestNum, questionNum) => {
+    const normalizedType = type.toLowerCase(); // Normalisasi ke huruf kecil
+    if (normalizedType === "gti") {
+      return `Subtest ${subtestNum} - Question ${questionNum}`;
+    } else if (normalizedType === "wpt") {
+      return `WPT Test - Question ${questionNum}`;
+    } else {
+      return `${type.toUpperCase()} Test - Question ${questionNum}`;
+    }
   };
 
   return (
@@ -20,12 +35,9 @@ const HeaderContent = ({ judul, subJudul, hours, minutes, seconds }) => {
             backgroundColor: "#1b3042",
           }}
           justify="center"
-          align="middle"
         >
           <Col>
-            <Title level={4} style={{ color: "white", margin: 0 }}>
-              {judul}
-            </Title>
+            <Text style={{ height: "100%", display: "flex", alignItems: "center", color: "white", fontSize: "22px" }}>{getTitle(examType)}</Text>
           </Col>
         </Row>
         <Row style={{ width: "100%", height: "65px", padding: "0px 30px" }}>
@@ -38,9 +50,7 @@ const HeaderContent = ({ judul, subJudul, hours, minutes, seconds }) => {
               alignItems: "center",
             }}
           >
-            <Title level={4} style={{ color: "black", margin: 0 }}>
-              {subJudul}
-            </Title>
+            <Text style={{ color: "black", margin: 0, fontSize: "18px" }}>{getSubTitle(examType, subtest, questionNumber)}</Text>
           </Col>
         </Row>
       </Col>
@@ -52,12 +62,9 @@ const HeaderContent = ({ judul, subJudul, hours, minutes, seconds }) => {
             backgroundColor: "#1b3042",
           }}
           justify="center"
-          align="middle"
         >
-          <Col>
-            <Title level={4} style={{ color: "white", margin: 0 }}>
-              Waktu
-            </Title>
+          <Col style={{ height: "100%", display: "flex", alignItems: "center" }}>
+            <Text style={{ color: "white", fontSize: "18px" }}>Timer Left</Text>
           </Col>
         </Row>
         <Row

@@ -1,12 +1,13 @@
 "use client";
 
-import { Button, Layout, Col, Divider, Dropdown, Row, Space, Typography } from "antd";
+import { Button, Layout, Col, Divider, Dropdown, Row, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { CaretDownFilled, LoginOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import Title from "antd/es/typography/Title";
 import { useRouter } from "next/navigation";
 import HeaderContent from "./HeaderContent";
 import { usePathname } from "next/navigation";
+import { useExam } from "../contexts/ExamContext";
 
 const { Text } = Typography;
 const { Header } = Layout;
@@ -15,6 +16,7 @@ const HeaderExam = () => {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(58);
   const [seconds, setSeconds] = useState(49);
+  const { currentExamType, currentSubtest, currentQuestion } = useExam();
 
   const pathname = usePathname(); // Dapatkan path URL saat ini
   const isTutorialPage = () => {
@@ -173,14 +175,14 @@ const HeaderExam = () => {
               </Dropdown>
             </Col>
           </Row>
-          {!isTutorialPage() && <HeaderContent judul="Judul" subJudul="Sub Judul" hours={hours} minutes={minutes} seconds={seconds} />}
+          {!isTutorialPage() && <HeaderContent examType={currentExamType} subtest={currentSubtest} questionNumber={currentQuestion} hours={hours} minutes={minutes} seconds={seconds} />}
 
           {isTutorialPage() && (
             <Row style={{ width: "100%", height: "50px", backgroundColor: "#1b3042" }} justify="center" align="middle">
               <Col>
-                <Title level={4} style={{ color: "white", margin: 0 }}>
-                  Header Tutorial
-                </Title>
+                <Text style={{ height: "100%", display: "flex", alignItems: "center", color: "white", fontSize: "22px" }}>
+                  Tutorial Pengerjaan - Subtest {currentSubtest}
+                </Text>
               </Col>
             </Row>
           )}
