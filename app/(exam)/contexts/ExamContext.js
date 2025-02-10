@@ -85,8 +85,9 @@ export const ExamProvider = ({ children }) => {
 
   const confirmSubmit = async () => {
     setIsModalOpen(false);
+    subtestTotal = getTotalSubtests();
 
-    if (currentSubtest < 8) {
+    if (currentSubtest < subtestTotal) {
       // Reset answers dan currentQuestion sebelum mengubah subtest
       setAnswers({});
       setCurrentQuestion(1);
@@ -97,7 +98,7 @@ export const ExamProvider = ({ children }) => {
       });
       setIsNavigate(true);
     } else {
-      router.push("/exam/complete");
+      router.push("/");
     }
     console.log("current Subtest444", currentSubtest);
   };

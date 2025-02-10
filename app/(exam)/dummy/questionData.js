@@ -100,7 +100,26 @@ const questionData = {
       timeLimit: 300,
       instructions: "Instruksi untuk GTI subtest 4",
     },
-    totalSubtests: 4,
+    subtest5: {
+      questions: [
+        {
+          id: 1,
+          type: "GTI",
+          question: "3,8|2,8|8,3",
+          code: "gti_orientasi",
+        },
+        {
+          id: 2,
+          type: "GTI",
+          question: "6,7|8,7|2,5",
+          code: "gti_orientasi",
+        },
+      ],
+      totalQuestions: 2,
+      timeLimit: 300,
+      instructions: "Instruksi untuk GTI subtest 5",
+    },
+    totalSubtests: 5,
   },
   wpt: {
     subtest1: {
