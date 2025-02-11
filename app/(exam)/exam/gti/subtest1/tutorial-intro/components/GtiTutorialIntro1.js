@@ -3,11 +3,10 @@ import React from "react";
 import { Typography, Row, Col, Button, Card } from "antd";
 import { useRouter } from "next/navigation";
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const GtiTutorialIntro1 = () => {
-
-  const  router  = useRouter();
+  const router = useRouter();
 
   const data = {
     letters: [
@@ -21,10 +20,10 @@ const GtiTutorialIntro1 = () => {
   const LetterCard = ({ upperLetter, lowerLetter, isHighlighted }) => (
     <Card
       style={{
-        width: 180,
+        width: 140,
         padding: 0,
         border: isHighlighted ? "2px solid #1890ff" : "1px solid #d9d9d9",
-        borderRadius: 2,
+        borderRadius: 5,
       }}
       bodyStyle={{ padding: 0 }}
     >
@@ -48,6 +47,7 @@ const GtiTutorialIntro1 = () => {
           justifyContent: "center",
           color: "white",
           fontSize: 20,
+          borderRadius: "0 0 5px 5px",
         }}
       >
         {lowerLetter}
@@ -82,15 +82,16 @@ const GtiTutorialIntro1 = () => {
   return (
     <>
       <Card style={{ margin: "32px 24px 32px" }}>
-        <Row style={{ width:"100%"}} justify="center">
-          <Text style={{ fontSize: 16 }}>
-            Perhatikan soal berikut !
-          </Text>
+        <Row style={{ width: "100%" }} justify="center">
+          <Text style={{ fontSize: 18 }}>Perhatikan soal berikut !</Text>
         </Row>
         <Row gutter={54} style={{ margin: "16px 0px 24px" }} justify="center">
           {data.letters.map((letter, index) => (
             <Col key={index}>
-              <LetterCard upperLetter={letter.upperLetter} lowerLetter={letter.lowerLetter} />
+              <LetterCard
+                upperLetter={letter.upperLetter}
+                lowerLetter={letter.lowerLetter}
+              />
             </Col>
           ))}
         </Row>
@@ -103,21 +104,32 @@ const GtiTutorialIntro1 = () => {
         </Row>
       </Card>
       <Row style={{ margin: "16px 64px 0px" }}>
-        <div style={{ marginBottom: "24px" }}>
-          <p style={{ padding: "0", margin: "0" }}>Setiap kotak berisi pasangan huruf. Tugas Anda adalah menghitung jumlah pasangan huruf yang memiliki kesamaan antara huruf di baris atas dengan huruf yang tepat berada di baris bawah.</p>
+        <div style={{ marginBottom: "24px", fontSize: "18px" }}>
+          <p style={{ padding: "0", margin: "0" }}>
+            Setiap kotak berisi pasangan huruf. Tugas Anda adalah menghitung
+            jumlah pasangan huruf yang memiliki kesamaan antara huruf di baris
+            atas dengan huruf yang tepat berada di baris bawah.
+          </p>
           <p style={{ padding: "0", margin: "0" }}>Contoh:</p>
           <ul style={{ padding: "0px 16px 0px", margin: "0" }}>
             <li>Pasangan:</li>
-            <li>F - f ✓ (sama)</li>
-            <li>G - c ✗ (tidak sama)</li>
-            <li>R - r ✓ (sama)</li>
-            <li>S - s ✓ (sama)</li>
+            <li style={{ listStyleType: "none" }}>F - f ✅ (sama)</li>
+            <li style={{ listStyleType: "none" }}>G - c ❌ (tidak sama)</li>
+            <li style={{ listStyleType: "none" }}>R - r ✅ (sama)</li>
+            <li style={{ listStyleType: "none" }}>S - s ✅ (sama)</li>
           </ul>
-          <p style={{ padding: "0", margin: "0" }}>Dari contoh di atas, terdapat 3 pasangan huruf yang sama. Jawaban yang benar adalah 3.</p>
+          <p style={{ padding: "0", margin: "0" }}>
+            Dari contoh di atas, terdapat 3 pasangan huruf yang sama. Jawaban
+            yang benar adalah 3.
+          </p>
         </div>
       </Row>
       <Row style={{ width: "100%" }} justify="center">
-        <Button size="large" style={{ backgroundColor: "#1b3042", color: "white", width: "400px" }} onClick={() => router.push("/exam/gti/subtest1/tutorial")}>
+        <Button
+          size="large"
+          style={{ backgroundColor: "#1b3042", color: "white", width: "400px" }}
+          onClick={() => router.push("/exam/gti/subtest1/tutorial")}
+        >
           Mulai Tutorial
         </Button>
       </Row>

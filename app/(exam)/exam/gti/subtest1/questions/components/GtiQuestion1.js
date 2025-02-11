@@ -103,7 +103,7 @@ const GtiQuestion1 = ({ data, onAnswer, currentAnswer, index }) => {
       </Button>
       <Card style={{ margin: "0px 24px 0px 24px" }}>
         <Text style={{ fontSize: 24 }}>
-          {index} Berapa jumlah pasangan huruf yang memiliki kesamaan?
+          {index}. Berapa jumlah pasangan huruf yang memiliki kesamaan?
         </Text>
         <Row gutter={32} style={{ margin: "24px 0px" }} justify="center">
           {letterPairs.map((pair, idx) => (

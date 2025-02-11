@@ -1,17 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
-import { Layout, Row, Col, Progress } from "antd";
+import { Layout, Row, Col, Progress, Button } from "antd";
 import Title from "antd/es/typography/Title";
 import { theme } from "antd";
-import { useExam } from "../exam/gti/subtest1/questions/contexts/ExamContext";
+import { useExam } from "../contexts/ExamContext";
 
 const { Sider } = Layout;
 
 const SiderExam = () => {
   const {
     currentQuestion,
+    subtestInfo,
     confusedQuestions,
+    handleSubmit,
     answers,
     questionData,
     goToQuestion,
@@ -51,7 +53,7 @@ const SiderExam = () => {
         <Progress
           percent={getProgress()}
           format={(percent) =>
-            `${Object.keys(answers).length} /${questionData.length}`
+            `${Object.keys(answers).length} /${subtestInfo.totalQuestions}`
           }
         />
       </Row>
@@ -126,6 +128,14 @@ const SiderExam = () => {
               );
             })}
           </div>
+          <Button
+            type="primary"
+            shape="round"
+            onClick={handleSubmit}
+            style={{ marginTop: "20px" }}
+          >
+            Submit Quiz
+          </Button>
         </Col>
       </Row>
     </Sider>

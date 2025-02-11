@@ -4,7 +4,7 @@ import { Badge, Col, Row, Space, Layout } from "antd";
 import React from "react";
 import styles from "../styles-layout/styles.module.css";
 const { Footer } = Layout;
-import { useExam } from "../exam/gti/subtest1/questions/contexts/ExamContext";
+import { useExam } from "../contexts/ExamContext";
 
 const FooterExam = () => {
   const {

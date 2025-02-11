@@ -5,14 +5,27 @@ import { Layout, theme } from "antd";
 import HeaderExam from "./components-layout/HeaderExam";
 import FooterExam from "./components-layout/FooterExam";
 import SiderExam from "./components-layout/SiderExam";
-import { ExamProvider } from "./exam/gti/subtest1/questions/contexts/ExamContext";
+import { ExamProvider } from "./contexts/ExamContext";
+import { usePathname } from "next/navigation";
 
 const { Content } = Layout;
 
-const ExamLayout = ({ children }) => {
+const ExamLayout = ({ children}) => {
   const {
     token: { borderRadiusLG },
   } = theme.useToken();
+
+  const pathname = usePathname(); // Dapatkan path URL saat ini
+  // const hideSidebar = pathname.includes("/exam/gti/subtest1/tutorial");
+  // const hideFooter = pathname.includes("/exam/gti/subtest1/tutorial");
+
+  const hideSidebar = () => {
+    return pathname.includes("/tutorial");
+  }
+
+  const hideFooter = () => {
+    return pathname.includes("/tutorial");
+  }
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -29,9 +42,9 @@ const ExamLayout = ({ children }) => {
             >
               {children}
             </Content>
-            <FooterExam />
+            {!hideFooter() && <FooterExam />}
           </Layout>
-          <SiderExam />
+          {!hideSidebar ()&& <SiderExam />}
         </Layout>
       </ExamProvider>
     </Layout>
