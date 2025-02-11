@@ -5,30 +5,14 @@ import { Layout, theme } from "antd";
 import HeaderExam from "./components-layout/HeaderExam";
 import FooterExam from "./components-layout/FooterExam";
 import SiderExam from "./components-layout/SiderExam";
-import { ExamProvider } from "./contexts/ExamContext";
-<<<<<<< HEAD
-=======
-import { usePathname } from "next/navigation";
->>>>>>> 9036de1 (membuat navigasi di tutorial dan questions GTI, membuat halaman tutorial-intro, mengaktifkan fungsi memilih jawaban dan notifikasi, conditional rendering pada header dan footer)
+import { ExamProvider } from "./exam/gti/subtest1/questions/contexts/ExamContext";
 
-const { Content, Sider } = Layout;
+const { Content } = Layout;
 
-const ExamLayout = ({ children}) => {
+const ExamLayout = ({ children }) => {
   const {
     token: { borderRadiusLG },
   } = theme.useToken();
-
-  const pathname = usePathname(); // Dapatkan path URL saat ini
-  // const hideSidebar = pathname.includes("/exam/gti/subtest1/tutorial");
-  // const hideFooter = pathname.includes("/exam/gti/subtest1/tutorial");
-
-  const hideSidebar = () => {
-    return pathname.includes("/tutorial");
-  }
-
-  const hideFooter = () => {
-    return pathname.includes("/tutorial");
-  }
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -45,9 +29,9 @@ const ExamLayout = ({ children}) => {
             >
               {children}
             </Content>
-            {!hideFooter() && <FooterExam />}
+            <FooterExam />
           </Layout>
-          {!hideSidebar ()&& <SiderExam />}
+          <SiderExam />
         </Layout>
       </ExamProvider>
     </Layout>

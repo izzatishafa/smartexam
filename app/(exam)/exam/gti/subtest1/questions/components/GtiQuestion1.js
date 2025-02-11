@@ -92,20 +92,19 @@ const GtiQuestion1 = ({ data, onAnswer, currentAnswer, index }) => {
   console.log("ahai", data);
   return (
     <>
-<<<<<<< HEAD
       <Button
         variant="outlined"
+        size="small"
         color="green"
         onClick={showModal}
         style={{ margin: "16px 0px" }}
       >
-=======
-      <Button variant="outlined" size="small" color="green" onClick={showModal} style={{ margin: "16px 0px" }}>
->>>>>>> 9036de1 (membuat navigasi di tutorial dan questions GTI, membuat halaman tutorial-intro, mengaktifkan fungsi memilih jawaban dan notifikasi, conditional rendering pada header dan footer)
         Panduan
       </Button>
       <Card style={{ margin: "0px 24px 0px 24px" }}>
-        <Text style={{ fontSize: 24 }}>{index} Berapa jumlah pasangan huruf yang memiliki kesamaan?</Text>
+        <Text style={{ fontSize: 24 }}>
+          {index} Berapa jumlah pasangan huruf yang memiliki kesamaan?
+        </Text>
         <Row gutter={32} style={{ margin: "24px 0px" }} justify="center">
           {letterPairs.map((pair, idx) => (
             <Col key={idx}>
@@ -134,6 +133,5 @@ const GtiQuestion1 = ({ data, onAnswer, currentAnswer, index }) => {
     </>
   );
 };
-
 
 export default GtiQuestion1;

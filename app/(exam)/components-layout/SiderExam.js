@@ -1,15 +1,21 @@
 "use client";
 
 import React, { useState } from "react";
-import { Layout, Row, Col, Progress, Button } from "antd";
+import { Layout, Row, Col, Progress } from "antd";
 import Title from "antd/es/typography/Title";
 import { theme } from "antd";
-import { useExam } from "../contexts/ExamContext";
+import { useExam } from "../exam/gti/subtest1/questions/contexts/ExamContext";
 
 const { Sider } = Layout;
 
 const SiderExam = () => {
-  const { currentQuestion, subtestInfo, confusedQuestions, handleSubmit, answers, questionData, goToQuestion } = useExam();
+  const {
+    currentQuestion,
+    confusedQuestions,
+    answers,
+    questionData,
+    goToQuestion,
+  } = useExam();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -34,8 +40,20 @@ const SiderExam = () => {
         borderLeft: "1px solid rgba(0, 0, 0, 0.05)",
       }}
     >
-      <Row style={{ padding: "0px 20px", height: "45px", borderBottom: "1px solid #E0E0E0", alignItems: "center" }}>
-        <Progress percent={getProgress()} format={(percent) => `${Object.keys(answers).length} /${subtestInfo.totalQuestions}`} />
+      <Row
+        style={{
+          padding: "0px 20px",
+          height: "45px",
+          borderBottom: "1px solid #E0E0E0",
+          alignItems: "center",
+        }}
+      >
+        <Progress
+          percent={getProgress()}
+          format={(percent) =>
+            `${Object.keys(answers).length} /${questionData.length}`
+          }
+        />
       </Row>
       <Row
         style={{
@@ -44,7 +62,16 @@ const SiderExam = () => {
           width: "100%",
         }}
       >
-        <Col style={{ height: "45px", backgroundColor: "#1b3042", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <Col
+          style={{
+            height: "45px",
+            backgroundColor: "#1b3042",
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Title level={4} style={{ color: "white", margin: 0 }}>
             List Question
           </Title>
@@ -99,9 +126,6 @@ const SiderExam = () => {
               );
             })}
           </div>
-          <Button type="primary" shape="round" onClick={handleSubmit} style={{ marginTop: "20px" }}>
-            Submit Quiz
-          </Button>
         </Col>
       </Row>
     </Sider>

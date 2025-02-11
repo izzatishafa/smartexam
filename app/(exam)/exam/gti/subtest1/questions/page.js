@@ -1,25 +1,35 @@
 "use client";
 import React, { useState } from "react";
 import { Typography, Row, Col, Space, Modal, Button } from "antd";
-import { Layout } from "antd";
-import { useExam } from "../../../../contexts/ExamContext";
-import GtiQuestion1 from "@/app/(exam)/exam/gti/subtest1/questions/components/GtiQuestion1";
 const { Title, Text } = Typography;
 const { Content } = Layout;
+import { ExamProvider } from "./contexts/ExamContext";
+import { useExam } from "./contexts/ExamContext";
+// import {ExamLayout} from "./components/ExamLayout";
+import { Layout } from "antd";
+import GtiQuestion1 from "@/app/(exam)/exam/gti/subtest1/questions/components/GtiQuestion1";
 
-const GtiSubtest1 = () => {
-  const { currentQuestion, questionData, answers, setAnswer, subtestInfo, currentQuestionData } = useExam();
-  // const currentQuestionData = questionData.find((q) => q.id === currentQuestion);
-  console.log(currentQuestionData, "ehe");
-  if (!currentQuestionData) {
-    return <Text>Soal tidak ditemukan</Text>;
-  }
+const GtiSubtest = () => {
+  const { currentQuestion, questionData, answers, setAnswer } = useExam();
+  const currentQuestionData = questionData.find(
+    (q) => q.id === currentQuestion
+  );
 
-  return <Content>{currentQuestionData.type === "GTI" && <GtiQuestion1 index={currentQuestion} data={currentQuestionData} onAnswer={setAnswer} currentAnswer={answers[currentQuestion]} />}</Content>;
+  return (
+    <>
+      <Content>
+        <GtiQuestion1
+          data={currentQuestionData}
+          onAnswer={setAnswer}
+          currentAnswer={answers[currentQuestion]}
+        />
+      </Content>
+    </>
+  );
 };
 
 const GtiSubtestPage = () => {
-  return <GtiSubtest1 />;
+  return <GtiSubtest />;
 };
 
 export default GtiSubtestPage;

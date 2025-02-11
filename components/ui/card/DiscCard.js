@@ -30,8 +30,6 @@ export default function DiscCard({ data }) {
     e.preventDefault();
   };
 
-<<<<<<< HEAD
-=======
   const dataSource = [
     { key: "1", pref: "A Planning the work ahead" },
     { key: "2", pref: "B Planning the work ahead" },
@@ -39,7 +37,6 @@ export default function DiscCard({ data }) {
     { key: "4", pref: "D Planning the work ahead" },
   ];
 
->>>>>>> e2fa345 (fix: Perbaiki tampilan data dengan mengaktifkan dummy data)
   const columns = [
     {
       title: "",
@@ -136,11 +133,7 @@ export default function DiscCard({ data }) {
       </Title>
       <Space direction="vertical">
         <Table
-<<<<<<< HEAD
-          dataSource={data}
-=======
           dataSource={dataSource}
->>>>>>> e2fa345 (fix: Perbaiki tampilan data dengan mengaktifkan dummy data)
           columns={columns}
           bordered={true}
           size="large"
