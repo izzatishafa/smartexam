@@ -22,7 +22,7 @@ const SiderExam = () => {
 
   return (
     <Sider
-      width={385}
+      width={384}
       theme="dark"
       collapsible
       collapsed={collapsed}
@@ -31,11 +31,11 @@ const SiderExam = () => {
       style={{
         background: colorBgContainer,
         marginBottom: 24,
-        borderLeft: "1px solid rgba(0, 0, 0, 0.05)",
+        boxShadow: "-4px 0 4px -2px rgba(27, 48, 66, 0.1)",
       }}
     >
       <Row style={{ padding: "0px 20px", height: "45px", borderBottom: "1px solid #E0E0E0", alignItems: "center" }}>
-        <Progress percent={getProgress()} format={(percent) => `${Object.keys(answers).length} /${subtestInfo.totalQuestions}`} />
+        <Progress percent={getProgress()} format={(percent) => `${Object.keys(answers).length} /${subtestInfo.totalQuestions}`} strokeColor="#457D42" />
       </Row>
       <Row
         style={{

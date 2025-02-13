@@ -22,7 +22,7 @@ const questionData = {
         },
       ],
       totalQuestions: 3,
-      timeLimit: 300, // dalam detik
+      timeLimit: { hours: 0, minutes: 3, seconds: 0 }, // dalam detik
       instructions: "Instruksi untuk GTI subtest 1",
     },
     subtest2: {
@@ -53,7 +53,7 @@ const questionData = {
         },
       ],
       totalQuestions: 4,
-      timeLimit: 300,
+      timeLimit: { hours: 0, minutes: 4, seconds: 0 },
       instructions: "Instruksi untuk GTI subtest 2",
     },
     subtest3: {
@@ -78,7 +78,7 @@ const questionData = {
         },
       ],
       totalQuestions: 3,
-      timeLimit: 300,
+      timeLimit: { hours: 0, minutes: 4, seconds: 0 },
       instructions: "Instruksi untuk GTI subtest 3",
     },
     subtest4: {
@@ -97,7 +97,7 @@ const questionData = {
         },
       ],
       totalQuestions: 2,
-      timeLimit: 300,
+      timeLimit: { hours: 0, minutes: 4, seconds: 0 },
       instructions: "Instruksi untuk GTI subtest 4",
     },
     subtest5: {
@@ -116,15 +116,74 @@ const questionData = {
         },
       ],
       totalQuestions: 2,
-      timeLimit: 300,
+      timeLimit: { hours: 0, minutes: 5, seconds: 0 },
       instructions: "Instruksi untuk GTI subtest 5",
     },
     totalSubtests: 5,
   },
-  wpt: {
-    subtest1: {
+  mtpc: {
+    testStory: {
       questions: [
-        // soal-soal WPT
+        {
+          id: 1,
+          type: "GTI",
+          question: "qpdtQPDT",
+          code: "gti_pci",
+        },
+      ],
+      totalQuestions: 10,
+      timeLimit: 600,
+      instructions: "Instruksi untuk WPT subtest 1",
+    },
+    testIncomlete: {
+      questions: [
+        {
+          id: 1,
+          type: "GTI",
+          question: "qpdtQPDT",
+          code: "gti_pci",
+        },
+      ],
+      totalQuestions: 10,
+      timeLimit: 600,
+      instructions: "Instruksi untuk WPT subtest 1",
+    },
+    totalSubtests: 1,
+  },
+  personal: {
+    hexaco: {
+      questions: [
+        {
+          id: 1,
+          type: "Hexaco",
+          question: "Selama ini saya mendapatkan fasilitas kerja sesuai dengan jabatan saya",
+          code: "hexaco",
+        },
+        {
+          id: 2,
+          type: "Hexaco",
+          question: "Tuntutan pekerjaan yang baru membuat saya tertekan.",
+          code: "hexaco",
+        },
+        {
+          id: 3,
+          type: "Hexaco",
+          question: "Saya lebih nyaman apabila orang lain yang membuat keputusan",
+          code: "hexaco",
+        },
+      ],
+      totalQuestions: 3,
+      timeLimit: 600,
+      instructions: "Instruksi untuk WPT subtest 1",
+    },
+    cti: {
+      questions: [
+        {
+          id: 1,
+          type: "GTI",
+          question: "qpdtQPDT",
+          code: "gti_pci",
+        },
       ],
       totalQuestions: 10,
       timeLimit: 600,

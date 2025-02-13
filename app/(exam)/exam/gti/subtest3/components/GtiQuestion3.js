@@ -1,22 +1,28 @@
 "use client";
 import React, { useState } from "react";
 import { Button, Card, Row, Typography, Col } from "antd";
+import ModalGti3 from "./ModalGti3";
 const { Text } = Typography;
 
 const GtiQuestion3 = ({ data, onAnswer, currentAnswer }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => setIsModalOpen(true);
   // Memproses string pertanyaan menjadi array huruf
   const letters = data.question.split("");
 
-  const LetterCard = ({ letter }) => (
+  const LetterCard = ({ letter, isSelected }) => (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
       <Card
         style={{
           width: 140,
           height: 160,
           padding: 0,
-          borderRadius: 2,
-          background: "#9CA3AF", // warna abu-abu
+          borderRadius: 6,
+          backgroundColor: "rgba(27, 48, 66, 0.5)",
           marginBottom: 15,
+          boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)",
+          border: "none",
         }}
         bodyStyle={{
           padding: 0,
@@ -42,7 +48,10 @@ const GtiQuestion3 = ({ data, onAnswer, currentAnswer }) => {
         style={{
           width: 140,
           padding: 0,
-          borderRadius: 2,
+          borderRadius: 6,
+          backgroundColor: isSelected ? "#2D7CC1" : "white",
+          border: "1px solid #1B3042",
+          cursor: "pointer",
         }}
         bodyStyle={{
           padding: "1px 0",
@@ -52,24 +61,32 @@ const GtiQuestion3 = ({ data, onAnswer, currentAnswer }) => {
         }}
         onClick={() => onAnswer(data.id, letter)}
       >
-        <Text style={{ fontSize: 20 }}>{letter}</Text>
+        <Text style={{ fontSize: 20, color: isSelected ? "white" : "black" }}>{letter}</Text>
       </Card>
     </div>
   );
 
   return (
-    <Card style={{ margin: "24px 64px" }}>
-      <Row style={{ width: "100%", marginBottom: "24px" }}>
-        <Text style={{ fontSize: 20 }}>{data.id}. Pilih jawaban dari teka-teki tersebut dengan tepat !</Text>
+    <>
+      <Row style={{ width: "100%", paddingRight: "24px" }} justify="end">
+        <Button variant="outlined" size="middle" color="green" onClick={showModal} style={{ margin: "16px 0px" }}>
+          Panduan
+        </Button>
       </Row>
-      <Row gutter={32} justify="center">
-        {letters.map((letter, index) => (
-          <Col key={index}>
-            <LetterCard letter={letter} />
-          </Col>
-        ))}
-      </Row>
-    </Card>
+      <Card style={{ margin: "0px 64px", boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)", border: "none" }} bodyStyle={{ padding: "16px 32px 24px" }}>
+        <Row style={{ width: "100%", marginBottom: "24px" }}>
+          <Text style={{ fontSize: 20 }}>{data.id}. Pilih jawaban dari teka-teki tersebut dengan tepat !</Text>
+        </Row>
+        <Row gutter={32} justify="center">
+          {letters.map((letter, index) => (
+            <Col key={index}>
+              <LetterCard letter={letter} isSelected={currentAnswer === letter} />
+            </Col>
+          ))}
+        </Row>
+      </Card>
+      <ModalGti3 open={isModalOpen} onCancel={() => setIsModalOpen(false)} />
+    </>
   );
 };
 

@@ -16,7 +16,7 @@ const HeaderExam = () => {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(58);
   const [seconds, setSeconds] = useState(49);
-  const { currentExamType, currentSubtest, currentQuestion } = useExam();
+  const { currentExamType, currentSubtest, currentQuestion, timeRemaining } = useExam();
 
   const pathname = usePathname(); // Dapatkan path URL saat ini
   const isTutorialPage = () => {
@@ -175,14 +175,12 @@ const HeaderExam = () => {
               </Dropdown>
             </Col>
           </Row>
-          {!isTutorialPage() && <HeaderContent examType={currentExamType} subtest={currentSubtest} questionNumber={currentQuestion} hours={hours} minutes={minutes} seconds={seconds} />}
+          {!isTutorialPage() && <HeaderContent examType={currentExamType} subtest={currentSubtest} questionNumber={currentQuestion} hours={timeRemaining.hours} minutes={timeRemaining.minutes} seconds={timeRemaining.seconds} />}
 
           {isTutorialPage() && (
             <Row style={{ width: "100%", height: "50px", backgroundColor: "#1b3042" }} justify="center" align="middle">
               <Col>
-                <Text style={{ height: "100%", display: "flex", alignItems: "center", color: "white", fontSize: "22px" }}>
-                  Tutorial Pengerjaan - Subtest {currentSubtest}
-                </Text>
+                <Text style={{ height: "100%", display: "flex", alignItems: "center", color: "white", fontSize: "20px" }}>Tutorial Pengerjaan - Subtest {currentSubtest}</Text>
               </Col>
             </Row>
           )}

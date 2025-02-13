@@ -54,12 +54,13 @@ const HeaderContent = ({ examType, subtest, questionNumber, hours, minutes, seco
           </Col>
         </Row>
       </Col>
-      <Col xs={24} sm={6} lg={6} style={{ borderLeft: "1px solid #E0E0E0" }}>
+      <Col xs={24} sm={6} lg={6} style={{ boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.1)" }}>
         <Row
           style={{
             width: "100%",
             height: "50px",
             backgroundColor: "#1b3042",
+            boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)",
           }}
           justify="center"
         >
@@ -71,7 +72,7 @@ const HeaderContent = ({ examType, subtest, questionNumber, hours, minutes, seco
           style={{
             width: "100%",
             height: "65px",
-            borderBottom: "1px solid #AAAAAA",
+            boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)",
           }}
           align="middle"
         >

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { Typography, Card, Space, Table, Radio, Tag, Flex } from "antd";
+import { Typography, Card, Space, Table, Radio, Tag, Flex, Row, Button } from "antd";
+import ModalDisc from "./ModalDisc";
 
 const { Title, Text } = Typography;
 
@@ -9,6 +10,14 @@ export default function DiscCard({ data }) {
     most: null,
     least: null,
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = () => {
+      setIsModalOpen(true);
+    };
+  
+    const handleClose = () => {
+      setIsModalOpen(false);
+    };
 
   const handleOptionChange = (key, type) => {
     setSelectedOption((prev) => {
@@ -63,11 +72,7 @@ export default function DiscCard({ data }) {
       key: "most",
       render: (_, record) => (
         <div style={{ textAlign: "center" }}>
-          <Radio
-            checked={selectedOption.most === record.key}
-            disabled={selectedOption.least === record.key}
-            onChange={() => handleOptionChange(record.key, "most")}
-          />
+          <Radio checked={selectedOption.most === record.key} disabled={selectedOption.least === record.key} onChange={() => handleOptionChange(record.key, "most")} />
         </div>
       ),
       onHeaderCell: () => ({
@@ -109,36 +114,33 @@ export default function DiscCard({ data }) {
   ];
 
   return (
-    <Flex
-      style={{
-        width: "100%",
-        flexDirection: "column",
-        userSelect: "none",
-        // border: "1px solid #1B3042",
-      }}
-      onCopy={handleCopy}
-    >
-      <Title
-        level={5}
-        style={{ fontWeight: "normal", marginTop: "0", marginBottom: "1rem" }}
-      >
-        Pilihlah opsi yang sesuai dengan kriteria Anda!
-      </Title>
-      <Space direction="vertical">
-        <Table
-          dataSource={data}
-          columns={columns}
-          bordered={true}
-          size="large"
-          pagination={false}
-          rowHoverable={false}
-          style={{
-            minWidth: "500px",
-            maxWidth: "800px",
-            width: "fit-content",
-          }}
-        />
-      </Space>
-    </Flex>
+    <>
+      <Row style={{ width: "100%", paddingRight: "24px" }} justify="end">
+        <Button variant="outlined" color="green" onClick={showModal} style={{ margin: "16px 0px" }}>
+          Panduan
+        </Button>
+      </Row>
+      <Card style={{ margin: "0px 40px 16px", boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)", border: "none" }} bodyStyle={{ padding: "16px 32px 24px" }}>
+        <Title level={5} style={{ fontWeight: "normal", marginTop: "0", marginBottom: "1rem" }}>
+          Pilihlah opsi yang sesuai dengan kriteria Anda!
+        </Title>
+        <Space direction="vertical">
+          <Table
+            dataSource={data}
+            columns={columns}
+            bordered={true}
+            size="large"
+            pagination={false}
+            rowHoverable={false}
+            style={{
+              minWidth: "500px",
+              maxWidth: "800px",
+              width: "fit-content",
+            }}
+          />
+        </Space>
+      </Card>
+      <ModalDisc open={isModalOpen} close={handleClose} />
+    </>
   );
 }

@@ -16,6 +16,13 @@ export const ExamProvider = ({ children }) => {
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // State untuk waktu
+  const [timeRemaining, setTimeRemaining] = useState({
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
   // State untuk tipe tes dan subtes
   const [currentExamType, setCurrentExamType] = useState("gti");
   const [currentSubtest, setCurrentSubtest] = useState(1);
@@ -31,6 +38,59 @@ export const ExamProvider = ({ children }) => {
   //     }
   //   });
   // };
+
+  // Fungsi untuk menginisialisasi timer berdasarkan subtest
+  const initializeTimer = () => {
+    const subtestData = questionData[currentExamType][`subtest${currentSubtest}`];
+    if (subtestData && subtestData.timeLimit) {
+      setTimeRemaining({
+        hours: subtestData.timeLimit.hours,
+        minutes: subtestData.timeLimit.minutes,
+        seconds: subtestData.timeLimit.seconds,
+      });
+    }
+  };
+
+  // Effect untuk menjalankan timer
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeRemaining((prev) => {
+        if (prev.hours === 0 && prev.minutes === 0 && prev.seconds === 0) {
+          clearInterval(timer);
+          handleSubmit(); // Auto submit ketika waktu habis
+          return prev;
+        }
+
+        let newHours = prev.hours;
+        let newMinutes = prev.minutes;
+        let newSeconds = prev.seconds;
+
+        if (newSeconds > 0) {
+          newSeconds--;
+        } else if (newMinutes > 0) {
+          newMinutes--;
+          newSeconds = 59;
+        } else if (newHours > 0) {
+          newHours--;
+          newMinutes = 59;
+          newSeconds = 59;
+        }
+
+        return {
+          hours: newHours,
+          minutes: newMinutes,
+          seconds: newSeconds,
+        };
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [currentSubtest]);
+
+  // Effect untuk inisialisasi timer saat subtest berubah
+  useEffect(() => {
+    initializeTimer();
+  }, [currentSubtest, currentExamType]);
 
   const getCurrentQuestionData = () => {
     const currentSubtestData = questionData[currentExamType][`subtest${currentSubtest}`];
@@ -120,6 +180,7 @@ export const ExamProvider = ({ children }) => {
     setCurrentSubtest(subtestNumber);
     setCurrentQuestion(1);
     setAnswers({});
+    initializeTimer();
   };
 
   const goToNext = () => {
@@ -141,6 +202,7 @@ export const ExamProvider = ({ children }) => {
         currentQuestion,
         // confusedQuestions,
         answers,
+        timeRemaining,
         currentExamType,
         currentSubtest,
         // questionData,

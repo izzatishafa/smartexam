@@ -36,8 +36,9 @@ const GtiTutorialIntro5 = () => {
       style={{
         width: 160,
         padding: 0,
-        border: isHighlighted ? "2px solid #1890ff" : "1px solid #d9d9d9",
-        borderRadius: 2,
+        borderRadius: 6,
+        boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)",
+        border: "none",
       }}
       bodyStyle={{ padding: 0 }}
     >
@@ -54,8 +55,9 @@ const GtiTutorialIntro5 = () => {
       <div
         style={{
           height: 80,
-          backgroundColor: "#bfbfbf",
+          backgroundColor: "rgba(27, 48, 66, 0.5)", 
           display: "flex",
+          borderRadius: "0px 0px 6px 6px",
           alignItems: "center",
           justifyContent: "center",
           color: "white",
@@ -75,7 +77,8 @@ const GtiTutorialIntro5 = () => {
         width: 140,
         padding: 0,
         border: isHighlighted ? "2px solid #1890ff" : "1px solid #d9d9d9",
-        borderRadius: 2,
+        borderRadius: 6,
+        border: "1px solid #1B3042",
       }}
       bodyStyle={{ padding: 0 }}
     >
@@ -112,7 +115,7 @@ const GtiTutorialIntro5 = () => {
 
   return (
     <>
-      <Card style={{ margin: "24px 64px 16px" }}>
+      <Card style={{ margin: "24px 64px 16px", boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)", border: "none" }} bodyStyle={{ padding: "16px 32px 24px" }}>
         <Row style={{ width: "100%" }} justify="center">
           <Text style={{ fontSize: 16 }}>Perhatikan soal berikut !</Text>
         </Row>
