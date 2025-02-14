@@ -118,7 +118,11 @@ const [isModalOpen, setIsModalOpen] = useState(false);
         <Row gutter={32} justify="center">
           {[0, 1, 2, 3, 4].map((number) => (
             <Col key={number}>
-              <NumberOption number={number} isSelected={currentAnswer === number} onClick={() => onAnswer(data.id, number)} />
+              <NumberOption
+                number={number}
+                isSelected={currentAnswer === number}
+                onClick={() => onAnswer(data.id, number)}
+              />
             </Col>
           ))}
         </Row>

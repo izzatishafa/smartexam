@@ -3,11 +3,10 @@ import React from "react";
 import { Typography, Row, Col, Button, Card } from "antd";
 import { useRouter } from "next/navigation";
 
-const {Text } = Typography;
+const { Text } = Typography;
 
 const GtiTutorialIntro1 = () => {
-
-  const  router  = useRouter();
+  const router = useRouter();
 
   const data = {
     letters: [
@@ -92,7 +91,10 @@ const GtiTutorialIntro1 = () => {
         <Row gutter={54} style={{ margin: "8px 0px 24px" }} justify="center">
           {data.letters.map((letter, index) => (
             <Col key={index}>
-              <LetterCard upperLetter={letter.upperLetter} lowerLetter={letter.lowerLetter} />
+              <LetterCard
+                upperLetter={letter.upperLetter}
+                lowerLetter={letter.lowerLetter}
+              />
             </Col>
           ))}
         </Row>
@@ -115,11 +117,18 @@ const GtiTutorialIntro1 = () => {
             <li style={{ listStyleType: "none" }}>R - r ✅ (sama)</li>
             <li style={{ listStyleType: "none" }}>S - s ✅ (sama)</li>
           </ul>
-          <p style={{ padding: "0", margin: "0" }}>Dari contoh di atas, terdapat 3 pasangan huruf yang sama. Jawaban yang benar adalah 3.</p>
+          <p style={{ padding: "0", margin: "0" }}>
+            Dari contoh di atas, terdapat 3 pasangan huruf yang sama. Jawaban
+            yang benar adalah 3.
+          </p>
         </div>
       </Row>
       <Row style={{ width: "100%" }} justify="center">
-        <Button size="large" style={{ backgroundColor: "#1b3042", color: "white", width: "400px" }} onClick={() => router.push("/exam/gti/subtest1/tutorial")}>
+        <Button
+          size="large"
+          style={{ backgroundColor: "#1b3042", color: "white", width: "400px" }}
+          onClick={() => router.push("/exam/gti/subtest1/tutorial")}
+        >
           Mulai Tutorial
         </Button>
       </Row>

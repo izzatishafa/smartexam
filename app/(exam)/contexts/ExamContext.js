@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import questionData from "../dummy/questionData";
-import { useRouter } from "next/navigation"; // Ganti ini
+import { useRouter, usePathname } from "next/navigation";
 import { Modal } from "antd";
 
 const ExamContext = createContext();
@@ -11,8 +11,11 @@ export const ExamProvider = ({ children }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   // const [confusedQuestions, setConfusedQuestions] = useState([]);
+  const pathname = usePathname();
+  const pathSegments = pathname.split("/");
+  const examType = pathSegments[2];
 
-  // State untuk soal
+  // State for questions
   const [answers, setAnswers] = useState({});
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,21 +28,30 @@ export const ExamProvider = ({ children }) => {
   });
   const [endStatus, setEndStatus] = useState("");
 
-  // State untuk tipe tes dan subtes
+  // // State untuk tipe tes dan subtes
+  // const [currentExamType, setCurrentExamType] = useState("gti");
+  // State for exam type and subtest
   const [currentExamType, setCurrentExamType] = useState("gti");
-  const [currentSubtest, setCurrentSubtest] = useState(1);
-  const [totalSubtest, setTotalSubtest] = useState(5); // berubah sesuai jenis soal
+  const [currentSubtest, setCurrentSubtest] = useState("");
+  const [totalSubtest, setTotalSubtest] = useState(1);
   const [isNavigate, setIsNavigate] = useState(false);
-  // const markConfused = () => {
-  //   setConfusedQuestions(prev => {
-  //     const isConfused = prev.includes(currentQuestion);
-  //     if (isConfused) {
-  //       return prev.filter(q => q !== currentQuestion);
-  //     } else {
-  //       return [...prev, currentQuestion];
-  //     }
-  //   });
-  // };
+  // Main state
+  const [examState, setExamState] = useState({
+    currentExamType: examType,
+    currentSection: null,
+    currentSubtest: 1,
+    currentQuestion: 1,
+    answers: {},
+    isNavigating: false,
+  });
+
+  // Gunakan function untuk update examState
+  const updateExamState = (updates) => {
+    setExamState((prev) => ({
+      ...prev,
+      ...updates,
+    }));
+  };
 
   // Modifikasi useEffect initialization
   useEffect(() => {
@@ -65,7 +77,7 @@ export const ExamProvider = ({ children }) => {
 
   // Fungsi untuk menginisialisasi timer berdasarkan subtest
   const initializeTimer = () => {
-    const subtestData = questionData[currentExamType][`subtest${currentSubtest}`];
+    const subtestData = questionData[examState.currentExamType][`subtest${examState.currentSubtest}`];
     if (subtestData && subtestData.timeLimit) {
       setTimeRemaining({
         hours: subtestData.timeLimit.hours,
@@ -109,7 +121,7 @@ export const ExamProvider = ({ children }) => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [currentSubtest]);
+  }, [examState.currentSubtest]);
 
   // Fungsi untuk menangani waktu habis
   const handleTimeUp = () => {
@@ -128,52 +140,113 @@ export const ExamProvider = ({ children }) => {
     initializeTimer();
   }, [currentSubtest, currentExamType]);
 
-  const getCurrentQuestionData = () => {
-    const currentSubtestData = questionData[currentExamType][`subtest${currentSubtest}`];
-    console.log("currentSubtest111", currentSubtest);
-    if (!currentSubtestData) {
-      console.error(`Subtest ${currentSubtest} tidak ditemukan`);
-      return [];
+
+  // const getCurrentQuestionData = () => {
+  //   const currentSubtestData = questionData[currentExamType][`subtest${currentSubtest}`];
+  //   console.log("currentSubtest111", currentSubtest);
+  //   if (!currentSubtestData) {
+  //     console.error(`Subtest ${currentSubtest} tidak ditemukan`);
+  //     return [];
+  //   }
+  //   return currentSubtestData.questions;
+  // };
+
+  const getCurrentExamData = () => {
+    const { currentExamType } = examState;
+
+    if (currentExamType === "disc") {
+      return questionData.disc.disc;
+    } else if (currentExamType === "personal") {
+      return questionData[currentExamType][examState.currentSection];
+    } else if (currentExamType === "gti") {
+      return questionData[currentExamType];
+    } else if (currentExamType === "multiplechoice") {
+      return questionData[currentExamType]["english"];
+    } else {
+      return questionData[currentExamType];
     }
-    return currentSubtestData.questions;
   };
 
-  // Tambahkan fungsi untuk mendapatkan soal saat ini
+  const getCurrentQuestionData = () => {
+    const examData = getCurrentExamData();
+
+    if (examState.currentExamType === "disc") {
+      return examData?.questions || [];
+    } else if (examState.currentExamType === "personal") {
+      return examData?.questions || [];
+    } else if (examState.currentExamType === "gti") {
+      return examData[`subtest${examState.currentSubtest}`]?.questions || [];
+    } else if (examState.currentExamType === "multiplechoice") {
+      return examData?.questions || [];
+    } else {
+      return examData?.questions || [];
+    }
+  };
+
   const getCurrentQuestion = () => {
     const questions = getCurrentQuestionData();
-    const question = questions.find((q) => q.id === currentQuestion);
-    console.log("Current Question:", question); // Debugging
-    return question;
+    if (examState.currentExamType === "disc") {
+      return questions.find((q) => q.no === currentQuestion);
+    } else {
+      return questions.find((q) => q.id === currentQuestion);
+    }
   };
 
   const getTotalSubtests = () => {
-    return questionData[currentExamType].totalSubtests;
+    const examData = getCurrentExamData();
+
+    if (examState.currentExamType === "gti") {
+      return examData.totalSubtests || 1;
+    } else {
+      return 1;
+    }
   };
 
   const getCurrentSubtestInfo = () => {
-    return questionData[currentExamType][`subtest${currentSubtest}`];
+    const examData = getCurrentExamData();
+
+    if (examState.currentExamType === "personal") {
+      return examData;
+    } else if (examState.currentExamType === "gti") {
+      return examData[`subtest${examState.currentSubtest}`];
+    } else {
+      return examData;
+    }
   };
 
   const setAnswer = (questionId, answer) => {
-    setAnswers((prev) => ({
-      ...prev,
-      [questionId]: answer,
-    }));
+    setAnswers((prev) => {
+      const newAnswers = { ...prev, [questionId]: answer };
+      console.log("Updated Answers:", newAnswers);
+      return newAnswers;
+    });
   };
 
   const handleSubmit = () => {
     const currentQuestionData = getCurrentQuestionData();
     const totalQuestions = currentQuestionData.length;
-    console.log("Total Questions:", totalQuestions);
 
-    const answeredQuestions = Object.keys(answers).length;
+    if (examState.currentExamType === "disc") {
+      const requiredAnswers = totalQuestions * 8; // 4 statements * 2 (most/least) per question
+      const answeredQuestions = Object.keys(answers).length;
 
-    if (answeredQuestions < totalQuestions) {
-      Modal.warning({
-        title: "Harap isi semua jawaban!",
-        centered: true,
-      });
-      return;
+      if (answeredQuestions < requiredAnswers) {
+        Modal.warning({
+          title: "Harap isi semua jawaban!",
+          content: "Pastikan Anda memilih Most dan Least untuk setiap pernyataan",
+          centered: true,
+        });
+        return;
+      }
+    } else {
+      const answeredQuestions = Object.keys(answers).length;
+      if (answeredQuestions < totalQuestions) {
+        Modal.warning({
+          title: "Harap isi semua jawaban!",
+          centered: true,
+        });
+        return;
+      }
     }
 
     setIsModalOpen(true);
@@ -184,25 +257,24 @@ export const ExamProvider = ({ children }) => {
     setIsModalOpen(false);
     const subtestTotal = getTotalSubtests();
 
-    if (currentSubtest < subtestTotal) {
+    if (examState.currentSubtest < subtestTotal) {
       setAnswers({});
       setCurrentQuestion(1);
-      setCurrentSubtest((prevSubtest) => {
-        const nextSubtest = prevSubtest + 1;
-        return nextSubtest;
+      updateExamState({
+        currentSubtest: examState.currentSubtest + 1,
       });
       setIsNavigate(true);
     } else {
-      setEndStatus("all-done"); // Set status "all-done" ketika semua subtest selesai
-      router.push("/end");
+      setEndStatus("all-done");
+      router.push("/exam/end");
     }
   };
-  console.log(isNavigate, "ini navigate");
+
   useEffect(() => {
     if (isNavigate) {
-      router.push(`/exam/${currentExamType}/subtest${currentSubtest}/tutorial-intro`);
+      router.push(`/exam/${currentExamType}/subtest${examState.currentSubtest}/tutorial-intro`);
     }
-  }, [isNavigate, currentExamType, router, currentSubtest]);
+  }, [isNavigate, currentExamType, router, examState.currentSubtest]);
 
   const changeExamType = (type) => {
     setCurrentExamType(type);
@@ -235,30 +307,27 @@ export const ExamProvider = ({ children }) => {
     <ExamContext.Provider
       value={{
         currentQuestion,
-        // confusedQuestions,
         answers,
         endStatus,
         timeRemaining,
-        currentExamType,
-        currentSubtest,
+        currentExamType: examState.currentExamType,
+        currentSubtest: examState.currentSubtest,
         isLoading,
         // questionData,
         questionData: getCurrentQuestionData(),
         subtestInfo: getCurrentSubtestInfo(),
         totalSubtests: getTotalSubtests(),
         currentQuestionData: getCurrentQuestion(),
-        // markConfused,
         setAnswer,
         goToNext,
         goToPrevious,
         goToQuestion,
         handleSubmit,
-        changeExamType,
-        changeSubtest,
+        changeExamType: (type) => updateExamState({ currentExamType: type, currentSubtest: 1 }),
+        changeSubtest: (subtestNumber) => updateExamState({ currentSubtest: subtestNumber }),
       }}
     >
       {children}
-      {/* Modal Konfirmasi */}
       <Modal title="Konfirmasi Submit" open={isModalOpen} centered onOk={confirmSubmit} onCancel={() => setIsModalOpen(false)}>
         <p>Apakah Anda yakin ingin mengirim jawaban?</p>
       </Modal>

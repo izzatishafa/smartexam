@@ -9,7 +9,15 @@ import { useExam } from "../contexts/ExamContext";
 const { Sider } = Layout;
 
 const SiderExam = () => {
-  const { currentQuestion, subtestInfo, confusedQuestions, handleSubmit, answers, questionData, goToQuestion } = useExam();
+  const {
+    currentQuestion,
+    subtestInfo,
+    confusedQuestions,
+    handleSubmit,
+    answers,
+    questionData,
+    goToQuestion,
+  } = useExam();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -44,7 +52,16 @@ const SiderExam = () => {
           width: "100%",
         }}
       >
-        <Col style={{ height: "45px", backgroundColor: "#1b3042", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <Col
+          style={{
+            height: "45px",
+            backgroundColor: "#1b3042",
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Title level={4} style={{ color: "white", margin: 0 }}>
             List Question
           </Title>
@@ -99,7 +116,12 @@ const SiderExam = () => {
               );
             })}
           </div>
-          <Button type="primary" shape="round" onClick={handleSubmit} style={{ marginTop: "20px" }}>
+          <Button
+            type="primary"
+            shape="round"
+            onClick={handleSubmit}
+            style={{ marginTop: "20px" }}
+          >
             Submit Quiz
           </Button>
         </Col>

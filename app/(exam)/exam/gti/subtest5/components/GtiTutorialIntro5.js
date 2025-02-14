@@ -50,7 +50,12 @@ const GtiTutorialIntro5 = () => {
           justifyContent: "center",
         }}
       >
-        <Image src={rotationImages[topNumber]} alt={`Rotasi ${topNumber}`} width={60} height={60} />
+        <Image
+          src={rotationImages[topNumber]}
+          alt={`Rotasi ${topNumber}`}
+          width={60}
+          height={60}
+        />
       </div>
       <div
         style={{
@@ -65,7 +70,12 @@ const GtiTutorialIntro5 = () => {
         }}
       >
         <div style={{ filter: "brightness(0) invert(1)" }}>
-          <Image src={rotationImages[bottomNumber]} alt={`Rotasi ${bottomNumber}`} width={60} height={60} />
+          <Image
+            src={rotationImages[bottomNumber]}
+            alt={`Rotasi ${bottomNumber}`}
+            width={60}
+            height={60}
+          />
         </div>
       </div>
     </Card>
@@ -139,27 +149,49 @@ const GtiTutorialIntro5 = () => {
         </Row>
       </Card>
       <Row style={{ margin: "16px 64px 0px" }}>
-        <div style={{ marginBottom: "20px", height: "170px", width: "100%", overflow: "auto" }}>
-          <p style={{ padding: "0", margin: "0px 0px 8px 0px" }}>🔍 Tips Cepat Menyelesaikan Soal Psikologi Bentuk & Pola</p>
-          <p style={{ padding: "0", margin: "0px" }}>1️. Bandingkan bentuk atas dan bawah</p>
+        <div
+          style={{
+            marginBottom: "20px",
+            height: "170px",
+            width: "100%",
+            overflow: "auto",
+          }}
+        >
+          <p style={{ padding: "0", margin: "0px 0px 8px 0px" }}>
+            🔍 Tips Cepat Menyelesaikan Soal Psikologi Bentuk & Pola
+          </p>
+          <p style={{ padding: "0", margin: "0px" }}>
+            1️. Bandingkan bentuk atas dan bawah
+          </p>
           <ul style={{ padding: "0px 16px 0px", margin: "0" }}>
             <li>Apakah bentuknya mirip?</li>
             <li>Atau hanya merupakan rotasi atau cerminan satu sama lain?</li>
           </ul>
-          <p style={{ padding: "0", margin: "0px" }}>2. Lakukan perbandingan yang sama untuk pilihan lain</p>
+          <p style={{ padding: "0", margin: "0px" }}>
+            2. Lakukan perbandingan yang sama untuk pilihan lain
+          </p>
           <ul style={{ padding: "0px 16px 0px", margin: "0" }}>
             <li>Cari pola atau kesamaan dengan cara serupa.</li>
           </ul>
-          <p style={{ padding: "0", margin: "0px" }}>3️. Cek pola keseluruhan</p>
+          <p style={{ padding: "0", margin: "0px" }}>
+            3️. Cek pola keseluruhan
+          </p>
           <ul style={{ padding: "0px 16px 0px", margin: "0" }}>
             <li>Apakah ada pola yang berulang?</li>
             <li>Apakah bentuknya mengikuti aturan tertentu?</li>
           </ul>
-          <p style={{ padding: "0", margin: "8px 0px 0px 0px" }}>✨ Dengan pendekatan ini, kamu bisa menjawab soal lebih sistematis dan cepat! 🚀</p>
+          <p style={{ padding: "0", margin: "8px 0px 0px 0px" }}>
+            ✨ Dengan pendekatan ini, kamu bisa menjawab soal lebih sistematis
+            dan cepat! 🚀
+          </p>
         </div>
       </Row>
       <Row style={{ width: "100%" }} justify="center">
-        <Button size="large" style={{ backgroundColor: "#1b3042", color: "white", width: "400px" }} onClick={() => router.push("/exam/gti/subtest5/tutorial")}>
+        <Button
+          size="large"
+          style={{ backgroundColor: "#1b3042", color: "white", width: "400px" }}
+          onClick={() => router.push("/exam/gti/subtest5/tutorial")}
+        >
           Mulai Tutorial
         </Button>
       </Row>

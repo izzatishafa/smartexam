@@ -1,44 +1,38 @@
 "use client";
-import React, { useState } from "react";
-import { Typography, Space, Modal, Card, Button, Flex } from "antd";
-const { Title, Text } = Typography;
+import React, { useEffect, useState } from "react";
+import DiscCard from "./components/DiscCard";
 const { Content } = Layout;
 import { Layout } from "antd";
-// import DiscRadioQuestion from "@/components/ui/DiscRadioQuestion";
-import DiscCard from "@/app/(exam)/exam/disc/components/DiscCard";
+import { useExam } from "@/app/(exam)/contexts/ExamContext";
 
-const DiscPage = ({ title }) => {
+const DiscPage = () => {
+  const {
+    answers,
+    setAnswer,
+    changeExamType,
+    currentExamType,
+    currentQuestion,
+    currentQuestionData,
+  } = useExam();
 
-  const data = [
-    {
-      key: "1",
-      pref: "Mudah bergaul, menyenangkan. kcsjacasjcnakjsnckascnaksjcnkascnaksj",
-      most: false,
-      least: false,
-    },
-    {
-      key: "2",
-      pref: "Mudah percaya kepada orang lain.",
-      most: false,
-      least: false,
-    },
-    {
-      key: "3",
-      pref: "Penuh toleransi, menghormati orang lain.",
-      most: false,
-      least: false,
-    },
-    {
-      key: "4",
-      pref: "Suka berpetualangan, pengambil risiko.",
-      most: false,
-      least: false,
-    },
-  ];
+  useEffect(() => {
+    if (currentExamType !== "disc") {
+      changeExamType("disc");
+    }
+  }, [currentExamType, changeExamType]);
+
+  console.log("ini soal DISC : ", currentQuestionData);
 
   return (
     <>
-      <DiscCard data={data}></DiscCard>
+      <Content>
+        <DiscCard
+          index={currentQuestion}
+          data={currentQuestionData}
+          onAnswer={setAnswer}
+          currentAnswer={answers[currentQuestion]}
+        ></DiscCard>
+      </Content>
     </>
   );
 };
