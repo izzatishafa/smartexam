@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Flex, Typography, Button, Form, Input, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-<<<<<<< HEAD
 
 const { Title, Text } = Typography;
 

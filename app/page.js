@@ -9,13 +9,19 @@ const { Title, Text } = Typography;
 
 const QuizBankList = [
   { title: "Hexaco", route: "/exam/personal/hexaco" },
-  { title: "WPT", route: "/exam/wpt_taxand" },
   { title: "GTI Group", route: "/exam/gti/subtest1/tutorial-intro" },
+  { title: "WPT", route: "/exam/multiplechoice/wpt_taxand" },
+  {
+    title: "Accounting Junior",
+    route: "/exam/multiplechoice/accounting_junior",
+  },
+  {
+    title: "Accounting Senior",
+    route: "/exam/multiplechoice/accounting_senior",
+  },
+  { title: "English University", route: "/exam/multiplechoice/english" },
+  { title: "Essay", route: "/exam/multiplechoice/essay" },
   { title: "DISC", route: "/exam/disc" },
-  { title: "Essay", route: "/exam/essay" },
-  { title: "Accounting Junior", route: "/exam/accounting_junior" },
-  { title: "Accounting Senior", route: "/exam/accounting_senior" },
-  { title: "English University", route: "/exam/english" },
 ];
 
 const HomePage = () => {

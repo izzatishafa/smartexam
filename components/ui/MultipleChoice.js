@@ -1,77 +1,75 @@
-import { Tag } from "antd";
-import { useState } from "react";
+import React from "react";
+// import "@/components/ui/styles/multiple-choice.module.css"; // Import file CSS
 
-const MultipleChoice = () => {
-  const [selectedOption, setSelectedOption] = useState(null);
-
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
-  };
-
+const MultipleChoice = ({ data, currentAnswer, onAnswer }) => {
   return (
     <>
       <div style={{ maxWidth: "500px" }}>
-        <ol
-          style={{
-            color: "#000",
-            listStyleType: "none",
-            paddingLeft: "0px",
-            fontSize: "15px",
-          }}
-        >
-          {["A", "B", "C", "D"].map((choice, index) => (
+        <ol className="multiple-choice-list">
+          {data.map((item, index) => (
             <li
               key={index}
-              onClick={() => handleOptionClick(choice)}
-              style={{
-                color: "#1B3042",
-                backgroundColor:
-                  selectedOption === choice ? "aliceblue" : "transparent",
-                padding: "8px 16px",
-                borderRadius: "12px",
-                marginBottom: "10px",
-                display: "flex",
-                alignItems: "center",
-                cursor: "pointer",
-                border:
-                  selectedOption === choice
-                    ? "1px solid cornflowerblue"
-                    : "1px solid lightgray",
-              }}
+              onClick={() => onAnswer(item.choice, item.label)}
+              className={`multiple-choice-item ${
+                currentAnswer === item.choice ? "selected" : ""
+              }`}
             >
-              <div
-                style={{
-                  width: "30px",
-                  height: "30px",
-                  borderRadius: "50%",
-                  fontWeight: "bold",
-                  border: "1px solid",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginRight: "10px",
-                  backgroundColor:
-                    selectedOption === choice ? "cornflowerblue" : "",
-                  color: selectedOption === choice ? "white" : "gray",
-                }}
-                color={selectedOption === choice ? "cornflowerblue" : "default"}
-              >
-                {choice}
-              </div>
-
-              <p
-                style={{
-                  margin: 0,
-                  fontFamily: ["ABeeZee", "sans-serif"],
-                  fontWeight: "semibold",
-                }}
-              >
-                Ini adalah contoh pilihan ganda dari quiz
-              </p>
+              <div className="choice-box">{item.choice}</div>
+              <p className="choice-label">{item.label}</p>
             </li>
           ))}
         </ol>
       </div>
+      <style jsx>
+        {`.multiple-choice-list {
+            color: #000;
+            list-style-type: none;
+            padding-left: 0px;
+            font-size: 15px;
+          }
+    
+        .multiple-choice-item {
+            color: #1b3042;
+            background-color: #e9f0fc;
+            padding: 8px 16px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border: 1px solid lightgray;
+            transition: background-color 0.2s ease-in-out;
+        }
+    
+        .multiple-choice-item:hover {
+            background-color: #b0d7ff;
+            /* Warna saat hover */
+        }
+    
+        .multiple-choice-item.selected {
+            background-color: #2d7cc1;
+            color: white;
+            border: 1px solid cornflowerblue;
+        }
+    
+        .choice-box {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            background-color: white;
+            color: #0a01ff;
+        }
+        
+        .choice-label {
+            margin: 0;
+            font-family: "ABeeZee", sans-serif;
+            font-weight: semibold;`}
+      </style>
     </>
   );
 };

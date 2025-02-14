@@ -52,9 +52,9 @@ const SiderExam = () => {
       >
         <Progress
           percent={getProgress()}
-          format={(percent) =>
-            `${Object.keys(answers).length} /${subtestInfo.totalQuestions}`
-          }
+          // format={(percent) =>
+          //   `${Object.keys(answers).length} /${subtestInfo.totalQuestions}`
+          // }
         />
       </Row>
       <Row
