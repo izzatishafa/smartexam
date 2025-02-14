@@ -22,7 +22,7 @@ const questionData = {
         },
       ],
       totalQuestions: 3,
-      timeLimit: { hours: 0, minutes: 0, seconds: 5 }, // dalam detik
+      timeLimit: { hours: 0, minutes: 3, seconds:  0}, // dalam detik
       instructions: "Instruksi untuk GTI subtest 1",
     },
     subtest2: {
