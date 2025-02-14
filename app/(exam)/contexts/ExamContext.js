@@ -9,6 +9,7 @@ const ExamContext = createContext();
 
 export const ExamProvider = ({ children }) => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
   // const [confusedQuestions, setConfusedQuestions] = useState([]);
 
   // State untuk soal
@@ -22,6 +23,7 @@ export const ExamProvider = ({ children }) => {
     minutes: 0,
     seconds: 0,
   });
+  const [endStatus, setEndStatus] = useState("");
 
   // State untuk tipe tes dan subtes
   const [currentExamType, setCurrentExamType] = useState("gti");
@@ -38,6 +40,28 @@ export const ExamProvider = ({ children }) => {
   //     }
   //   });
   // };
+
+  // Modifikasi useEffect initialization
+  useEffect(() => {
+    const initializeExam = async () => {
+      try {
+        setIsLoading(true);
+        // Initialize timer
+        initializeTimer();
+        // Load question data
+        await getCurrentQuestionData();
+
+        // Simulasi loading untuk memastikan transisi halus
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
+      } catch (error) {
+        console.error("Error initializing exam:", error);
+      }
+    };
+
+    initializeExam();
+  }, [currentSubtest, currentExamType]);
 
   // Fungsi untuk menginisialisasi timer berdasarkan subtest
   const initializeTimer = () => {
@@ -57,7 +81,7 @@ export const ExamProvider = ({ children }) => {
       setTimeRemaining((prev) => {
         if (prev.hours === 0 && prev.minutes === 0 && prev.seconds === 0) {
           clearInterval(timer);
-          handleSubmit(); // Auto submit ketika waktu habis
+          handleTimeUp(); // Panggil fungsi handleTimeUp ketika waktu habis
           return prev;
         }
 
@@ -86,6 +110,18 @@ export const ExamProvider = ({ children }) => {
 
     return () => clearInterval(timer);
   }, [currentSubtest]);
+
+  // Fungsi untuk menangani waktu habis
+  const handleTimeUp = () => {
+    const totalSubtests = getTotalSubtests();
+
+    if (currentSubtest < totalSubtests) {
+      setEndStatus("time-up-subtest");
+    } else {
+      setEndStatus("time-up");
+    }
+    router.push("/exam/end");
+  };
 
   // Effect untuk inisialisasi timer saat subtest berubah
   useEffect(() => {
@@ -143,24 +179,23 @@ export const ExamProvider = ({ children }) => {
     setIsModalOpen(true);
   };
 
+  // Modifikasi fungsi confirmSubmit
   const confirmSubmit = async () => {
     setIsModalOpen(false);
     const subtestTotal = getTotalSubtests();
 
     if (currentSubtest < subtestTotal) {
-      // Reset answers dan currentQuestion sebelum mengubah subtest
       setAnswers({});
       setCurrentQuestion(1);
-      // Gunakan callback untuk memastikan state diupdate dengan benar
       setCurrentSubtest((prevSubtest) => {
         const nextSubtest = prevSubtest + 1;
         return nextSubtest;
       });
       setIsNavigate(true);
     } else {
-      router.push("/");
+      setEndStatus("all-done"); // Set status "all-done" ketika semua subtest selesai
+      router.push("/end");
     }
-    console.log("current Subtest444", currentSubtest);
   };
   console.log(isNavigate, "ini navigate");
   useEffect(() => {
@@ -202,9 +237,11 @@ export const ExamProvider = ({ children }) => {
         currentQuestion,
         // confusedQuestions,
         answers,
+        endStatus,
         timeRemaining,
         currentExamType,
         currentSubtest,
+        isLoading,
         // questionData,
         questionData: getCurrentQuestionData(),
         subtestInfo: getCurrentSubtestInfo(),

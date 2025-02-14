@@ -22,7 +22,7 @@ const questionData = {
         },
       ],
       totalQuestions: 3,
-      timeLimit: { hours: 0, minutes: 3, seconds: 0 }, // dalam detik
+      timeLimit: { hours: 0, minutes: 0, seconds: 5 }, // dalam detik
       instructions: "Instruksi untuk GTI subtest 1",
     },
     subtest2: {
@@ -53,7 +53,7 @@ const questionData = {
         },
       ],
       totalQuestions: 4,
-      timeLimit: { hours: 0, minutes: 4, seconds: 0 },
+      timeLimit: { hours: 0, minutes: 0, seconds: 0 },
       instructions: "Instruksi untuk GTI subtest 2",
     },
     subtest3: {
@@ -78,7 +78,7 @@ const questionData = {
         },
       ],
       totalQuestions: 3,
-      timeLimit: { hours: 0, minutes: 4, seconds: 0 },
+      timeLimit: { hours: 0, minutes: 0, seconds: 0 },
       instructions: "Instruksi untuk GTI subtest 3",
     },
     subtest4: {
@@ -97,7 +97,7 @@ const questionData = {
         },
       ],
       totalQuestions: 2,
-      timeLimit: { hours: 0, minutes: 4, seconds: 0 },
+      timeLimit: { hours: 0, minutes: 0, seconds: 0 },
       instructions: "Instruksi untuk GTI subtest 4",
     },
     subtest5: {
@@ -116,7 +116,7 @@ const questionData = {
         },
       ],
       totalQuestions: 2,
-      timeLimit: { hours: 0, minutes: 5, seconds: 0 },
+      timeLimit: { hours: 0, minutes: 0, seconds: 0 },
       instructions: "Instruksi untuk GTI subtest 5",
     },
     totalSubtests: 5,
