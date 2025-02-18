@@ -1,41 +1,25 @@
 "use client";
-<<<<<<< HEAD:components/ui/card/DiscCard.js
-import React, { useEffect, useState } from "react";
-=======
 import React, { useState } from "react";
->>>>>>> 60f78905c2f0bcb53d11bc75328223e60cbc8026:app/(exam)/exam/disc/components/DiscCard.js
-import { Typography, Card, Space, Table, Radio, Tag, Row, Button } from "antd";
+import { Typography, Card, Space, Table, Radio, Tag, Flex, Row, Button } from "antd";
 import ModalDisc from "./ModalDisc";
 
 const { Title, Text } = Typography;
 
-<<<<<<< HEAD:components/ui/card/DiscCard.js
-export default function DiscCard({ data, index, onAnswer, answer }) {
-  // console.log("ini adalah daftar statements", data);
-=======
 export default function DiscCard({ data }) {
-  console.log("ini adalah daftar statements", data);
->>>>>>> 60f78905c2f0bcb53d11bc75328223e60cbc8026:app/(exam)/exam/disc/components/DiscCard.js
   const [selectedOption, setSelectedOption] = useState({
     most: null,
     least: null,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
-<<<<<<< HEAD:components/ui/card/DiscCard.js
-=======
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
 
-  const showModal = () => setIsModalOpen(true);
-  const handleClose = () => setIsModalOpen(false);
->>>>>>> 60f78905c2f0bcb53d11bc75328223e60cbc8026:app/(exam)/exam/disc/components/DiscCard.js
+  const handleClose = () => {
+    setIsModalOpen(false);
+  };
 
-  useEffect(() => {
-    setSelectedOption({ most: null, least: null });
-  }, [data, index]);
-
-  const showModal = () => setIsModalOpen(true);
-  const handleClose = () => setIsModalOpen(false);
-
-  const handleOptionChange = (key, type, index) => {
+  const handleOptionChange = (key, type) => {
     setSelectedOption((prev) => {
       if (type === "most" && prev.least === key) {
         return { ...prev, most: key, least: null };
@@ -43,27 +27,27 @@ export default function DiscCard({ data }) {
       if (type === "least" && prev.most === key) {
         return { ...prev, most: null, least: key };
       }
-      return { ...prev, [type]: prev[type] === key ? null : key };
+
+      return {
+        ...prev,
+        [type]: prev[type] === key ? null : key,
+      };
     });
-    onAnswer(index, key, type);
   };
 
-  // Konversi `statements` ke `dataSource`
-  const dataSource =
-    data?.statements?.map((item, index) => ({
-      key: index, // Tambahkan key unik
-      soal: item.soal,
-      most: item.most,
-      least: item.least,
-    })) || [];
+  const handleCopy = (e) => {
+    e.preventDefault();
+  };
 
   const columns = [
     {
       title: "",
-      dataIndex: "soal",
-      key: "soal",
+      dataIndex: "pref",
+      key: "pref",
       render: (text) => {
-        if (!text) return "";
+        if (!text) {
+          return "";
+        }
         const [firstLetter, ...restText] = text.split(" ");
         return (
           <span>
@@ -88,13 +72,7 @@ export default function DiscCard({ data }) {
       key: "most",
       render: (_, record) => (
         <div style={{ textAlign: "center" }}>
-          <input
-            type="radio"
-            style={{ cursor: "pointer", width: "20px", height: "20px" }}
-            checked={selectedOption.most === record.key}
-            disabled={selectedOption.least === record.key}
-            onChange={() => handleOptionChange(record.key, "most")}
-          />
+          <Radio checked={selectedOption.most === record.key} disabled={selectedOption.least === record.key} onChange={() => handleOptionChange(record.key, "most")} />
         </div>
       ),
       onHeaderCell: () => ({
@@ -112,9 +90,11 @@ export default function DiscCard({ data }) {
       key: "least",
       render: (_, record) => (
         <div style={{ textAlign: "center" }}>
-          <input
-            type="radio"
-            style={{ cursor: "pointer", width: "20px", height: "20px" }}
+          <Radio
+            size="large"
+            style={{
+              borderColor: "yellow",
+            }}
             checked={selectedOption.least === record.key}
             disabled={selectedOption.most === record.key}
             onChange={() => handleOptionChange(record.key, "least")}
@@ -136,35 +116,22 @@ export default function DiscCard({ data }) {
   return (
     <>
       <Row style={{ width: "100%", paddingRight: "24px" }} justify="end">
-        <Button
-          color="green"
-          onClick={showModal}
-          style={{ margin: "16px 0px" }}
-        >
+        <Button variant="outlined" color="green" onClick={showModal} style={{ margin: "16px 0px" }}>
           Panduan
         </Button>
       </Row>
-      <Card
-        style={{
-          margin: "0px 40px 10px",
-          boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)",
-          border: "none",
-        }}
-        bodyStyle={{ padding: "16px 28px 24px" }}
-      >
-        <Title
-          level={5}
-          style={{ fontWeight: "normal", marginBottom: "2px", marginTop: 0 }}
-        >
+      <Card style={{ margin: "0px 40px 16px", boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)", border: "none" }} bodyStyle={{ padding: "16px 32px 24px" }}>
+        <Title level={5} style={{ fontWeight: "normal", marginTop: "0", marginBottom: "1rem" }}>
           Pilihlah opsi yang sesuai dengan kriteria Anda!
         </Title>
         <Space direction="vertical">
           <Table
-            dataSource={dataSource}
+            dataSource={data}
             columns={columns}
-            bordered
+            bordered={true}
             size="large"
             pagination={false}
+            rowHoverable={false}
             style={{
               minWidth: "500px",
               maxWidth: "800px",
