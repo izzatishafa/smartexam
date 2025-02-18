@@ -61,8 +61,9 @@ const useExamStore = create((set, get) => ({
   getCurrentQuestionData: () => {
     const { currentExamType, currentSubtest } = get();
     const examData = questionData[currentExamType];
+    if (!examData || !examData.subtests) return [];
     const subtest = examData.subtests.find((subtest) => subtest.code === currentSubtest);
-    return subtest ? subtest.questions : [];
+    return subtest?.questions || [];
   },
 
   //Reset State
@@ -89,7 +90,8 @@ const useExamStore = create((set, get) => ({
   getCurrentSubtestInfo: () => {
     const { currentExamType, currentSubtest } = get();
     const examData = questionData[currentExamType];
-    return examData.subtests.find((subtest) => subtest.code === currentSubtest);
+    if (!examData?.subtests) return null;
+    return examData.subtests.find((subtest) => subtest.code === currentSubtest) || null;
   },
 
   // Tambahkan getter untuk total subtests
@@ -98,7 +100,8 @@ const useExamStore = create((set, get) => ({
   getCurrentQuestion: () => {
     const { currentQuestion } = get();
     const questions = get().getCurrentQuestionData();
-    return questions.find((q) => q.id === currentQuestion);
+    if (!questions.length) return null;
+    return questions.find((q) => q.id === currentQuestion) || null;
   },
 
   goToNext: () => {
@@ -115,8 +118,9 @@ const useExamStore = create((set, get) => ({
   },
 
   getProgress: () => {
-    const answers = get().answers;
+    const answers = get().answers || {};
     const questionData = get().getCurrentQuestionData();
+    if (!questionData.length) return 0;
     const answered = Object.keys(answers).length;
     return Math.round((answered / questionData.length) * 100);
   },

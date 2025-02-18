@@ -5,7 +5,7 @@ const { Title, Text } = Typography;
 const { Content } = Layout;
 import { Layout } from "antd";
 import TableTestCard from "@/components/ui/card/TableTestCard";
-import StoryTestCard from "@/components/ui/card/StoryTestCard";
+import StoryTestCard from "@/app/(exam)/exam/multiplechoice/english/components/StoryTestCard";
 
 const StoryTestPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,7 +43,7 @@ const StoryTestPage = () => {
             overflowY: "auto",
             // overflowX: "hidden",
           }}
-        >
+        > 
           <StoryTestCard />
         </div>
         <Modal
@@ -69,24 +69,13 @@ const StoryTestPage = () => {
           <div>
             <ol style={{ listStyleType: "ordinal" }}>
               <li>
-                <Text>
-                  Simak data tabel yang ada agar dapat menjawab soal dengan
-                  baik.
-                </Text>
+                <Text>Simak data tabel yang ada agar dapat menjawab soal dengan baik.</Text>
               </li>
               <li>
-                <Text>
-                  Perhatikan soal tersebut digunakan untuk menjawab dari nomor
-                  berapa sampai dengan berapa.
-                </Text>
+                <Text>Perhatikan soal tersebut digunakan untuk menjawab dari nomor berapa sampai dengan berapa.</Text>
               </li>
               <div style={{ marginTop: "0.75rem" }}>
-                ✨{" "}
-                <span style={{ fontSize: "1rem", fontWeight: "bold" }}>
-                  Tips:
-                </span>{" "}
-                Pastikan untuk fokus pada huruf di tengah dan pilih huruf yang
-                paling tepat untuk menyelesaikan urutan! 🚀{" "}
+                ✨ <span style={{ fontSize: "1rem", fontWeight: "bold" }}>Tips:</span> Pastikan untuk fokus pada huruf di tengah dan pilih huruf yang paling tepat untuk menyelesaikan urutan! 🚀{" "}
               </div>
               <div
                 style={{

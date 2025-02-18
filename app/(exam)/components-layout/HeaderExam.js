@@ -173,15 +173,15 @@ const HeaderExam = () => {
             </Col>
           </Row>
           {!isTutorialPage(pathname) && (
-        <HeaderContent 
-          examType={currentExamType}
-          subtest={currentSubtest}
-          questionNumber={currentQuestion}
-          hours={timeRemaining.hours}
-          minutes={timeRemaining.minutes}
-          seconds={timeRemaining.seconds}
-        />)}
-
+            <HeaderContent
+              examType={currentExamType || "Tidak tersedia"}
+              subtest={currentSubtest || "Tidak tersedia"}
+              questionNumber={currentQuestion || 0}
+              hours={timeRemaining?.hours || 0}
+              minutes={timeRemaining?.minutes || 0}
+              seconds={timeRemaining?.seconds || 0}
+            />
+          )}
           {isTutorialPage() && (
             <Row style={{ width: "100%", height: "50px", backgroundColor: "#1b3042" }} justify="center" align="middle">
               <Col>

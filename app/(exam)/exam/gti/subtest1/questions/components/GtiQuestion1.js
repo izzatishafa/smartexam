@@ -74,8 +74,8 @@ const NumberOption = ({ number, isSelected, onClick }) => (
 
 const GtiQuestion1 = ({ data, index }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const setAnswer = useExamStore((state) => state.setAnswer);
-  const currentAnswer = useExamStore((state) => state.answers[data.id]);
+  // const setAnswer = useExamStore((state) => state.setAnswer);
+  // const currentAnswer = useExamStore((state) => state.answers[data.id]);
 
   const showModal = () => {
     setIsModalOpen(true);

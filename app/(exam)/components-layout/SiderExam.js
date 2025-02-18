@@ -24,8 +24,8 @@ const SiderExam = () => {
   const router = useRouter();
   const handleSubmit = useExamStore((state) => state.handleSubmit);
 
-  const questionData = getCurrentQuestionData();
-  const subtestInfo = getCurrentSubtestInfo(); // Gunakan getter
+  const questionData = getCurrentQuestionData() || [];
+  const subtestInfo = getCurrentSubtestInfo();
 
   const {
     token: { colorBgContainer },
@@ -58,15 +58,7 @@ const SiderExam = () => {
           alignItems: "center",
         }}
       >
-        <Progress
-          percent={getProgress()}
-          format={(percent) =>
-            `${Object.keys(answers).length} / ${
-              subtestInfo?.questions.length || 0
-            }`
-          }
-          strokeColor="#457D42"
-        />
+        <Progress percent={getProgress()} format={(percent) => `${Object.keys(answers || {}).length} / ${subtestInfo?.questions?.length || 0}`} strokeColor="#457D42" />
       </Row>
       <Row
         style={{
@@ -86,7 +78,7 @@ const SiderExam = () => {
           }}
         >
           <Title level={4} style={{ color: "white", margin: 0 }}>
-            List Question
+            {questionData.length ? "List Question" : "Tidak ada pertanyaan"}
           </Title>
         </Col>
         <Col
@@ -96,55 +88,51 @@ const SiderExam = () => {
             overflow: "scroll",
           }}
         >
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(6, 1fr)",
-              gap: "10px",
-              overflow: "hidden",
-            }}
-          >
-            {questionData.map((question) => {
-              let backgroundColor = "#f5f5f5"; // default
-              let color = "#000";
+          {questionData.length > 0 ? (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(6, 1fr)",
+                gap: "10px",
+                overflow: "hidden",
+              }}
+            >
+              {questionData.map((question) => {
+                let backgroundColor = "#f5f5f5";
+                let color = "#000";
 
-              // if (confusedQuestions.includes(question.id)) {
-              //   backgroundColor = "#ffd700"; // confused - kuning
-              // } else
-              if (answers[question.id] !== undefined) {
-                backgroundColor = "#36454F"; // answered - abu-abu gelap
-                color = "#fff";
-              }
+                if (answers?.[question?.id] !== undefined) {
+                  backgroundColor = "#36454F";
+                  color = "#fff";
+                }
 
-              return (
-                <div
-                  key={question.id}
-                  style={{
-                    backgroundColor,
-                    color,
-                    width: "100%",
-                    aspectRatio: "1",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: "8px",
-                    cursor: "pointer",
-                    fontSize: "16px",
-                    fontWeight: "500",
-                  }}
-                  onClick={() => goToQuestion(question.id)}
-                >
-                  {question.id}
-                </div>
-              );
-            })}
-          </div>
-          <Button
-            type="primary"
-            shape="round"
-            onClick={() => handleSubmit(router.push)}
-            style={{ marginTop: "20px" }}
-          >
+                return (
+                  <div
+                    key={question?.id || "undefined"}
+                    style={{
+                      backgroundColor,
+                      color,
+                      width: "100%",
+                      aspectRatio: "1",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: "8px",
+                      cursor: "pointer",
+                      fontSize: "16px",
+                      fontWeight: "500",
+                    }}
+                    onClick={() => question?.id && goToQuestion(question.id)}
+                  >
+                    {question?.id || "N/A"}
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div style={{ textAlign: "center", padding: "20px" }}>Data pertanyaan tidak tersedia</div>
+          )}
+          <Button type="primary" shape="round" onClick={() => handleSubmit(router.push)} style={{ marginTop: "20px" }} disabled={!questionData.length}>
             Submit Quiz
           </Button>
         </Col>

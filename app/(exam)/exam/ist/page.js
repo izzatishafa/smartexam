@@ -1,7 +1,13 @@
+"use client"
+
 import React from 'react'
 
-const IstPage = () => {
-  return <div>IstPage</div>;
+const Page = () => {
+  return (
+    <div>
+      aaa
+    </div>
+  )
 }
 
-export default IstPage
+export default Page
