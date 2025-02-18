@@ -5,13 +5,26 @@ import React from "react";
 import styles from "../styles-layout/styles.module.css";
 const { Footer } = Layout;
 import { useExam } from "../contexts/ExamContext";
+import { usePathname } from "next/navigation";
 
 const FooterExam = () => {
-  const { markConfused, goToNext, goToPrevious, answers, confusedQuestions, questionData, goToQuestion } = useExam();
+  const {
+    markConfused,
+    goToNext,
+    goToPrevious,
+    answers,
+    confusedQuestions,
+    questionData,
+    goToQuestion,
+  } = useExam();
 
   const answeredCount = Object.keys(answers).length;
   // const confusedCount = confusedQuestions.length;
   const notAnsweredCount = questionData.length - answeredCount;
+
+  const pathname = usePathname(); // Ambil path URL saat ini
+  const isDiscPage = pathname === "/exam/disc"; // Cek apakah di halaman /exam/disc
+  // console.log("isDiscPage", isDiscPage);
 
   return (
     <>
@@ -23,22 +36,56 @@ const FooterExam = () => {
         }}
       >
         <Row style={{ height: "40px" }}>
-          <Col span={12} style={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Space size="large">
-              <Badge color="#36454F" text={`Answered (${answeredCount})`} />
-              <Badge color="#D9D9D9" text={`Not answered (${notAnsweredCount})`} />
-              {/* <Badge color="#ffd700" text={`Confused (${confusedCount})`} /> */}
-            </Space>
+          <Col
+            span={12}
+            style={{
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {!isDiscPage ? (
+              <Space size="large">
+                <Badge color="#36454F" text={`Answered (${answeredCount})`} />
+                <Badge
+                  color="#D9D9D9"
+                  text={`Not answered (${notAnsweredCount})`}
+                />
+                {/* <Badge color="#ffd700" text={`Confused (${confusedCount})`} /> */}
+              </Space>
+            ) : (
+              <></>
+            )}
           </Col>
-          <Col span={12} style={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <Col
+            span={12}
+            style={{
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <Space size="middle">
               {/* <button className={`${styles.button} ${styles.confused}`} onClick={markConfused}>
                 Mark confused
               </button> */}
-              <button className={`${styles.button} ${styles.previous}`} onClick={goToPrevious}>
-                Previous
-              </button>
-              <button className={`${styles.button} ${styles.next}`} onClick={goToNext}>
+              {!isDiscPage ? (
+                <button
+                  className={`${styles.button} ${styles.previous}`}
+                  onClick={goToPrevious}
+                >
+                  Previous
+                </button>
+              ) : (
+                <></>
+              )}
+
+              <button
+                className={`${styles.button} ${styles.next}`}
+                onClick={goToNext}
+              >
                 Next
               </button>
             </Space>

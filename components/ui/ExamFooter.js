@@ -50,7 +50,11 @@ const ExamFooter = () => {
       </Space>
 
       <Space>
-        <Button type="primary" icon={<LeftOutlined />} style={{ marginRight: "8px", backgroundColor: "#1677ff" }}>
+        <Button
+          type="primary"
+          icon={<LeftOutlined />}
+          style={{ marginRight: "8px", backgroundColor: "#1677ff" }}
+        >
           Previous
         </Button>
         {/* <Button
@@ -64,7 +68,11 @@ const ExamFooter = () => {
         >
           Mark confused
         </Button> */}
-        <Button type="primary" icon={<RightOutlined />} style={{ backgroundColor: "#1677ff" }}>
+        <Button
+          type="primary"
+          icon={<RightOutlined />}
+          style={{ backgroundColor: "#1677ff" }}
+        >
           Next
         </Button>
       </Space>

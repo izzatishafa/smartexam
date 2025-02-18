@@ -1,16 +1,26 @@
 "use client";
-import React, { useState } from "react";
-import { Typography, Card, Space, Table, Radio, Tag, Flex } from "antd";
+import React, { useEffect, useState } from "react";
+import { Typography, Card, Space, Table, Radio, Tag, Row, Button } from "antd";
+import ModalDisc from "./ModalDisc";
 
 const { Title, Text } = Typography;
 
-export default function DiscCard({ data }) {
+export default function DiscCard({ data, index, onAnswer, answer }) {
+  // console.log("ini adalah daftar statements", data);
   const [selectedOption, setSelectedOption] = useState({
     most: null,
     least: null,
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleOptionChange = (key, type) => {
+  useEffect(() => {
+    setSelectedOption({ most: null, least: null });
+  }, [data, index]);
+
+  const showModal = () => setIsModalOpen(true);
+  const handleClose = () => setIsModalOpen(false);
+
+  const handleOptionChange = (key, type, index) => {
     setSelectedOption((prev) => {
       if (type === "most" && prev.least === key) {
         return { ...prev, most: key, least: null };
@@ -18,17 +28,19 @@ export default function DiscCard({ data }) {
       if (type === "least" && prev.most === key) {
         return { ...prev, most: null, least: key };
       }
-
-      return {
-        ...prev,
-        [type]: prev[type] === key ? null : key,
-      };
+      return { ...prev, [type]: prev[type] === key ? null : key };
     });
+    onAnswer(index, key, type);
   };
 
-  const handleCopy = (e) => {
-    e.preventDefault();
-  };
+  // Konversi `statements` ke `dataSource`
+  const dataSource =
+    data?.statements?.map((item, index) => ({
+      key: index, // Tambahkan key unik
+      soal: item.soal,
+      most: item.most,
+      least: item.least,
+    })) || [];
 
   const columns = [
     {

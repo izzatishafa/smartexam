@@ -3,38 +3,69 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Flex, Typography, Button, Form, Input, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import axios from "axios";
+import asyncLocalStorage from "@/app/utils/async-local-storage";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const { Title, Text } = Typography;
 
 export default function Page() {
   const [form] = Form.useForm();
   const [isChecked, setIsChecked] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleLogin = async () => {
-    const username = form.getFieldValue("username");
-    const password = form.getFieldValue("password");
+  const handleSuccess = async (accessToken, userRole, userId) => {
+    try {
+      await asyncLocalStorage.setItem("access_token", accessToken);
+      console.log("navigate to exam page");
+      router.push("/");
+    } catch (error) {
+      console.error("Error storing access token:", error);
+      setAlertMessage(["Failed to store access token. Please try again."]);
+    }
+  };
 
+  // LoginForm.js (Client Component)
+  const handleLogin = async (values) => {
+    console.log(values);
+    const { email, password } = values;
     if (!isChecked) {
       message.error("You must accept the terms and conditions.");
       return;
     }
-
-    if (!username || !password) {
-      message.error("Username and password cannot be empty.");
+    if (!email || !password) {
+      message.error("Email and password cannot be empty.");
       return;
     }
-
     try {
-      const response = await apiService.post("/api/auth/login", {
-        username,
-        password,
-      });
-      message.success("Logged in successfully!");
-      router.push("/guidelines");
+      setLoading(true); // Add loading state
+      const response = await axios.post(
+        `${API_BASE_URL}/api/v1/participant/auth`,
+        {
+          email,
+          password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const { data, status } = response;
+      if (status === 200 || status === 201) {
+        const { token, user_data } = data;
+        await handleSuccess(token, user_data.role, user_data.id);
+        console.log("ini adalah token : ", token);
+        message.success("Login successful!");
+      }
     } catch (error) {
-      const errorMsg = error.response?.data?.message || "Login failed!";
-      message.error(errorMsg);
+      const errorMessage =
+        error.response?.data?.message || "Login failed. Please try again.";
+      message.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,7 +123,6 @@ export default function Page() {
         <Flex
           className="panel-content"
           style={{
-            border: "1px solid #1B3042",
             flexDirection: "column",
             alignItems: "center",
             padding: "40px",
@@ -181,24 +211,25 @@ export default function Page() {
             layout="vertical"
             labelAlign="left"
             colon={false}
+            onFinish={handleLogin}
           >
             <Form.Item
-              name="username"
+              name="email"
               label={
                 <Text style={{ color: "white", fontWeight: "bold" }}>
-                  Username
+                  Email
                 </Text>
               }
               rules={[
                 { required: true, message: "This field is required" },
                 {
                   pattern: /^[^\s]+$/,
-                  message: "Username cannot contain spaces",
+                  message: "email cannot contain spaces",
                 },
               ]}
             >
               <Input
-                placeholder="Masukkan username Anda"
+                placeholder="Masukkan email Anda"
                 style={{ padding: "9px" }}
                 prefix={
                   <UserOutlined
@@ -229,7 +260,7 @@ export default function Page() {
                 }
               />
             </Form.Item>
-            <Form.Item name="remember" valuePropName="checked">
+            <Form.Item valuePropName="checked">
               <Checkbox
                 onChange={handleCheckboxChange}
                 style={{ color: "white", fontSize: "14px" }}
@@ -241,7 +272,6 @@ export default function Page() {
               <Button
                 htmlType="submit"
                 type="primary"
-                onClick={handleLogin}
                 style={{
                   fontWeight: "bold",
                   fontSize: "16px",
