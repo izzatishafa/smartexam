@@ -1,44 +1,35 @@
+// HexacoCard.js
 "use client";
 import React, { useState } from "react";
-import { Typography, Card, Space, Flex, Button, Row } from "antd";
+import { Typography, Card, Space, Button, Row } from "antd";
 import ModalHexaco from "./ModalHexaco";
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
-export default function HexacoCard() {
-  const [selectedOption, setSelectedOption] = useState(null);
+const HexacoCard = ({ question, choices, questionNumber, selectedOption, onSelectOption }) => {
   const [hoveredOption, setHoveredOption] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleClose = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
-  };
-
-  const handleCopy = (e) => {
-    e.preventDefault();
-  };
-
-  const choices = [{ value: "Sangat Setuju" }, { value: "Setuju" }, { value: "Netral" }, { value: "Tidak Setuju" }, { value: "Sangat Tidak Setuju" }];
 
   return (
     <>
       <Row style={{ width: "100%", paddingRight: "24px" }} justify="end">
-        <Button variant="outlined" color="green" onClick={showModal} style={{ margin: "16px 0px" }}>
+        <Button type="default" variant="outlined" color="green" onClick={() => setIsModalOpen(true)} style={{ margin: "16px 0px" }}>
           Panduan
         </Button>
       </Row>
-      <ModalHexaco open={isModalOpen} close={handleClose} />
-      <Card style={{ margin: "0px 40px 16px", boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)", border: "none" }} bodyStyle={{ padding: "16px 32px 24px" }}>
+
+      <Card
+        style={{
+          margin: "0px 40px 16px",
+          boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)",
+          border: "none",
+        }}
+        bodyStyle={{ padding: "16px 32px 24px" }}
+      >
         <Title level={4} style={{ fontWeight: "normal", paddingLeft: "10px" }}>
-          5. Saya lebih memilih untuk tidak mengambil keuntungan dari orang lain, bahkan jika kesempatan itu ada.
+          {questionNumber}. {question}
         </Title>
+
         <Space style={{ paddingLeft: "30px" }} direction="vertical">
           <ol
             style={{
@@ -51,15 +42,15 @@ export default function HexacoCard() {
               gap: "15px",
             }}
           >
-            {choices.map((choice, index) => (
+            {choices.map((choice) => (
               <li
-                key={index}
-                onClick={() => handleOptionClick(choice.value)}
-                onMouseOver={() => setHoveredOption(choice.value)}
+                key={choice.key}
+                onClick={() => onSelectOption(choice.key)}
+                onMouseEnter={() => setHoveredOption(choice.key)}
                 onMouseLeave={() => setHoveredOption(null)}
                 style={{
-                  color: selectedOption === choice.value ? "white" : "black",
-                  backgroundColor: selectedOption === choice.value ? "#2D7CC1" : hoveredOption === choice.value ? "#96BDE0" : "white",
+                  color: selectedOption === choice.key ? "white" : "black",
+                  backgroundColor: selectedOption === choice.key ? "#2D7CC1" : hoveredOption === choice.key ? "#96BDE0" : "white",
                   padding: "8px 15px",
                   borderRadius: "7px",
                   margin: "0px 20px 10px 0",
@@ -72,16 +63,20 @@ export default function HexacoCard() {
                 <p
                   style={{
                     margin: 0,
-                    fontFamily: ["ABeeZee", "sans-serif"],
+                    fontFamily: "ABeeZee, sans-serif",
                   }}
                 >
-                  {choice.value}
+                  {choice.label}
                 </p>
               </li>
             ))}
           </ol>
         </Space>
       </Card>
+
+      <ModalHexaco open={isModalOpen} onCancel={() => setIsModalOpen(false)} />
     </>
   );
-}
+};
+
+export default HexacoCard;

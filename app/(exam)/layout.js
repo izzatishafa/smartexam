@@ -34,7 +34,6 @@ const ExamLayout = ({ children}) => {
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <ExamProvider>
         {!hideHeader() && <HeaderExam />}
         <Layout>
           <Layout>
@@ -51,7 +50,6 @@ const ExamLayout = ({ children}) => {
           </Layout>
           {!hideSidebar() && <SiderExam />}
         </Layout>
-      </ExamProvider>
     </Layout>
   );
 };

@@ -5,7 +5,7 @@ import React from 'react'
 
 const { Text, Title } = Typography;
 
-const ModalHexaco = ({open, close}) => {
+const ModalHexaco = ({open, onCancel}) => {
   return (
     <Modal
       width={700}
@@ -24,7 +24,7 @@ const ModalHexaco = ({open, close}) => {
         </Title>
       }
       open={open}
-      onCancel={close}
+      onCancel={onCancel}
       footer={null}
     >
       <div>
