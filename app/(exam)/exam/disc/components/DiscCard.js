@@ -1,17 +1,32 @@
 "use client";
+<<<<<<< HEAD:components/ui/card/DiscCard.js
 import React, { useEffect, useState } from "react";
+=======
+import React, { useState } from "react";
+>>>>>>> 60f78905c2f0bcb53d11bc75328223e60cbc8026:app/(exam)/exam/disc/components/DiscCard.js
 import { Typography, Card, Space, Table, Radio, Tag, Row, Button } from "antd";
 import ModalDisc from "./ModalDisc";
 
 const { Title, Text } = Typography;
 
+<<<<<<< HEAD:components/ui/card/DiscCard.js
 export default function DiscCard({ data, index, onAnswer, answer }) {
   // console.log("ini adalah daftar statements", data);
+=======
+export default function DiscCard({ data }) {
+  console.log("ini adalah daftar statements", data);
+>>>>>>> 60f78905c2f0bcb53d11bc75328223e60cbc8026:app/(exam)/exam/disc/components/DiscCard.js
   const [selectedOption, setSelectedOption] = useState({
     most: null,
     least: null,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+<<<<<<< HEAD:components/ui/card/DiscCard.js
+=======
+
+  const showModal = () => setIsModalOpen(true);
+  const handleClose = () => setIsModalOpen(false);
+>>>>>>> 60f78905c2f0bcb53d11bc75328223e60cbc8026:app/(exam)/exam/disc/components/DiscCard.js
 
   useEffect(() => {
     setSelectedOption({ most: null, least: null });
@@ -45,12 +60,10 @@ export default function DiscCard({ data, index, onAnswer, answer }) {
   const columns = [
     {
       title: "",
-      dataIndex: "pref",
-      key: "pref",
+      dataIndex: "soal",
+      key: "soal",
       render: (text) => {
-        if (!text) {
-          return "";
-        }
+        if (!text) return "";
         const [firstLetter, ...restText] = text.split(" ");
         return (
           <span>
@@ -75,7 +88,9 @@ export default function DiscCard({ data, index, onAnswer, answer }) {
       key: "most",
       render: (_, record) => (
         <div style={{ textAlign: "center" }}>
-          <Radio
+          <input
+            type="radio"
+            style={{ cursor: "pointer", width: "20px", height: "20px" }}
             checked={selectedOption.most === record.key}
             disabled={selectedOption.least === record.key}
             onChange={() => handleOptionChange(record.key, "most")}
@@ -97,11 +112,9 @@ export default function DiscCard({ data, index, onAnswer, answer }) {
       key: "least",
       render: (_, record) => (
         <div style={{ textAlign: "center" }}>
-          <Radio
-            size="large"
-            style={{
-              borderColor: "yellow",
-            }}
+          <input
+            type="radio"
+            style={{ cursor: "pointer", width: "20px", height: "20px" }}
             checked={selectedOption.least === record.key}
             disabled={selectedOption.most === record.key}
             onChange={() => handleOptionChange(record.key, "least")}
@@ -121,36 +134,46 @@ export default function DiscCard({ data, index, onAnswer, answer }) {
   ];
 
   return (
-    <Flex
-      style={{
-        width: "100%",
-        flexDirection: "column",
-        userSelect: "none",
-        // border: "1px solid #1B3042",
-      }}
-      onCopy={handleCopy}
-    >
-      <Title
-        level={5}
-        style={{ fontWeight: "normal", marginTop: "0", marginBottom: "1rem" }}
+    <>
+      <Row style={{ width: "100%", paddingRight: "24px" }} justify="end">
+        <Button
+          color="green"
+          onClick={showModal}
+          style={{ margin: "16px 0px" }}
+        >
+          Panduan
+        </Button>
+      </Row>
+      <Card
+        style={{
+          margin: "0px 40px 10px",
+          boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)",
+          border: "none",
+        }}
+        bodyStyle={{ padding: "16px 28px 24px" }}
       >
-        Pilihlah opsi yang sesuai dengan kriteria Anda!
-      </Title>
-      <Space direction="vertical">
-        <Table
-          dataSource={data}
-          columns={columns}
-          bordered={true}
-          size="large"
-          pagination={false}
-          rowHoverable={false}
-          style={{
-            minWidth: "500px",
-            maxWidth: "800px",
-            width: "fit-content",
-          }}
-        />
-      </Space>
-    </Flex>
+        <Title
+          level={5}
+          style={{ fontWeight: "normal", marginBottom: "2px", marginTop: 0 }}
+        >
+          Pilihlah opsi yang sesuai dengan kriteria Anda!
+        </Title>
+        <Space direction="vertical">
+          <Table
+            dataSource={dataSource}
+            columns={columns}
+            bordered
+            size="large"
+            pagination={false}
+            style={{
+              minWidth: "500px",
+              maxWidth: "800px",
+              width: "fit-content",
+            }}
+          />
+        </Space>
+      </Card>
+      <ModalDisc open={isModalOpen} close={handleClose} />
+    </>
   );
 }

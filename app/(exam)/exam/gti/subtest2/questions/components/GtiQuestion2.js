@@ -2,6 +2,7 @@
 import { Typography, Row, Col, Modal, Button, Card } from "antd";
 import React, { useState } from "react";
 import styles from "../../styles/style.module.css";
+import ModalGti2 from "../../components/ModalGti2";
 const { Title, Text } = Typography;
 
 const GtiQuestion2 = ({ data, onAnswer, currentAnswer }) => {
@@ -33,7 +34,7 @@ const GtiQuestion2 = ({ data, onAnswer, currentAnswer }) => {
   };
 
   const QuestionOption = ({ letter, option, isSelected, onClick }) => (
-    <Button className={styles["user-button"]} onClick={() => onClick(letter)}>
+    <Button className={`${styles["user-button"]} ${isSelected ? styles["selected"] : ""}`} onClick={() => onClick(letter)}>
       <div className={styles.avatar}>{letter}</div>
       <span className={styles.option}>{option}</span>
     </Button>
@@ -44,15 +45,17 @@ const GtiQuestion2 = ({ data, onAnswer, currentAnswer }) => {
 
   return (
     <>
-      <Button variant="outlined" size="small" onClick={showModal} style={{ margin: "16px 0px" }}>
-        Panduan
-      </Button>
-      <Card style={{ margin: "32px 64px 32px" }}>
-        <Text style={{ fontSize: 20, display: "block", marginBottom: "24px" }}>{data.id}. Pilih jawaban dari teka-teki tersebut dengan tepat!</Text>
+      <Row style={{ width: "100%", paddingRight: "24px" }} justify="end">
+        <Button variant="outlined" size="middle" color="green" onClick={showModal} style={{ margin: "16px 0px" }}>
+          Panduan
+        </Button>
+      </Row>
+      <Card style={{ margin: "0px 24px 0px 24px", boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)", border: "none" }}>
+        <Text style={{ fontSize: 20, display: "block", marginBottom: "16px" }}>{data.id}. Pilih jawaban dari teka-teki tersebut dengan tepat!</Text>
         {/* Scenarios */}
-        <div style={{ marginBottom: "24px" }}>
+        <div>
           {scenarios.map((scenario, index) => (
-            <Text key={index} style={{ fontSize: 20, display: "block", marginBottom: "16px", fontWeight: "bold" }}>
+            <Text key={index} style={{ fontSize: 20, display: "block", marginBottom: "8px", fontWeight: "bold" }}>
               {scenario}
             </Text>
           ))}
@@ -68,6 +71,7 @@ const GtiQuestion2 = ({ data, onAnswer, currentAnswer }) => {
           ))}
         </Row>
       </Card>
+      <ModalGti2 open={isModalOpen} onCancel={() => setIsModalOpen(false)} />
     </>
   );
 };

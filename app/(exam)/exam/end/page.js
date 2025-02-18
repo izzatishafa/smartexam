@@ -4,15 +4,23 @@ import { Button, Flex, Typography } from "antd";
 const { Title, Text } = Typography;
 import { HomeOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
+import { useExam } from "../../contexts/ExamContext";
 
 const EndPage = () => {
   const router = useRouter();
 
   const [status, setStatus] = useState("time-up-subtest");
+  const { endStatus, currentSubtest, currentExamType } = useExam();
 
   const handleClick = () => {
     router.push("/");
   };
+
+  const handleClickSubtest = () => {
+    router.push(`/exam/${currentExamType}/subtest${currentSubtest + 1}/tutorial-intro`);
+  };
+
+
   return (
     <Flex style={{ height: "80vh" }} justify="center" align="middle">
       <div
@@ -26,7 +34,7 @@ const EndPage = () => {
         }}
       >
         {/* all-done */}
-        {status === "all-done" && (
+        {endStatus === "all-done" && (
           <Flex
             style={{
               width: "100%",
@@ -40,23 +48,13 @@ const EndPage = () => {
           >
             <Title level={1}>Terima Kasih</Title>
             <Text style={{ textAlign: "center", fontSize: "20px" }}>
-              Anda sudah mengerjakan test online{" "}
-              <span style={{ fontWeight: "bold" }}>SMARTEXAM</span> oleh{" "}
-              <span style={{ fontWeight: "bold", color: "#E3C72A" }}>
-                PB TAXAND{" "}
-              </span>
+              Anda sudah mengerjakan test online <span style={{ fontWeight: "bold" }}>SMARTEXAM</span> oleh <span style={{ fontWeight: "bold", color: "#E3C72A" }}>PB TAXAND </span>
               !
               <br />
               Semoga sukses untuk Anda ! ✨
             </Text>
             <br />
-            <Button
-              style={{ width: "fit-content", marginTop: "1rem" }}
-              type="primary"
-              color="orange"
-              icon={<HomeOutlined />}
-              onClick={handleClick}
-            >
+            <Button style={{ width: "fit-content", marginTop: "1rem" }} type="primary" color="orange" icon={<HomeOutlined />} onClick={handleClick}>
               Ke Beranda
             </Button>
           </Flex>
@@ -64,7 +62,7 @@ const EndPage = () => {
         {/* all-done */}
 
         {/* time-up */}
-        {status === "time-up" && (
+        {endStatus === "time-up" && (
           <Flex
             style={{
               width: "100%",
@@ -79,9 +77,7 @@ const EndPage = () => {
             <Title level={2} style={{ marginTop: 0 }}>
               Waktu Mengerjakan Tes Sudah Habis
             </Title>
-            <Text style={{ marginTop: "1rem", fontSize: "1.1rem" }}>
-              Jawaban yang telah Anda isi akan otomatis tersimpan.
-            </Text>
+            <Text style={{ marginTop: "1rem", fontSize: "1.1rem" }}>Jawaban yang telah Anda isi akan otomatis tersimpan.</Text>
             <Text
               style={{
                 marginTop: "1rem",
@@ -89,8 +85,7 @@ const EndPage = () => {
                 textAlign: "center",
               }}
             >
-              Terima kasih atas partisipasi Anda! Silakan tunggu hasilnya <br />{" "}
-              atau hubungi tim kami jika ada pertanyaan. 😊
+              Terima kasih atas partisipasi Anda! Silakan tunggu hasilnya <br /> atau hubungi tim kami jika ada pertanyaan. 😊
             </Text>
             <Button
               style={{
@@ -109,7 +104,7 @@ const EndPage = () => {
         {/* time-up */}
 
         {/* time-up-subtest */}
-        {status === "time-up-subtest" && (
+        {endStatus === "time-up-subtest" && (
           <Flex
             style={{
               width: "100%",
@@ -131,8 +126,7 @@ const EndPage = () => {
                 textAlign: "center",
               }}
             >
-              Waktu pengerjaan tes sudah habis. <br /> Jawaban yang telah Anda
-              isi akan otomatis tersimpan.
+              Waktu pengerjaan tes sudah habis. <br /> Jawaban yang telah Anda isi akan otomatis tersimpan.
             </Text>
             <Button
               style={{
@@ -140,12 +134,13 @@ const EndPage = () => {
                 width: "fit-content",
                 padding: "1rem 8rem",
                 fontSize: "1.1rem",
+                backgroundColor: "#1B3042",
               }}
               type="primary"
               color="qhite"
-              onClick={handleClick}
+              onClick={handleClickSubtest}
             >
-              Akhiri Test
+              Lanjutkan
             </Button>
           </Flex>
         )}

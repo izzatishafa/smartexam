@@ -20,17 +20,21 @@ const ExamLayout = ({ children}) => {
   // const hideFooter = pathname.includes("/exam/gti/subtest1/tutorial");
 
   const hideSidebar = () => {
-    return pathname.includes("/tutorial");
-  }
+    return pathname.includes("/tutorial") || pathname.includes("/exam/end");
+  };
+
 
   const hideFooter = () => {
-    return pathname.includes("/tutorial");
+    return pathname.includes("/tutorial") || pathname.includes("/exam/end");
+  }
+
+  const hideHeader = () => {
+    return pathname.includes("/exam/end");
   }
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <ExamProvider>
-        <HeaderExam />
+        {!hideHeader() && <HeaderExam />}
         <Layout>
           <Layout>
             <Content
@@ -44,9 +48,8 @@ const ExamLayout = ({ children}) => {
             </Content>
             {!hideFooter() && <FooterExam />}
           </Layout>
-          {!hideSidebar ()&& <SiderExam />}
+          {!hideSidebar() && <SiderExam />}
         </Layout>
-      </ExamProvider>
     </Layout>
   );
 };

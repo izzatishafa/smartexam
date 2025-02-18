@@ -1,25 +1,48 @@
 "use client";
-import React, { useState } from "react";
-import { Typography, Row, Col, Space, Modal, Button } from "antd";
-import { Layout } from "antd";
-import { useExam } from "../../../../contexts/ExamContext";
+import React, { useEffect, useCallback } from "react";
+import { Typography, Layout } from "antd";
+import  useExamStore  from "@/app/(exam)/stores/useExamStore";
 import GtiQuestion1 from "@/app/(exam)/exam/gti/subtest1/questions/components/GtiQuestion1";
-const { Title, Text } = Typography;
+import LoadingPage from "@/app/(exam)/components-layout/LoadingPage";
+
+const { Text } = Typography;
 const { Content } = Layout;
 
 const GtiSubtest1 = () => {
-  const { currentQuestion, questionData, answers, setAnswer, subtestInfo, currentQuestionData } = useExam();
-  // const currentQuestionData = questionData.find((q) => q.id === currentQuestion);
-  console.log(currentQuestionData, "ehe");
-  if (!currentQuestionData) {
-    return <Text>Soal tidak ditemukan</Text>;
-  }
+  const { currentQuestion, isLoading, getCurrentQuestion, initializeExam } = useExamStore();
 
-  return <Content>{currentQuestionData.type === "GTI" && <GtiQuestion1 index={currentQuestion} data={currentQuestionData} onAnswer={setAnswer} currentAnswer={answers[currentQuestion]} />}</Content>;
+  useEffect(() => {
+    initializeExam();
+  }, [initializeExam]);
+
+  const currentQuestionData = getCurrentQuestion();
+
+  const renderContent = useCallback(() => {
+    if (isLoading) {
+      return <LoadingPage />;
+    }
+
+    if (!currentQuestionData) {
+      return <Text>Soal tidak ditemukan</Text>;
+    }
+
+    return currentQuestionData.type === "GTI" ? <GtiQuestion1 index={currentQuestion} data={currentQuestionData} /> : null;
+  }, [isLoading, currentQuestionData, currentQuestion]);
+
+  return (
+    <Content
+      style={{
+        opacity: isLoading ? 0 : 1,
+        transition: "opacity 0.3s ease-in-out",
+      }}
+    >
+      {renderContent()}
+    </Content>
+  );
 };
 
 const GtiSubtestPage = () => {
   return <GtiSubtest1 />;
 };
 
-export default GtiSubtestPage;
+export default React.memo(GtiSubtestPage);

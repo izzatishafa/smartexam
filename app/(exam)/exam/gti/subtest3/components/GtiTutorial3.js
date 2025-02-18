@@ -13,7 +13,7 @@ const GtiTutorial3 = () => {
   const [isCorrect, setIsCorrect] = useState(false);
   const data = {
     letter: ["K", "H", "N"],
-    options: ["K", "H", "N"],
+    options: ["K", "N"],
   };
 
   const checkAnswer = (options) => {
@@ -54,7 +54,9 @@ const GtiTutorial3 = () => {
         width: 140,
         padding: 0,
         border: isHighlighted ? "2px solid #1890ff" : "1px solid #d9d9d9",
-        borderRadius: 2,
+        borderRadius: 6,
+        boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)",
+        border: "none",
       }}
       bodyStyle={{ padding: 0 }}
     >
@@ -64,7 +66,8 @@ const GtiTutorial3 = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#bfbfbf",
+          backgroundColor: "rgba(27, 48, 66, 0.5)",
+          borderRadius: 6,
           color: "white",
           fontSize: 80,
         }}
@@ -77,10 +80,11 @@ const GtiTutorial3 = () => {
   const OptionCard = ({ options, isSelected, onClick }) => (
     <Card
       style={{
-        width: 140,
+        width: 240,
         padding: 0,
-        border: isSelected ? "2px solid #1890ff" : "1px solid #d9d9d9",
-        borderRadius: 2,
+        backgroundColor: isSelected ? "#2D7CC1" : "white", // Ubah warna saat selected
+        borderRadius: 6,
+        border: "1px solid #1B3042",
       }}
       bodyStyle={{ padding: 0 }}
       onClick={() => onClick(options)}
@@ -92,6 +96,8 @@ const GtiTutorial3 = () => {
           alignItems: "center",
           justifyContent: "center",
           fontSize: 20,
+          cursor: "pointer",
+          color: isSelected ? "white" : "black",
         }}
       >
         {options}
@@ -101,11 +107,11 @@ const GtiTutorial3 = () => {
   
   return (
     <>
-      <Card style={{ margin: "24px 64px" }}>
+      <Card style={{ margin: "24px 64px", boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)", border: "none" }} bodyStyle={{ padding: "16px 16px 24px" }}>
         <Row style={{ width: "100%" }}>
-          <Text style={{ fontSize: 18 }}>Perhatikan contoh soal berikut!</Text>
+          <Text style={{ fontSize: 16 }}>Perhatikan contoh soal berikut!</Text>
         </Row>
-        <Row gutter={32} style={{ margin: "18px 0px" }} justify="center">
+        <Row gutter={32} style={{ margin: "18px 0px 32px" }} justify="center">
           {data.letter.map((letter, index) => (
             <Col key={index}>
               <LetterCard letter={letter} />
@@ -122,7 +128,7 @@ const GtiTutorial3 = () => {
         </Row>
       </Card>
       {isCorrect && (
-        <Row style={{ width: "100%" }} justify="center" className="mt-4">
+        <Row style={{ width: "100%", marginTop: "40px" }} justify="center" className="mt-4">
           <Button
             size="large"
             style={{

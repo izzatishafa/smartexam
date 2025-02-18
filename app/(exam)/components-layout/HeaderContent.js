@@ -5,7 +5,14 @@ import { Col, Row, Typography } from "antd";
 
 const { Title, Text } = Typography;
 
-const HeaderContent = ({ examType, subtest, questionNumber, hours, minutes, seconds }) => {
+const HeaderContent = ({
+  examType,
+  subtest,
+  questionNumber,
+  hours,
+  minutes,
+  seconds,
+}) => {
   const formatNumber = (num) => {
     return num.toString().padStart(2, "0");
   };
@@ -37,7 +44,17 @@ const HeaderContent = ({ examType, subtest, questionNumber, hours, minutes, seco
           justify="center"
         >
           <Col>
-            <Text style={{ height: "100%", display: "flex", alignItems: "center", color: "white", fontSize: "22px" }}>{getTitle(examType)}</Text>
+            <Text
+              style={{
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                color: "white",
+                fontSize: "22px",
+              }}
+            >
+              {getTitle(examType)}
+            </Text>
           </Col>
         </Row>
         <Row style={{ width: "100%", height: "65px", padding: "0px 30px" }}>
@@ -50,20 +67,25 @@ const HeaderContent = ({ examType, subtest, questionNumber, hours, minutes, seco
               alignItems: "center",
             }}
           >
-            <Text style={{ color: "black", margin: 0, fontSize: "18px" }}>{getSubTitle(examType, subtest, questionNumber)}</Text>
+            <Text style={{ color: "black", margin: 0, fontSize: "18px" }}>
+              {getSubTitle(examType, subtest, questionNumber)}
+            </Text>
           </Col>
         </Row>
       </Col>
-      <Col xs={24} sm={6} lg={6} style={{ borderLeft: "1px solid #E0E0E0" }}>
+      <Col xs={24} sm={6} lg={6} style={{ boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.1)" }}>
         <Row
           style={{
             width: "100%",
             height: "50px",
             backgroundColor: "#1b3042",
+            boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)",
           }}
           justify="center"
         >
-          <Col style={{ height: "100%", display: "flex", alignItems: "center" }}>
+          <Col
+            style={{ height: "100%", display: "flex", alignItems: "center" }}
+          >
             <Text style={{ color: "white", fontSize: "18px" }}>Timer Left</Text>
           </Col>
         </Row>
@@ -71,7 +93,7 @@ const HeaderContent = ({ examType, subtest, questionNumber, hours, minutes, seco
           style={{
             width: "100%",
             height: "65px",
-            borderBottom: "1px solid #AAAAAA",
+            boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)",
           }}
           align="middle"
         >

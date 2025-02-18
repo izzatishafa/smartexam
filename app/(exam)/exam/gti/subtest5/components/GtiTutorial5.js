@@ -69,8 +69,9 @@ const GtiTutorial5 = () => {
       style={{
         width: 160,
         padding: 0,
-        border: isHighlighted ? "2px solid #1890ff" : "1px solid #d9d9d9",
-        borderRadius: 2,
+        borderRadius: 6,
+        boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)",
+        border: "none",
       }}
       bodyStyle={{ padding: 0 }}
     >
@@ -87,9 +88,10 @@ const GtiTutorial5 = () => {
       <div
         style={{
           height: 80,
-          backgroundColor: "#bfbfbf",
+          backgroundColor: "rgba(27, 48, 66, 0.5)",
           display: "flex",
           alignItems: "center",
+          borderRadius: "0px 0px 6px 6px",
           justifyContent: "center",
           color: "white",
           fontSize: 20,
@@ -102,13 +104,14 @@ const GtiTutorial5 = () => {
     </Card>
   );
 
-  const OptionCard = ({ optionValue, isHighlighted, onClick }) => (
+  const OptionCard = ({ optionValue, isSelected, onClick }) => (
     <Card
       style={{
         width: 140,
         padding: 0,
-        border: isHighlighted ? "2px solid #1890ff" : "1px solid #d9d9d9",
-        borderRadius: 2,
+        borderRadius: 6,
+        border: "1px solid #1B3042",
+        backgroundColor: isSelected ? "#2D7CC1" : "white",
       }}
       bodyStyle={{ padding: 0 }}
       onClick={onClick}
@@ -120,6 +123,8 @@ const GtiTutorial5 = () => {
           alignItems: "center",
           justifyContent: "center",
           fontSize: 20,
+          color: isSelected ? "white" : "black",
+          cursor:"pointer",
         }}
       >
         {optionValue}
@@ -146,7 +151,7 @@ const GtiTutorial5 = () => {
 
   return (
     <>
-      <Card style={{ margin: "24px 64px 16px" }}>
+      <Card style={{ margin: "24px 64px 16px", boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)", border: "none" }} bodyStyle={{ padding: "16px 32px 24px" }}>
         <Row style={{ width: "100%" }} justify="center">
           <Text style={{ fontSize: 16 }}>Perhatikan soal berikut !</Text>
         </Row>
@@ -170,7 +175,7 @@ const GtiTutorial5 = () => {
         </Row>
       </Card>
       {isCorrect && (
-        <Row style={{ width: "100%" }} justify="center" className="mt-4">
+        <Row style={{ width: "100%", marginTop:"40px" }} justify="center" className="mt-4">
           <Button
             size="large"
             style={{

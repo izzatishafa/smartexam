@@ -3,13 +3,10 @@ import React, { useState } from "react";
 import { Typography, Flex, Button, Space, Divider, Modal } from "antd";
 const { Title, Text } = Typography;
 const { Content } = Layout;
-import Countdown from "@/components/ui/Countdown";
-import QuizHeader from "@/components/ui/QuizHeader";
 import { Layout } from "antd";
-import EnglishCard from "@/components/ui/card/EnglishCard";
-import WptCard from "@/components/ui/card/WptCard";
+import TableTestCard from "@/components/ui/card/TableTestCard";
 
-const WptTaxandPage = () => {
+const TableTestPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -34,8 +31,22 @@ const WptTaxandPage = () => {
             Panduan
           </Button>
         </Flex>
+        <div
+          style={{
+            padding: "10px 20px",
+            width: "100%",
+            maxHeight: 360,
+            background: "white",
+            borderRadius: "1rem",
+            border: "1px solid #E0E0E0",
+            overflowY: "auto",
+            // overflowX: "hidden",
+          }}
+        >
+          <TableTestCard />
+        </div>
         <Modal
-          width={800}
+          width={700}
           title={
             <Title
               level={5}
@@ -47,7 +58,7 @@ const WptTaxandPage = () => {
                 margin: 2,
               }}
             >
-              Petunjuk Pengerjaan WPT 🧠 :
+              Petunjuk Pengerjaan Table Test 🧠 :
             </Title>
           }
           open={isModalOpen}
@@ -58,34 +69,29 @@ const WptTaxandPage = () => {
             <ol style={{ listStyleType: "ordinal" }}>
               <li>
                 <Text>
-                  Pilih jawaban yang paling tepat untuk setiap soal — ikuti
-                  naluri dan logika Anda!
+                  Simak data tabel yang ada agar dapat menjawab soal dengan
+                  baik.
                 </Text>
               </li>
               <li>
                 <Text>
-                  Bacalah setiap soal dengan cermat, perhatikan pola, dan jangan
-                  lupa untuk tetap fokus.
-                </Text>
-              </li>
-              <li>
-                <Text>
-                  Kelola waktu dengan bijak. Ingat, fokus dan tenang adalah
-                  kunci!
+                  Perhatikan soal tersebut digunakan untuk menjawab dari nomor
+                  berapa sampai dengan berapa.
                 </Text>
               </li>
               <div style={{ marginTop: "0.75rem" }}>
-                <b>Total:</b> 50 soal{" "}
-              </div>
-              <div style={{ marginTop: "0.75rem" }}>
-                ✨ <b>Siap?</b> Ayo taklukkan tantangan ini dan tunjukkan yang
-                terbaik! 🚀{" "}
+                ✨{" "}
+                <span style={{ fontSize: "1rem", fontWeight: "bold" }}>
+                  Tips:
+                </span>{" "}
+                Pastikan untuk fokus pada huruf di tengah dan pilih huruf yang
+                paling tepat untuk menyelesaikan urutan! 🚀{" "}
               </div>
               <div
                 style={{
                   marginTop: "0.75rem",
                   fontWeight: "bold",
-                  fontSize: "1.25rem",
+                  fontSize: "1rem",
                 }}
               >
                 Semoga sukses! 💡
@@ -93,10 +99,9 @@ const WptTaxandPage = () => {
             </ol>
           </div>
         </Modal>
-        <WptCard />
       </Content>
     </>
   );
 };
 
-export default WptTaxandPage;
+export default TableTestPage;

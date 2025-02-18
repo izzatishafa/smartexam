@@ -48,18 +48,16 @@ const GtiTutorial2 = () => {
     }
   };
 
-  const NumberOption = ({ number, name, onClick }) => {
-    return (
-      <Button className={styles["user-button"]} onClick={() => onClick(number)}>
-        <div className={styles.avatar}>{number}</div>
-        <span className={styles.name}>{name}</span>
-      </Button>
-    );
-  };
+  const NumberOption = ({ letter, option, isSelected, onClick }) => (
+    <Button className={`${styles["user-button"]} ${isSelected ? styles["selected"] : ""}`} onClick={() => onClick(letter)}>
+      <div className={styles.avatar}>{letter}</div>
+      <span className={styles.option}>{option}</span>
+    </Button>
+  );
 
   return (
     <>
-      <Card style={{ margin: "32px 64px 32px" }}>
+      <Card style={{ margin: "32px 64px 32px", boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)", border: "none" }} bodyStyle={{ padding: "16px 32px 24px" }}>
         <Row style={{ width: "100%", marginBottom: "16px" }}>
           <Text style={{ fontSize: 20 }}>Perhatikan soal berikut !</Text>
         </Row>
@@ -72,16 +70,16 @@ const GtiTutorial2 = () => {
             <Text style={{ fontSize: 20 }}>Siapa yang tercepat?</Text>
           </div>
           <Row gutter={54} style={{ marginTop: "16px" }}>
-            {data.options.map((number, index) => (
-              <Col key={number}>
-                <NumberOption number={number} name={data.name[index]} isSelected={selectedAnswer === number} onClick={checkAnswer} />
+            {data.options.map((letter, index) => (
+              <Col key={letter}>
+                <NumberOption letter={letter} option={data.name[index]} isSelected={selectedAnswer === letter} onClick={checkAnswer} />
               </Col>
             ))}
           </Row>
         </Row>
       </Card>
       {isCorrect && (
-        <Row style={{ width: "100%" }} justify="center" className="mt-4">
+        <Row style={{ width: "100%", marginTop: "40px" }} justify="center" className="mt-4">
           <Button
             size="large"
             style={{

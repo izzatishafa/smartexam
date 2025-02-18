@@ -36,8 +36,9 @@ const GtiTutorialIntro5 = () => {
       style={{
         width: 160,
         padding: 0,
-        border: isHighlighted ? "2px solid #1890ff" : "1px solid #d9d9d9",
-        borderRadius: 2,
+        borderRadius: 6,
+        boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)",
+        border: "none",
       }}
       bodyStyle={{ padding: 0 }}
     >
@@ -49,13 +50,19 @@ const GtiTutorialIntro5 = () => {
           justifyContent: "center",
         }}
       >
-        <Image src={rotationImages[topNumber]} alt={`Rotasi ${topNumber}`} width={60} height={60} />
+        <Image
+          src={rotationImages[topNumber]}
+          alt={`Rotasi ${topNumber}`}
+          width={60}
+          height={60}
+        />
       </div>
       <div
         style={{
           height: 80,
-          backgroundColor: "#bfbfbf",
+          backgroundColor: "rgba(27, 48, 66, 0.5)", 
           display: "flex",
+          borderRadius: "0px 0px 6px 6px",
           alignItems: "center",
           justifyContent: "center",
           color: "white",
@@ -63,7 +70,12 @@ const GtiTutorialIntro5 = () => {
         }}
       >
         <div style={{ filter: "brightness(0) invert(1)" }}>
-          <Image src={rotationImages[bottomNumber]} alt={`Rotasi ${bottomNumber}`} width={60} height={60} />
+          <Image
+            src={rotationImages[bottomNumber]}
+            alt={`Rotasi ${bottomNumber}`}
+            width={60}
+            height={60}
+          />
         </div>
       </div>
     </Card>
@@ -75,7 +87,8 @@ const GtiTutorialIntro5 = () => {
         width: 140,
         padding: 0,
         border: isHighlighted ? "2px solid #1890ff" : "1px solid #d9d9d9",
-        borderRadius: 2,
+        borderRadius: 6,
+        border: "1px solid #1B3042",
       }}
       bodyStyle={{ padding: 0 }}
     >
@@ -112,7 +125,7 @@ const GtiTutorialIntro5 = () => {
 
   return (
     <>
-      <Card style={{ margin: "24px 64px 16px" }}>
+      <Card style={{ margin: "24px 64px 16px", boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)", border: "none" }} bodyStyle={{ padding: "16px 32px 24px" }}>
         <Row style={{ width: "100%" }} justify="center">
           <Text style={{ fontSize: 16 }}>Perhatikan soal berikut !</Text>
         </Row>
@@ -136,27 +149,49 @@ const GtiTutorialIntro5 = () => {
         </Row>
       </Card>
       <Row style={{ margin: "16px 64px 0px" }}>
-        <div style={{ marginBottom: "20px", height: "170px", width: "100%", overflow: "auto" }}>
-          <p style={{ padding: "0", margin: "0px 0px 8px 0px" }}>🔍 Tips Cepat Menyelesaikan Soal Psikologi Bentuk & Pola</p>
-          <p style={{ padding: "0", margin: "0px" }}>1️. Bandingkan bentuk atas dan bawah</p>
+        <div
+          style={{
+            marginBottom: "20px",
+            height: "170px",
+            width: "100%",
+            overflow: "auto",
+          }}
+        >
+          <p style={{ padding: "0", margin: "0px 0px 8px 0px" }}>
+            🔍 Tips Cepat Menyelesaikan Soal Psikologi Bentuk & Pola
+          </p>
+          <p style={{ padding: "0", margin: "0px" }}>
+            1️. Bandingkan bentuk atas dan bawah
+          </p>
           <ul style={{ padding: "0px 16px 0px", margin: "0" }}>
             <li>Apakah bentuknya mirip?</li>
             <li>Atau hanya merupakan rotasi atau cerminan satu sama lain?</li>
           </ul>
-          <p style={{ padding: "0", margin: "0px" }}>2. Lakukan perbandingan yang sama untuk pilihan lain</p>
+          <p style={{ padding: "0", margin: "0px" }}>
+            2. Lakukan perbandingan yang sama untuk pilihan lain
+          </p>
           <ul style={{ padding: "0px 16px 0px", margin: "0" }}>
             <li>Cari pola atau kesamaan dengan cara serupa.</li>
           </ul>
-          <p style={{ padding: "0", margin: "0px" }}>3️. Cek pola keseluruhan</p>
+          <p style={{ padding: "0", margin: "0px" }}>
+            3️. Cek pola keseluruhan
+          </p>
           <ul style={{ padding: "0px 16px 0px", margin: "0" }}>
             <li>Apakah ada pola yang berulang?</li>
             <li>Apakah bentuknya mengikuti aturan tertentu?</li>
           </ul>
-          <p style={{ padding: "0", margin: "8px 0px 0px 0px" }}>✨ Dengan pendekatan ini, kamu bisa menjawab soal lebih sistematis dan cepat! 🚀</p>
+          <p style={{ padding: "0", margin: "8px 0px 0px 0px" }}>
+            ✨ Dengan pendekatan ini, kamu bisa menjawab soal lebih sistematis
+            dan cepat! 🚀
+          </p>
         </div>
       </Row>
       <Row style={{ width: "100%" }} justify="center">
-        <Button size="large" style={{ backgroundColor: "#1b3042", color: "white", width: "400px" }} onClick={() => router.push("/exam/gti/subtest5/tutorial")}>
+        <Button
+          size="large"
+          style={{ backgroundColor: "#1b3042", color: "white", width: "400px" }}
+          onClick={() => router.push("/exam/gti/subtest5/tutorial")}
+        >
           Mulai Tutorial
         </Button>
       </Row>

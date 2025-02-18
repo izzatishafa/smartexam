@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 const { Title, Text } = Typography;
 
-
 const GtiTutorial1 = () => {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isCorrect, setIsCorrect] = useState(false);
@@ -57,10 +56,12 @@ const GtiTutorial1 = () => {
   const LetterCard = ({ upperLetter, lowerLetter, isHighlighted }) => (
     <Card
       style={{
-        width: 180,
+        width: 140,
         padding: 0,
         border: isHighlighted ? "2px solid #1890ff" : "1px solid #d9d9d9",
-        borderRadius: 2,
+        borderRadius: 5,
+        boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)",
+        border: "none",
       }}
       bodyStyle={{ padding: 0 }}
     >
@@ -70,7 +71,7 @@ const GtiTutorial1 = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontSize: 80,
+          fontSize: 70,
         }}
       >
         {upperLetter}
@@ -78,12 +79,13 @@ const GtiTutorial1 = () => {
       <div
         style={{
           height: 50,
-          backgroundColor: "#bfbfbf",
+          backgroundColor: "rgba(27, 48, 66, 0.5)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           color: "white",
-          fontSize: 20,
+          fontSize: 30,
+          borderRadius: "0 0 5px 5px",
         }}
       >
         {lowerLetter}
@@ -99,8 +101,10 @@ const GtiTutorial1 = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        border: isSelected ? "2px solid #1890ff" : "1px solid #d9d9d9",
+        backgroundColor: isSelected ? "#2D7CC1" : "white", // Ubah warna saat selected
         borderRadius: 6,
+        border: "1px solid #1B3042",
+        cursor: "pointer",
       }}
       bodyStyle={{
         padding: 0,
@@ -111,25 +115,24 @@ const GtiTutorial1 = () => {
       }}
       onClick={() => onClick(number)}
     >
-      <div style={{ fontSize: 20 }}>{number}</div>
+      <div style={{ fontSize: 20, color: isSelected ? "white" : "black" }}>{number}</div>
     </Card>
   );
 
   return (
     <>
-      <Card style={{ margin: "24px 64px" }}>
-        <Row style={{ width: "100%" }} justify="center">
-          <Text style={{ fontSize: 24 }}>Berapa jumlah pasangan huruf yang memiliki kesamaan?</Text>
+      <Card style={{ margin: "24px", boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)", border: "none" }} bodyStyle={{ padding: "8px 16px 24px" }}>
+        <Row style={{ width: "100%", marginBottom: "16px" }} justify="center">
+          <Text style={{ fontSize: 16 }}>Perhatikan soal berikut !</Text>
         </Row>
-        <Row gutter={32} style={{ margin: "24px 0px" }} justify="center">
+        <Row gutter={54} style={{ margin: "8px 0px 24px" }} justify="center">
           {data.letters.map((letter, index) => (
             <Col key={index}>
               <LetterCard upperLetter={letter.upperLetter} lowerLetter={letter.lowerLetter} />
             </Col>
           ))}
         </Row>
-
-        <Row gutter={32} justify="center">
+        <Row gutter={54} justify="center">
           {data.options.map((number) => (
             <Col key={number}>
               <NumberOption number={number} isSelected={selectedAnswer === number} onClick={checkAnswer} />
@@ -138,7 +141,7 @@ const GtiTutorial1 = () => {
         </Row>
       </Card>
       {isCorrect && (
-        <Row style={{ width: "100%" }} justify="center" className="mt-4">
+        <Row style={{ width: "100%", marginTop: "40px" }} justify="center">
           <Button
             size="large"
             style={{

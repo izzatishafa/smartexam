@@ -1,12 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import { Typography, Flex, Button, Modal } from "antd";
+import { Typography, Flex, Button, Space, Divider, Modal } from "antd";
 const { Title, Text } = Typography;
 const { Content } = Layout;
 import { Layout } from "antd";
-import AccountingJuniorCard from "@/components/ui/card/AccountingJuniorCard";
+import TableTestCard from "@/components/ui/card/TableTestCard";
+import StoryTestCard from "@/components/ui/card/StoryTestCard";
 
-const AccountingJuniorPage = () => {
+const StoryTestPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -43,7 +44,7 @@ const AccountingJuniorPage = () => {
             // overflowX: "hidden",
           }}
         >
-          <AccountingJuniorCard />
+          <StoryTestCard />
         </div>
         <Modal
           width={700}
@@ -58,7 +59,7 @@ const AccountingJuniorPage = () => {
                 margin: 2,
               }}
             >
-              Petunjuk Pengerjaan Accounting Junior 🧠 :
+              Petunjuk Pengerjaan Table Test 🧠 :
             </Title>
           }
           open={isModalOpen}
@@ -69,7 +70,8 @@ const AccountingJuniorPage = () => {
             <ol style={{ listStyleType: "ordinal" }}>
               <li>
                 <Text>
-                  Simak story yang ada agar dapat menjawab soal dengan baik.
+                  Simak data tabel yang ada agar dapat menjawab soal dengan
+                  baik.
                 </Text>
               </li>
               <li>
@@ -90,7 +92,7 @@ const AccountingJuniorPage = () => {
                 style={{
                   marginTop: "0.75rem",
                   fontWeight: "bold",
-                  fontSize: "1.25rem",
+                  fontSize: "1rem",
                 }}
               >
                 Semoga sukses! 💡
@@ -103,4 +105,4 @@ const AccountingJuniorPage = () => {
   );
 };
 
-export default AccountingJuniorPage;
+export default StoryTestPage;

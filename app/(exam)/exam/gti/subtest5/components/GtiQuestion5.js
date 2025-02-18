@@ -1,11 +1,10 @@
 "use client";
 
-import React from "react";
-import { Button, Card, Col, Row, Typography, notification } from "antd";
+import React, { useState } from "react";
+import { Button, Card, Col, Row, Typography } from "antd";
 import Image from "next/image"; // Impor Image dari Next.js
+import ModalGti5 from "./ModalGti5";
 const { Text } = Typography;
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 const rotationImages = {
   1: "/assets/images/orientasi/f1.png",
@@ -19,15 +18,19 @@ const rotationImages = {
 };
 
 const GtiQuestion5 = ({ data, onAnswer, currentAnswer }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => setIsModalOpen(true);
   const options = [0, 1, 2, 3];
 
-  const RotationCard = ({ topNumber, bottomNumber, isHighlighted }) => (
+  const RotationCard = ({ topNumber, bottomNumber }) => (
     <Card
       style={{
         width: 160,
         padding: 0,
-        border: isHighlighted ? "2px solid #1890ff" : "1px solid #d9d9d9",
-        borderRadius: 2,
+        borderRadius: 6,
+        boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)",
+        border: "none",
       }}
       bodyStyle={{ padding: 0 }}
     >
@@ -44,10 +47,11 @@ const GtiQuestion5 = ({ data, onAnswer, currentAnswer }) => {
       <div
         style={{
           height: 80,
-          backgroundColor: "#bfbfbf",
+          backgroundColor: "rgba(27, 48, 66, 0.5)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          borderRadius: "0px 0px 6px 6px",
           color: "white",
           fontSize: 20,
         }}
@@ -59,13 +63,15 @@ const GtiQuestion5 = ({ data, onAnswer, currentAnswer }) => {
     </Card>
   );
 
-  const OptionCard = ({ optionValue, isHighlighted, onClick }) => (
+  const OptionCard = ({ optionValue, onClick, isSelected }) => (
     <Card
       style={{
         width: 140,
         padding: 0,
-        border: isHighlighted ? "2px solid #1890ff" : "1px solid #d9d9d9",
-        borderRadius: 2,
+        borderRadius: 6,
+        border: "1px solid #1B3042",
+        backgroundColor: isSelected ? "#2D7CC1" : "white",
+        cursor: "pointer",
       }}
       bodyStyle={{ padding: 0 }}
       onClick={onClick}
@@ -77,6 +83,7 @@ const GtiQuestion5 = ({ data, onAnswer, currentAnswer }) => {
           alignItems: "center",
           justifyContent: "center",
           fontSize: 20,
+          color: isSelected ? "white" : "black",
         }}
       >
         {optionValue}
@@ -91,8 +98,8 @@ const GtiQuestion5 = ({ data, onAnswer, currentAnswer }) => {
       const [topNumber, bottomNumber] = pair.split(",");
       return {
         id: index + 1,
-        topNumber: parseInt(topNumber),
-        bottomNumber: parseInt(bottomNumber),
+        topNumber: parseInt(topNumber, 10),
+        bottomNumber: parseInt(bottomNumber, 10),
       };
     });
   };
@@ -102,29 +109,31 @@ const GtiQuestion5 = ({ data, onAnswer, currentAnswer }) => {
 
   return (
     <>
-      <Card style={{ margin: "24px 64px 16px" }}>
+      <Row style={{ width: "100%", paddingRight: "24px" }} justify="end">
+        <Button variant="outlined" size="middle" color="green" onClick={showModal} style={{ margin: "16px 0px" }}>
+          Panduan
+        </Button>
+      </Row>
+      <Card style={{ margin: "0px 64px 16px", boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)", border: "none" }} bodyStyle={{ padding: "16px 32px 24px" }}>
         <Row style={{ width: "100%" }} justify="center">
-          <Text style={{ fontSize: 16 }}>Perhatikan soal berikut !</Text>
+          <Text style={{ fontSize: 16 }}>Perhatikan soal berikut!</Text>
         </Row>
         <Row gutter={54} style={{ margin: "16px 0px 24px" }} justify="center">
           {questions.map((question) => (
             <Col key={question.id}>
-              <RotationCard
-                topNumber={question.topNumber}
-                bottomNumber={question.bottomNumber}
-                isHighlighted={false} // Sesuaikan jika perlu highlight
-              />
+              <RotationCard topNumber={question.topNumber} bottomNumber={question.bottomNumber} />
             </Col>
           ))}
         </Row>
         <Row gutter={32} justify="center">
-          {options.map((optionValue, index) => (
+          {options.map((optionValue) => (
             <Col key={optionValue}>
-              <OptionCard optionValue={options[index]} isHighlighted={false}  onClick={() => onAnswer(data.id, options)} />
+              <OptionCard optionValue={optionValue} isSelected={currentAnswer === optionValue} onClick={() => onAnswer(data.id, optionValue)} />
             </Col>
           ))}
         </Row>
       </Card>
+      <ModalGti5 open={isModalOpen} onCancel={() => setIsModalOpen(false)} />
     </>
   );
 };

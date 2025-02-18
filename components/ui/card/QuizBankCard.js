@@ -6,10 +6,13 @@ const { Title } = Typography;
 import { LoginOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
-const QuizBankCard = ({ title, route, isPackage }) => {
+const QuizBankCard = ({ title, route, isPackage, onClick }) => {
   const router = useRouter();
 
   const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
     router.push(route);
   };
 
@@ -50,14 +53,7 @@ const QuizBankCard = ({ title, route, isPackage }) => {
         <Title level={5} style={{ marginTop: "0" }}>
           {title}
         </Title>
-        <Button
-          style={{ width: "fit-content" }}
-          color="default"
-          variant="solid"
-          icon={<LoginOutlined />}
-          iconPosition="end"
-          onClick={handleClick}
-        >
+        <Button style={{ width: "fit-content" }} color="default" variant="solid" icon={<LoginOutlined />} iconPosition="end" onClick={handleClick}>
           Start
         </Button>
       </Col>

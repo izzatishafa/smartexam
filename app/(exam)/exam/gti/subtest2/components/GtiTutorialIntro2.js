@@ -25,7 +25,7 @@ const GtiTutorialIntro2 = () => {
 
   return (
     <>
-      <Card style={{ margin: "32px 64px 32px" }}>
+      <Card style={{ margin: "32px 64px 32px", boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)", border: "none" }} bodyStyle={{ padding: "16px 32px 24px" }}>
         <Row style={{ width: "100%", marginBottom: "16px" }}>
           <Text style={{ fontSize: 20 }}>Perhatikan soal berikut !</Text>
         </Row>

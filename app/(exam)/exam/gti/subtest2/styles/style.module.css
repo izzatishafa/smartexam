@@ -8,10 +8,25 @@
   align-items: center !important;
   gap: 12px !important;
   box-shadow: none !important;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .user-button:hover {
   background-color: #d0d8f0 !important;
+}
+
+.user-button.selected {
+  background-color: #4a90e2 !important; /* Warna biru saat tombol dipilih */
+  color: white !important;
+}
+
+.user-button.selected .avatar {
+  background-color: white !important;
+  color: #4a90e2 !important;
+}
+
+.user-button.selected .option {
+  color: white !important;
 }
 
 .user-button .avatar {
