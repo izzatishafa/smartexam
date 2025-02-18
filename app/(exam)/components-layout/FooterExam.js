@@ -7,8 +7,7 @@ const { Footer } = Layout;
 import useExamStore from "@/app/(exam)/stores/useExamStore";
 
 const FooterExam = () => {
-  const { goToNext, goToPrevious, getAnsweredCount, getNotAnsweredCount } =
-    useExamStore();
+  const { goToNext, goToPrevious, getAnsweredCount, getNotAnsweredCount, collapsed } = useExamStore();
 
   const answeredCount = getAnsweredCount();
   const notAnsweredCount = getNotAnsweredCount();
@@ -22,17 +21,12 @@ const FooterExam = () => {
           padding: "12px",
         }}
       >
-        <Row style={{ height: "40px" }}>
-          <Col
-            span={12}
-            style={{ height: "100%", display: "flex", alignItems: "center" }}
-          >
-            <Space size="large" style={{ marginLeft: "50px" }}>
+        <Row style={{ height: "40px", margin: "0px 30px 5px", marginRight: collapsed ? "150px" : "30px" }}>
+          {/* komponen ini */}
+          <Col span={12} style={{ height: "100%", display: "flex", alignItems: "center" }}>
+            <Space size="large">
               <Badge color="#36454F" text={`Answered (${answeredCount})`} />
-              <Badge
-                color="#D9D9D9"
-                text={`Not answered (${notAnsweredCount})`}
-              />
+              <Badge color="#D9D9D9" text={`Not answered (${notAnsweredCount})`} />
               {/* <Badge color="#ffd700" text={`Confused (${confusedCount})`} /> */}
             </Space>
           </Col>
@@ -42,23 +36,17 @@ const FooterExam = () => {
               height: "100%",
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "end",
             }}
           >
             <Space size="middle">
               {/* <button className={`${styles.button} ${styles.confused}`} onClick={markConfused}>
                 Mark confused
               </button> */}
-              <button
-                className={`${styles.button} ${styles.previous}`}
-                onClick={goToPrevious}
-              >
+              <button className={`${styles.button} ${styles.previous}`} onClick={goToPrevious}>
                 Previous
               </button>
-              <button
-                className={`${styles.button} ${styles.next}`}
-                onClick={goToNext}
-              >
+              <button className={`${styles.button} ${styles.next}`} onClick={goToNext}>
                 Next
               </button>
             </Space>

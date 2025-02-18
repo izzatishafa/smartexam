@@ -1,25 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
-import { Layout, Row, Col, Progress, Button } from "antd";
+import React from "react";
+import { Layout, Row, Col, Progress, Button, FloatButton, ConfigProvider } from "antd";
 import Title from "antd/es/typography/Title";
 import { theme } from "antd";
 import useExamStore from "@/app/(exam)/stores/useExamStore";
 import { useRouter } from "next/navigation";
+import { RightOutlined } from "@ant-design/icons";
+import styles from "@/app/(exam)/styles-layout/styles.module.css";
 
 const { Sider } = Layout;
 
 const SiderExam = () => {
-  const {
-    currentQuestion,
-    collapsed,
-    setCollapsed,
-    answers,
-    getCurrentQuestionData,
-    goToQuestion,
-    getProgress,
-    getCurrentSubtestInfo,
-  } = useExamStore();
+  const { currentQuestion, collapsed, setCollapsed, answers, getCurrentQuestionData, goToQuestion, getProgress, getCurrentSubtestInfo } = useExamStore();
 
   const router = useRouter();
   const handleSubmit = useExamStore((state) => state.handleSubmit);
@@ -31,25 +24,8 @@ const SiderExam = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  // const getProgress = () => {
-  //   const answered = Object.keys(answers).length;
-  //   return Math.round((answered / questionData.length) * 100);
-  // };
-
-  return (
-    <Sider
-      width={384}
-      theme="dark"
-      collapsible
-      collapsed={collapsed}
-      onCollapse={setCollapsed}
-      reverseArrow
-      style={{
-        background: colorBgContainer,
-        marginBottom: 24,
-        boxShadow: "-4px 0 4px -2px rgba(27, 48, 66, 0.1)",
-      }}
-    >
+  const SidebarContent = () => (
+    <>
       <Row
         style={{
           padding: "0px 20px",
@@ -137,7 +113,50 @@ const SiderExam = () => {
           </Button>
         </Col>
       </Row>
-    </Sider>
+    </>
+  );
+
+  return (
+    <>
+      {!collapsed ? (
+        <Sider
+          width={384}
+          theme="dark"
+          collapsible
+          collapsed={collapsed}
+          onCollapse={setCollapsed}
+          reverseArrow
+          style={{
+            background: colorBgContainer,
+            marginBottom: 24,
+            boxShadow: "-4px 0 4px -2px rgba(27, 48, 66, 0.1)",
+          }}
+        >
+          <SidebarContent />
+        </Sider>
+      ) : (
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: "#1b3042",
+            },
+          }}
+        >
+          <FloatButton
+            icon={<RightOutlined />}
+            onClick={() => setCollapsed(false)}
+            type="primary"
+            tooltip="Daftar Pertanyaan"
+            style={{
+              height: 70,
+              width: 70,
+              bottom: 10,
+              right: 60,
+            }}
+          />
+        </ConfigProvider>
+      )}
+    </>
   );
 };
 
