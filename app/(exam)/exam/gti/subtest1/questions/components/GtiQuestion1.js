@@ -4,6 +4,7 @@ import { Col, Row, Typography, Card, Button, Modal } from "antd";
 import React, { useState } from "react";
 import ModalGti1 from "./ModalGti1";
 const { Text } = Typography;
+import useExamStore from "@/app/(exam)/stores/useExamStore";
 
 const LetterCard = ({ upperLetter, lowerLetter, isHighlighted }) => (
   <Card
@@ -71,8 +72,10 @@ const NumberOption = ({ number, isSelected, onClick }) => (
   </Card>
 );
 
-const GtiQuestion1 = ({ data, onAnswer, currentAnswer, index }) => {
-const [isModalOpen, setIsModalOpen] = useState(false);
+const GtiQuestion1 = ({ data, index }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const setAnswer = useExamStore((state) => state.setAnswer);
+  const currentAnswer = useExamStore((state) => state.answers[data.id]);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -121,7 +124,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
               <NumberOption
                 number={number}
                 isSelected={currentAnswer === number}
-                onClick={() => onAnswer(data.id, number)}
+                onClick={() => setAnswer(data.id, number)} // Perbaikan di sini
               />
             </Col>
           ))}

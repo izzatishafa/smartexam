@@ -1,87 +1,46 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Typography, Card, Space, Divider, Flex, Button, Row } from "antd";
-import MultipleChoice from "@/components/ui/MultipleChoice";
+import MultipleChoice from "./MultipleChoice";
+import ModalAJ from "./ModalAJ";
+import useExamStore from "@/app/(exam)/stores/useExamStore";
 
 const { Title, Text } = Typography;
 
-export default function AccountingJuniorCard({
-  data,
-  onAnswer,
-  answered,
-  index,
-}) {
-  const [selectedOption, setSelectedOption] = useState(null);
+export default function AccountingJuniorCard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { getCurrentQuestion, currentQuestion } = useExamStore();
 
-  const showModal = () => setIsModalOpen(true);
-  const handleClose = () => setIsModalOpen(false);
+  const currentQuestionData = getCurrentQuestion();
 
-  useEffect(() => {
-    setSelectedOption(answered || null);
-  }, [index, answered]);
+  if (!currentQuestionData) return <div>Loading...</div>;
 
-  const handleAnswer = (choice, label) => {
-    setSelectedOption(choice);
-    onAnswer(index, choice, label); // Kirim dengan index soal
+  const showModal = () => {
+    setIsModalOpen(true);
   };
 
-  console.log("ini soal acc jr : ", data);
-
-  const handleCopy = (e) => {
-    e.preventDefault();
+  const handleClose = () => {
+    setIsModalOpen(false);
   };
-
-  const choices = [
-    { label: "A", value: "Pegunungan" },
-    { label: "B", value: "Hutan" },
-    { label: "C", value: "Pohon" },
-    { label: "D", value: "Hijau" },
-    { label: "E", value: "Tinggi" },
-  ];
 
   return (
     <>
-      <Row
-        style={{
-          width: "100%",
-          paddingRight: "24px",
-        }}
-        justify="end"
-      >
-        <Button
-          color="green"
-          onClick={showModal}
-          style={{ margin: "0 0 16px" }}
-        >
+      <Row style={{ width: "100%", paddingRight: "24px" }} justify="end">
+        <Button variant="outlined" size="middle" color="green" onClick={showModal} style={{ margin: "16px 0px" }}>
           Panduan
         </Button>
       </Row>
-      <Card
-        style={{
-          margin: "0px 14px 10px",
-          boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)",
-          border: "none",
-          backgroundColor: "#fff",
-        }}
-      >
+      <Card style={{ margin: "0px 24px", boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)", border: "none" }}>
         <Title level={5} style={{ fontWeight: "normal", paddingLeft: "10px" }}>
-          5. Pilihlah pasangan kata yang mempunyai kesesuaian dengan pola soal.
+          {currentQuestion}. {currentQuestionData.question}
         </Title>
 
         <Space style={{ paddingLeft: "30px" }} direction="vertical">
-          <Text style={{ fontSize: "14px" }}>
-            PT A melakukan perjanjian dengan PT B untuk menjual Mesin atas nama
-            PT B.
-          </Text>
           <Text style={{ fontSize: "14px" }}>Manakah jawaban yang sesuai?</Text>
-          {/* <MultipleChoice
-            data={data.answer_choices}
-            onAnswer={handleAnswer}
-            currentAnswer={selectedOption}
-          /> */}
+          <MultipleChoice options={currentQuestionData.options} questionId={currentQuestionData.id} />
         </Space>
       </Card>
+      <ModalAJ open={isModalOpen} onCancel={() => setIsModalOpen(false)} />
     </>
   );
 }

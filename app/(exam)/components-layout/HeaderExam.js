@@ -7,21 +7,18 @@ import Title from "antd/es/typography/Title";
 import { useRouter } from "next/navigation";
 import HeaderContent from "./HeaderContent";
 import { usePathname } from "next/navigation";
-import { useExam } from "../contexts/ExamContext";
-
+import useExamStore  from "@/app/(exam)/stores/useExamStore"
 const { Text } = Typography;
 const { Header } = Layout;
 
 const HeaderExam = () => {
+  const { currentExamType, currentSubtest, currentQuestion, timeRemaining, isTutorialPage } = useExamStore();
+  const pathname = usePathname();
+
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(58);
   const [seconds, setSeconds] = useState(49);
-  const { currentExamType, currentSubtest, currentQuestion, timeRemaining } = useExam();
-
-  const pathname = usePathname(); // Dapatkan path URL saat ini
-  const isTutorialPage = () => {
-    return pathname.includes("/tutorial");
-  };
+  
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -175,7 +172,15 @@ const HeaderExam = () => {
               </Dropdown>
             </Col>
           </Row>
-          {!isTutorialPage() && <HeaderContent examType={currentExamType} subtest={currentSubtest} questionNumber={currentQuestion} hours={timeRemaining.hours} minutes={timeRemaining.minutes} seconds={timeRemaining.seconds} />}
+          {!isTutorialPage(pathname) && (
+        <HeaderContent 
+          examType={currentExamType}
+          subtest={currentSubtest}
+          questionNumber={currentQuestion}
+          hours={timeRemaining.hours}
+          minutes={timeRemaining.minutes}
+          seconds={timeRemaining.seconds}
+        />)}
 
           {isTutorialPage() && (
             <Row style={{ width: "100%", height: "50px", backgroundColor: "#1b3042" }} justify="center" align="middle">

@@ -4,29 +4,28 @@ import React, { useState } from "react";
 import { Layout, Row, Col, Progress, Button } from "antd";
 import Title from "antd/es/typography/Title";
 import { theme } from "antd";
-import { useExam } from "../contexts/ExamContext";
+import useExamStore from "@/app/(exam)/stores/useExamStore";
+import { useRouter } from "next/navigation";
 
 const { Sider } = Layout;
 
 const SiderExam = () => {
-  const {
-    currentQuestion,
-    subtestInfo,
-    confusedQuestions,
-    handleSubmit,
-    answers,
-    questionData,
-    goToQuestion,
-  } = useExam();
-  const [collapsed, setCollapsed] = useState(false);
+  const { currentQuestion, collapsed, setCollapsed, answers, getCurrentQuestionData, goToQuestion, getProgress, getCurrentSubtestInfo } = useExamStore();
+
+   const router = useRouter();
+   const handleSubmit = useExamStore((state) => state.handleSubmit);
+
+  const questionData = getCurrentQuestionData();
+  const subtestInfo = getCurrentSubtestInfo(); // Gunakan getter
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const getProgress = () => {
-    const answered = Object.keys(answers).length;
-    return Math.round((answered / questionData.length) * 100);
-  };
+  // const getProgress = () => {
+  //   const answered = Object.keys(answers).length;
+  //   return Math.round((answered / questionData.length) * 100);
+  // };
 
   return (
     <Sider
@@ -43,7 +42,7 @@ const SiderExam = () => {
       }}
     >
       <Row style={{ padding: "0px 20px", height: "45px", borderBottom: "1px solid #E0E0E0", alignItems: "center" }}>
-        <Progress percent={getProgress()} format={(percent) => `${Object.keys(answers).length} /${subtestInfo.totalQuestions}`} strokeColor="#457D42" />
+        <Progress percent={getProgress()} format={(percent) => `${Object.keys(answers).length} / ${subtestInfo?.questions.length || 0}`} strokeColor="#457D42" />
       </Row>
       <Row
         style={{
@@ -116,12 +115,7 @@ const SiderExam = () => {
               );
             })}
           </div>
-          <Button
-            type="primary"
-            shape="round"
-            onClick={handleSubmit}
-            style={{ marginTop: "20px" }}
-          >
+          <Button type="primary" shape="round" onClick={() => handleSubmit(router.push)} style={{ marginTop: "20px" }}>
             Submit Quiz
           </Button>
         </Col>

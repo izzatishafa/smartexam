@@ -4,22 +4,13 @@ import { Badge, Col, Row, Space, Layout } from "antd";
 import React from "react";
 import styles from "../styles-layout/styles.module.css";
 const { Footer } = Layout;
-import { useExam } from "../contexts/ExamContext";
+import useExamStore from "@/app/(exam)/stores/useExamStore";
 
 const FooterExam = () => {
-  const {
-    markConfused,
-    goToNext,
-    goToPrevious,
-    answers,
-    confusedQuestions,
-    questionData,
-    goToQuestion,
-  } = useExam();
+  const { goToNext, goToPrevious, getAnsweredCount, getNotAnsweredCount } = useExamStore();
 
-  const answeredCount = Object.keys(answers).length;
-  // const confusedCount = confusedQuestions.length;
-  const notAnsweredCount = questionData.length - answeredCount;
+  const answeredCount = getAnsweredCount();
+  const notAnsweredCount = getNotAnsweredCount();
 
   return (
     <>

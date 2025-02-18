@@ -1,30 +1,74 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Flex, Row, Typography } from "antd";
 import HeaderComponent from "@/components/ui/Header";
 import QuizBankCard from "@/components/ui/card/QuizBankCard";
+import useExamStore from "./(exam)/stores/useExamStore";
+import { useRouter } from "next/navigation";
 
 const { Title, Text } = Typography;
 
 const QuizBankList = [
-  { title: "Hexaco", route: "/exam/personal/hexaco" },
-  { title: "GTI Group", route: "/exam/gti/subtest1/tutorial-intro" },
-  { title: "WPT", route: "/exam/multiplechoice/wpt_taxand" },
+  {
+    title: "Hexaco",
+    route: "/exam/personal/hexaco",
+    type: "personal",
+    code: "hexaco",
+  },
+  {
+    title: "WPT",
+    route: "/exam/multiplechoice/wpt_taxand",
+    type: "multipleChoice",
+    code: "wpt_taxand",
+  },
+  {
+    title: "GTI Group",
+    route: "/exam/gti/subtest1/tutorial-intro",
+    type: "gti",
+  },
+  {
+    title: "DISC",
+    route: "/exam/disc",
+    type: "disc",
+  },
+  {
+    title: "Essay",
+    route: "/exam/essay",
+    type: "essay",
+  },
   {
     title: "Accounting Junior",
     route: "/exam/multiplechoice/accounting_junior",
+    type: "multipleChoice",
+    code: "accounting_staf_level_junior",
   },
   {
     title: "Accounting Senior",
-    route: "/exam/multiplechoice/accounting_senior",
+    route: "/exam/accounting_senior",
+    type: "accounting_senior",
   },
-  { title: "English University", route: "/exam/multiplechoice/english" },
-  { title: "Essay", route: "/exam/multiplechoice/essay" },
-  { title: "DISC", route: "/exam/disc" },
+  {
+    title: "English University",
+    route: "/exam/english",
+    type: "english",
+  },
 ];
 
 const HomePage = () => {
+  const router = useRouter();
+  const initializeExam = useExamStore((state) => state.initializeExam);
+  const resetState = useExamStore((state) => state.resetState); // Buat fungsi resetState di store
+  const handleQuizSelect = async (route, type, code) => {
+    console.log("Selected Quiz:", { route, type, code });
+    await initializeExam(type, code);
+    router.push(route);
+  };
+
+  useEffect(() => {
+    resetState(); // Reset state saat HomePage di-render
+  }, [resetState]);
+
   return (
     <>
       <HeaderComponent />
@@ -104,9 +148,7 @@ const HomePage = () => {
                 >
                   Nama Peserta :
                 </Title>
-                <Text style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-                  Gwkerenbgt15
-                </Text>
+                <Text style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Gwkerenbgt15</Text>
               </div>
 
               <div>
@@ -120,21 +162,14 @@ const HomePage = () => {
                 >
                   Kode Peserta :
                 </Title>
-                <Text style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-                  0123412
-                </Text>
+                <Text style={{ fontSize: "1.5rem", fontWeight: "bold" }}>0123412</Text>
               </div>
 
               <div>
-                <Title
-                  level={5}
-                  style={{ marginTop: "0.25rem", color: "gray" }}
-                >
+                <Title level={5} style={{ marginTop: "0.25rem", color: "gray" }}>
                   Waktu Ujian
                 </Title>
-                <Text style={{ fontWeight: "bold" }}>
-                  03/02/2025, 07.00 - 09.00 WIB
-                </Text>
+                <Text style={{ fontWeight: "bold" }}>03/02/2025, 07.00 - 09.00 WIB</Text>
               </div>
             </Col>
           </Col>
@@ -164,12 +199,7 @@ const HomePage = () => {
             >
               <Col span={25} style={{ rowGap: "2rem" }}>
                 {QuizBankList.map((item, key) => (
-                  <QuizBankCard
-                    isPackage={false}
-                    key={key}
-                    title={item.title}
-                    route={item.route}
-                  />
+                  <QuizBankCard isPackage={false} key={key} title={item.title} route={item.route} onClick={() => handleQuizSelect(item.route, item.type, item.code)} />
                 ))}
               </Col>
             </div>
