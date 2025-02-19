@@ -1,8 +1,6 @@
 import { create } from "zustand";
 import questionData from "../dummy/questionData";
-import { useRouter } from "next/navigation";
 import { Modal } from "antd";
-
 
 const useExamStore = create((set, get) => ({
   // Menambahkan state yang dibutuhkan layout
@@ -45,8 +43,21 @@ const useExamStore = create((set, get) => ({
     ];
   },
 
+  // Khusus untuk CTI
+  getCTIChoices: () => {
+    return [
+      { key: "1", label: "Pasti Benar" },
+      { key: "2", label: "Hampir/Banyak Benarnya" },
+      { key: "3", label: "Ragu-ragu" },
+      { key: "4", label: "Hampir/Banyak Salahnya" },
+      { key: "5", label: "Pasti Salah" },
+    ];
+  },
+
   initializeExam: async (examType, subtestCode) => {
-    const examData = questionData[examType].subtests.find((subtest) => subtest.code === subtestCode);
+    const examData = questionData[examType].subtests.find(
+      (subtest) => subtest.code === subtestCode
+    );
     console.log("Exam Data Loaded:", examData);
     set({
       currentExamType: examType,
@@ -62,7 +73,9 @@ const useExamStore = create((set, get) => ({
     const { currentExamType, currentSubtest } = get();
     const examData = questionData[currentExamType];
     if (!examData || !examData.subtests) return [];
-    const subtest = examData.subtests.find((subtest) => subtest.code === currentSubtest);
+    const subtest = examData.subtests.find(
+      (subtest) => subtest.code === currentSubtest
+    );
     return subtest?.questions || [];
   },
 
@@ -91,7 +104,10 @@ const useExamStore = create((set, get) => ({
     const { currentExamType, currentSubtest } = get();
     const examData = questionData[currentExamType];
     if (!examData?.subtests) return null;
-    return examData.subtests.find((subtest) => subtest.code === currentSubtest) || null;
+    return (
+      examData.subtests.find((subtest) => subtest.code === currentSubtest) ||
+      null
+    );
   },
 
   // Tambahkan getter untuk total subtests
