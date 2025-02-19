@@ -79,8 +79,23 @@ const useExamStore = create((set, get) => ({
     return subtest?.questions || [];
   },
 
-  //Reset State
-  resetState: () => {
+  // Fungsi reset untuk perpindahan antar subtest
+  resetSubtestState: () => {
+    set((state) => ({
+      answers: {},
+      currentQuestion: 1,
+      timeRemaining: {
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      },
+      // Tetap pertahankan currentExamType karena masih dalam GTI
+      currentSubtest: "",
+    }));
+  },
+
+  // Fungsi reset total untuk akhir test
+  resetFullState: () => {
     set({
       answers: {},
       currentQuestion: 1,
@@ -141,23 +156,23 @@ const useExamStore = create((set, get) => ({
     return Math.round((answered / questionData.length) * 100);
   },
 
-  confirmSubmit: async () => {
-    set({ isModalOpen: false });
-    const subtestTotal = get().getTotalSubtests();
-    const currentSubtest = get().currentSubtest;
+  // confirmSubmit: async () => {
+  //   set({ isModalOpen: false });
+  //   const subtestTotal = get().getTotalSubtests();
+  //   const currentSubtest = get().currentSubtest;
 
-    if (currentSubtest < subtestTotal) {
-      set({
-        answers: {},
-        currentQuestion: 1,
-        currentSubtest: currentSubtest + 1,
-        isNavigate: true,
-      });
-    } else {
-      set({ endStatus: "all-done" });
-      // Handle routing harus dilakukan di component
-    }
-  },
+  //   if (currentSubtest < subtestTotal) {
+  //     set({
+  //       answers: {},
+  //       currentQuestion: 1,
+  //       currentSubtest: currentSubtest + 1,
+  //       isNavigate: true,
+  //     });
+  //   } else {
+  //     set({ endStatus: "all-done" });
+  //     // Handle routing harus dilakukan di component
+  //   }
+  // },
 
   // Method untuk header
   isTutorialPage: (pathname) => {
@@ -175,9 +190,40 @@ const useExamStore = create((set, get) => ({
     return totalQuestions - answeredCount;
   },
 
+  // Menambahkan fungsi untuk mendapatkan rute tutorial berikutnya
+  getNextGTITutorialRoute: (currentSubtest) => {
+    const gtiSubtestOrder = {
+      gti_pci: "subtest2",
+      gti_penalaran: "subtest3",
+      gti_jh: "subtest4",
+      gti_kka: "subtest5",
+      gti_orientasi: "end",
+    };
+
+    const nextSubtest = gtiSubtestOrder[currentSubtest];
+    if (nextSubtest === "end") return "/";
+    return `/exam/gti/${nextSubtest}/tutorial-intro`;
+  },
+
+  getSubtestMap: (currentSubtest) => {
+    const gtiSubtestOrdermap = {
+      gti_pci: "gti_penalaran",
+      gti_penalaran: "gti_jh",
+      gti_jh: "gti_kka",
+      gti_kka: "gti_orientasi",
+      gti_orientasi: "end",
+    };
+    const nextSubtestMap = gtiSubtestOrdermap[currentSubtest];
+    if (nextSubtestMap === "end") return "/";
+    return `/exam/gti/${nextSubtestMap}/tutorial-intro`;
+  },
+
   // Handle submit dengan parameter onNavigate untuk navigasi
+  // Modifikasi handleSubmit untuk menangani flow GTI
   handleSubmit: (onNavigate) => {
     const currentQuestionData = get().getCurrentQuestionData();
+    const currentExamType = get().currentExamType;
+    const currentSubtest = get().currentSubtest;
     const answers = get().answers;
     const totalQuestions = currentQuestionData.length;
     const answeredQuestions = Object.keys(answers).length;
@@ -190,14 +236,27 @@ const useExamStore = create((set, get) => ({
       return;
     }
 
-    // Tampilkan modal konfirmasi
     Modal.confirm({
       title: "Apakah Anda yakin?",
       content: "Jawaban Anda akan dikirim dan tidak dapat diubah.",
       centered: true,
       onOk() {
-        if (onNavigate) {
-          onNavigate("/"); // Gunakan fungsi navigasi yang diterima dari komponen
+        if (currentExamType === "gti") {
+          const nextRoute = get().getNextGTITutorialRoute(currentSubtest);
+          const nextSubtestGti = get().getSubtestMap(currentSubtest);
+
+          if (nextRoute === "/") {
+            // Jika ini adalah subtest terakhir (orientasi)
+            get().resetFullState();
+            onNavigate("/");
+          } else {
+            get().initializeExam(currentExamType, nextSubtestGti.split("/")[3]);
+            onNavigate(nextRoute);
+          }
+        } else {
+          // Handling untuk jenis ujian lain tetap sama
+          get().resetFullState();
+          onNavigate("/");
         }
       },
     });

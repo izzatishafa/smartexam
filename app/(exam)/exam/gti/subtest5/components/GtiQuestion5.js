@@ -2,8 +2,10 @@
 
 import React, { useState } from "react";
 import { Button, Card, Col, Row, Typography } from "antd";
-import Image from "next/image"; // Impor Image dari Next.js
+import Image from "next/image";
 import ModalGti5 from "./ModalGti5";
+import useExamStore from "@/app/(exam)/stores/useExamStore";
+
 const { Text } = Typography;
 
 const rotationImages = {
@@ -17,9 +19,11 @@ const rotationImages = {
   8: "/assets/images/orientasi/f8.png",
 };
 
-const GtiQuestion5 = ({ data, onAnswer, currentAnswer }) => {
+const GtiQuestion5 = () => {
+  const { getCurrentQuestion, setAnswer, answers, currentQuestion } = useExamStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const currentQuestionData = getCurrentQuestion() || {}; // Pastikan tidak null
   const showModal = () => setIsModalOpen(true);
   const options = [0, 1, 2, 3];
 
@@ -42,7 +46,12 @@ const GtiQuestion5 = ({ data, onAnswer, currentAnswer }) => {
           justifyContent: "center",
         }}
       >
-        <Image src={rotationImages[topNumber]} alt={`Rotasi ${topNumber}`} width={60} height={60} />
+        <Image
+          src={rotationImages[topNumber] || "/assets/images/placeholder.png"} // Fallback jika tidak ada gambar
+          alt={`Rotasi ${topNumber}`}
+          width={60}
+          height={60}
+        />
       </div>
       <div
         style={{
@@ -57,7 +66,7 @@ const GtiQuestion5 = ({ data, onAnswer, currentAnswer }) => {
         }}
       >
         <div style={{ filter: "brightness(0) invert(1)" }}>
-          <Image src={rotationImages[bottomNumber]} alt={`Rotasi ${bottomNumber}`} width={60} height={60} />
+          <Image src={rotationImages[bottomNumber] || "/assets/images/placeholder.png"} alt={`Rotasi ${bottomNumber}`} width={60} height={60} />
         </div>
       </div>
     </Card>
@@ -91,21 +100,21 @@ const GtiQuestion5 = ({ data, onAnswer, currentAnswer }) => {
     </Card>
   );
 
-  // Fungsi untuk memproses string question menjadi array soal
   const parseQuestion = (questionStr) => {
+    if (!questionStr) return []; // Jika null atau kosong, kembalikan array kosong
+
     const pairs = questionStr.split("|");
     return pairs.map((pair, index) => {
       const [topNumber, bottomNumber] = pair.split(",");
       return {
         id: index + 1,
-        topNumber: parseInt(topNumber, 10),
-        bottomNumber: parseInt(bottomNumber, 10),
+        topNumber: parseInt(topNumber, 10) || 0, // Jika tidak valid, default ke 0
+        bottomNumber: parseInt(bottomNumber, 10) || 0,
       };
     });
   };
 
-  // Ambil data question dari subtest
-  const questions = parseQuestion(data.question);
+  const questions = parseQuestion(currentQuestionData?.question || ""); // Fallback jika question null
 
   return (
     <>
@@ -119,16 +128,20 @@ const GtiQuestion5 = ({ data, onAnswer, currentAnswer }) => {
           <Text style={{ fontSize: 16 }}>Perhatikan soal berikut!</Text>
         </Row>
         <Row gutter={54} style={{ margin: "16px 0px 24px" }} justify="center">
-          {questions.map((question) => (
-            <Col key={question.id}>
-              <RotationCard topNumber={question.topNumber} bottomNumber={question.bottomNumber} />
-            </Col>
-          ))}
+          {questions.length > 0 ? (
+            questions.map((question) => (
+              <Col key={question.id}>
+                <RotationCard topNumber={question.topNumber} bottomNumber={question.bottomNumber} />
+              </Col>
+            ))
+          ) : (
+            <Text style={{ fontSize: 14, color: "red" }}>Soal tidak tersedia</Text>
+          )}
         </Row>
         <Row gutter={32} justify="center">
           {options.map((optionValue) => (
             <Col key={optionValue}>
-              <OptionCard optionValue={optionValue} isSelected={currentAnswer === optionValue} onClick={() => onAnswer(data.id, optionValue)} />
+              <OptionCard optionValue={optionValue} isSelected={answers?.[currentQuestionData?.id] === optionValue} onClick={() => setAnswer?.(currentQuestionData?.id, optionValue)} />
             </Col>
           ))}
         </Row>

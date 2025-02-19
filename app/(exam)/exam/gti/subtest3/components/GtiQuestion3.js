@@ -2,14 +2,18 @@
 import React, { useState } from "react";
 import { Button, Card, Row, Typography, Col } from "antd";
 import ModalGti3 from "./ModalGti3";
+import useExamStore from "@/app/(exam)/stores/useExamStore";
 const { Text } = Typography;
 
-const GtiQuestion3 = ({ data, onAnswer, currentAnswer }) => {
+
+const GtiQuestion3 = () => {
+  const { getCurrentQuestion, setAnswer, answers, currentQuestion } = useExamStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const currentQuestionData = getCurrentQuestion();
 
   const showModal = () => setIsModalOpen(true);
   // Memproses string pertanyaan menjadi array huruf
-  const letters = data.question.split("");
+  const letters = currentQuestionData.question.split("");
 
   const LetterCard = ({ letter, isSelected }) => (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
@@ -59,7 +63,7 @@ const GtiQuestion3 = ({ data, onAnswer, currentAnswer }) => {
           alignItems: "center",
           justifyContent: "center",
         }}
-        onClick={() => onAnswer(data.id, letter)}
+         onClick={() => setAnswer(currentQuestionData.id, letter)}
       >
         <Text style={{ fontSize: 20, color: isSelected ? "white" : "black" }}>{letter}</Text>
       </Card>
@@ -75,12 +79,12 @@ const GtiQuestion3 = ({ data, onAnswer, currentAnswer }) => {
       </Row>
       <Card style={{ margin: "0px 64px", boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)", border: "none" }} bodyStyle={{ padding: "16px 32px 24px" }}>
         <Row style={{ width: "100%", marginBottom: "24px" }}>
-          <Text style={{ fontSize: 20 }}>{data.id}. Pilih jawaban dari teka-teki tersebut dengan tepat !</Text>
+          <Text style={{ fontSize: 20 }}>{currentQuestionData.id}. Pilih jawaban dari teka-teki tersebut dengan tepat !</Text>
         </Row>
         <Row gutter={32} justify="center">
           {letters.map((letter, index) => (
             <Col key={index}>
-              <LetterCard letter={letter} isSelected={currentAnswer === letter} />
+              <LetterCard letter={letter} isSelected={answers[currentQuestionData.id] === letter} />
             </Col>
           ))}
         </Row>

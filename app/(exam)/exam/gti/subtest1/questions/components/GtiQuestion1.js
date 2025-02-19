@@ -72,8 +72,16 @@ const NumberOption = ({ number, isSelected, onClick }) => (
   </Card>
 );
 
-const GtiQuestion1 = ({ data, index }) => {
+const GtiQuestion1 = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { getCurrentQuestion, setAnswer, answers, currentQuestion } = useExamStore();
+
+  const currentQuestionData = getCurrentQuestion();
+  if (!currentQuestionData) return <div>Loading...</div>;
+
+  const selectedAnswer = answers[currentQuestionData.id] || null;
+
+  
   // const setAnswer = useExamStore((state) => state.setAnswer);
   // const currentAnswer = useExamStore((state) => state.answers[data.id]);
 
@@ -98,9 +106,8 @@ const GtiQuestion1 = ({ data, index }) => {
   };
 
   // Proses data huruf
-  const letterPairs = processLetterPairs(data.question);
+  const letterPairs = processLetterPairs(currentQuestionData.question);
 
-  console.log("ahai", data);
   return (
     <>
       <Row style={{ width: "100%", paddingRight: "24px" }} justify="end">
@@ -109,7 +116,7 @@ const GtiQuestion1 = ({ data, index }) => {
         </Button>
       </Row>
       <Card style={{ margin: "0px 24px 0px 24px", boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)", border: "none" }}>
-        <Text style={{ fontSize: 18 }}>{index}. Berapa jumlah pasangan huruf yang memiliki kesamaan?</Text>
+        <Text style={{ fontSize: 18 }}>{currentQuestionData.id}. Berapa jumlah pasangan huruf yang memiliki kesamaan?</Text>
         <Row gutter={32} style={{ margin: "24px 0px" }} justify="center">
           {letterPairs.map((pair, idx) => (
             <Col key={idx}>
@@ -123,8 +130,8 @@ const GtiQuestion1 = ({ data, index }) => {
             <Col key={number}>
               <NumberOption
                 number={number}
-                isSelected={currentAnswer === number}
-                onClick={() => setAnswer(data.id, number)} // Perbaikan di sini
+                isSelected={answers[currentQuestionData.id] === number}
+                onClick={() => setAnswer(currentQuestionData.id, number)} // Perbaikan di sini
               />
             </Col>
           ))}

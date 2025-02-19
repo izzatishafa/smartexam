@@ -1,4 +1,61 @@
 const questionData = {
+  gti: {
+    subtests: [
+      {
+        code: "gti_pci",
+        type: "GTI",
+        instructions: "Instruksi untuk GTI subtest 1",
+        timeLimit: { hours: 0, minutes: 3, seconds: 5 },
+        questions: [
+          { id: 1, question: "qpdtQPDT" },
+          // { id: 2, question: "mnfqKNFQ" },
+          // { id: 3, question: "RWMQjwkh" },
+        ],
+      },
+      {
+        code: "gti_penalaran",
+        type: "GTI",
+        instructions: "Instruksi untuk GTI subtest 2",
+        timeLimit: { hours: 0, minutes: 3, seconds: 0 },
+        questions: [
+          { id: 1, question: "John lebih lamban daripada Dani, John lebih cepat dari pada Roy, Siapa yang terlamban?;Roy, John, Dani" },
+          // { id: 2, question: "Rani Lebih pendek daripada Susi,Rani lebih tinggi daripada Rita,Siapa yang tertinggi?;Rani,Susi,Rita" },
+          // { id: 3, question: "Laras lebih cerdas daripada Lina,Laras lebih bodoh daripada Mona,Siapa yang tercerdas? ;Lina,Laras,Mona" },
+        ],
+      },
+      {
+        code: "gti_jh",
+        type: "GTI",
+        instructions: "Instruksi untuk GTI subtest 3",
+        timeLimit: { hours: 0, minutes: 3, seconds: 0 },
+        questions: [
+          { id: 1, question: "KNP" },
+          // { id: 2, question: "GKN" },
+          // { id: 3, question: "QVY" },
+        ],
+      },
+      {
+        code: "gti_kka",
+        type: "GTI",
+        instructions: "Instruksi untuk GTI subtest 4",
+        timeLimit: { hours: 0, minutes: 3, seconds: 0 },
+        questions: [
+          { id: 1, question: "6,11,17" },
+          // { id: 2, question: "15,1,7" },
+        ],
+      },
+      {
+        code: "gti_orientasi",
+        type: "GTI",
+        instructions: "Instruksi untuk GTI subtest 5",
+        timeLimit: { hours: 0, minutes: 3, seconds: 0 },
+        questions: [
+          { id: 1, question: "3,8|2,8|8,3" },
+          // { id: 2, question: "6,7|8,7|2,5" },
+        ],
+      },
+    ],
+  },
   personal: {
     subtests: [
       {
