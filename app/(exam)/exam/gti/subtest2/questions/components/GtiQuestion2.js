@@ -4,12 +4,15 @@ import React, { useState } from "react";
 import styles from "../../styles/style.module.css";
 import ModalGti2 from "../../components/ModalGti2";
 const { Title, Text } = Typography;
+import useExamStore from "@/app/(exam)/stores/useExamStore";
 
-const GtiQuestion2 = ({ data, onAnswer, currentAnswer }) => {
+const GtiQuestion2 = () => {
+  const { getCurrentQuestion, setAnswer, answers, currentQuestion } = useExamStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const showModal = () => setIsModalOpen(true);
   const handleClose = () => setIsModalOpen(false);
+
+  const currentQuestionData = getCurrentQuestion();
 
   const processQuestion = (questionString) => {
     if (!questionString.includes(";")) return { scenarios: [], question: "", options: [] };
@@ -40,7 +43,7 @@ const GtiQuestion2 = ({ data, onAnswer, currentAnswer }) => {
     </Button>
   );
 
-  const { scenarios, question, options } = processQuestion(data.question);
+  const { scenarios, question, options } = processQuestion(currentQuestionData.question);
   const letters = ["A", "B", "C", "D"]; // Bisa ditambah sesuai kebutuhan
 
   return (
@@ -51,7 +54,7 @@ const GtiQuestion2 = ({ data, onAnswer, currentAnswer }) => {
         </Button>
       </Row>
       <Card style={{ margin: "0px 24px 0px 24px", boxShadow: "0 0 4px 0 rgba(27, 48, 66, 0.3)", border: "none" }}>
-        <Text style={{ fontSize: 20, display: "block", marginBottom: "16px" }}>{data.id}. Pilih jawaban dari teka-teki tersebut dengan tepat!</Text>
+        <Text style={{ fontSize: 20, display: "block", marginBottom: "16px" }}>{currentQuestionData.id}. Pilih jawaban dari teka-teki tersebut dengan tepat!</Text>
         {/* Scenarios */}
         <div>
           {scenarios.map((scenario, index) => (
@@ -66,7 +69,7 @@ const GtiQuestion2 = ({ data, onAnswer, currentAnswer }) => {
         <Row gutter={[16, 16]}>
           {options.map((option, index) => (
             <Col key={index}>
-              <QuestionOption letter={letters[index]} option={option} isSelected={currentAnswer === option} onClick={() => onAnswer(data.id, option)} />
+              <QuestionOption letter={letters[index]} option={option} isSelected={answers[currentQuestionData.id] === option} onClick={() => setAnswer(currentQuestionData.id, option)} />
             </Col>
           ))}
         </Row>

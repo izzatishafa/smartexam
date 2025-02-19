@@ -24,8 +24,9 @@ const QuizBankList = [
   },
   {
     title: "GTI Group",
-    route: "/exam/gti/subtest1/tutorial-intro",
+    route: "/exam/gti/subtest1/questions",
     type: "gti",
+    code: "gti_pci",
   },
   {
     title: "DISC",
@@ -65,9 +66,9 @@ const HomePage = () => {
     router.push(route);
   };
 
-  useEffect(() => {
-    resetState(); // Reset state saat HomePage di-render
-  }, [resetState]);
+  // useEffect(() => {
+  //   resetState(); // Reset state saat HomePage di-render
+  // }, [resetState]);
 
   return (
     <>
