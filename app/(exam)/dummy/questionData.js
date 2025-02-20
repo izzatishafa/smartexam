@@ -18,7 +18,11 @@ const questionData = {
         instructions: "Instruksi untuk GTI subtest 2",
         timeLimit: { hours: 0, minutes: 3, seconds: 0 },
         questions: [
-          { id: 1, question: "John lebih lamban daripada Dani, John lebih cepat dari pada Roy, Siapa yang terlamban?;Roy, John, Dani" },
+          {
+            id: 1,
+            question:
+              "John lebih lamban daripada Dani, John lebih cepat dari pada Roy, Siapa yang terlamban?;Roy, John, Dani",
+          },
           // { id: 2, question: "Rani Lebih pendek daripada Susi,Rani lebih tinggi daripada Rita,Siapa yang tertinggi?;Rani,Susi,Rita" },
           // { id: 3, question: "Laras lebih cerdas daripada Lina,Laras lebih bodoh daripada Mona,Siapa yang tercerdas? ;Lina,Laras,Mona" },
         ],
@@ -339,6 +343,52 @@ const questionData = {
         ],
       },
       {
+        code: "english_university",
+        type: "English University",
+        instructions: "Instruksi untuk English University",
+        timeLimit: { hours: 0, minutes: 3, seconds: 0 },
+        questions: [
+          {
+            id: 1,
+            question:
+              "Abraham Lincoln insisted that ____ not just on mere opinion but on moral purpose.",
+            options: [
+              "decisions be based",
+              "decisions were based",
+              "decision is based",
+              "decisions based",
+            ],
+          },
+          {
+            id: 2,
+            question:
+              "If I ____ more time, I would learn how to play the guitar.",
+            options: ["have", "had", "will have", "having"],
+          },
+          {
+            id: 3,
+            question:
+              "She was so tired that she could ____ keep her eyes open.",
+            options: ["hardly", "almost", "always", "rarely"],
+          },
+          {
+            id: 4,
+            question: "The book ____ on the table belongs to my sister.",
+            options: ["lying", "lays", "laid", "lies"],
+          },
+          {
+            id: 5,
+            question: "By the time we arrived at the theater, the movie ____ .",
+            options: [
+              "already started",
+              "had already started",
+              "was already start",
+              "is already started",
+            ],
+          },
+        ],
+      },
+      {
         code: "accounting_staf_level_junior",
         type: "Accounting",
         instructions: "Instruksi untuk Accounting Staff Junior",
@@ -547,6 +597,24 @@ const questionData = {
             id: 5,
             question: "1, 4, 9, 16, 25, 36, 49, 64, …",
             options: ["81", "100", "121", "144"],
+          },
+        ],
+      },
+    ],
+  },
+  tableTest: {
+    subtests: [
+      {
+        code: "table_test",
+        type: "Table Test",
+        instructions: "Instruksi untuk Table Test",
+        timeLimit: { hours: 0, minutes: 3, seconds: 0 },
+        questions: [
+          {
+            id: 1,
+            question:
+              "Perhatikan data pada tabel berikut untuk menjawab soal nomor 5-10 !",
+            options: null,
           },
         ],
       },

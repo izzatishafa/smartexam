@@ -1,11 +1,27 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { Col, Flex, Row, Typography } from "antd";
+import React, { useState } from "react";
+import {
+  Button,
+  Col,
+  Divider,
+  Dropdown,
+  Flex,
+  Radio,
+  Row,
+  Space,
+  Typography,
+} from "antd";
 import HeaderComponent from "@/components/ui/Header";
 import QuizBankCard from "@/components/ui/card/QuizBankCard";
 import useExamStore from "./(exam)/stores/useExamStore";
 import { useRouter } from "next/navigation";
+import {
+  AppstoreFilled,
+  CaretDownOutlined,
+  DownOutlined,
+  UnorderedListOutlined,
+} from "@ant-design/icons";
 
 const { Title, Text } = Typography;
 
@@ -52,8 +68,9 @@ const QuizBankList = [
   },
   {
     title: "English University",
-    route: "/exam/english",
-    type: "english",
+    route: "/exam/multiplechoice/english",
+    type: "multipleChoice",
+    code: "english_university",
   },
   {
     title: "IST FA (Finden von Analogien)",
@@ -97,6 +114,12 @@ const QuizBankList = [
     type: "personal",
     code: "socdes",
   },
+  {
+    title: "Table Test",
+    route: "/exam/table_test",
+    type: "tableTest",
+    code: "table_test",
+  },
 ];
 
 const HomePage = () => {
@@ -109,9 +132,50 @@ const HomePage = () => {
     router.push(route);
   };
 
-  // useEffect(() => {
-  //   resetState(); // Reset state saat HomePage di-render
-  // }, [resetState]);
+  const [mode, setMode] = useState("list");
+  const handleModeChange = (e) => {
+    setMode(e.target.value);
+  };
+
+  const items = [
+    {
+      key: "view_as",
+      label: <Text style={{ fontSize: "16px" }}>View as</Text>,
+    },
+    {
+      type: "divider",
+    },
+    {
+      key: "list",
+      label: (
+        <Button
+          onClick={() => setMode("list")}
+          style={{
+            border: "none",
+            padding: "0",
+            backgroundColor: "transparent",
+          }}
+        >
+          <UnorderedListOutlined style={{ fontSize: 24 }} /> List View
+        </Button>
+      ),
+    },
+    {
+      key: "grid",
+      label: (
+        <Button
+          onClick={() => setMode("grid")}
+          style={{
+            border: "none",
+            padding: "0",
+            backgroundColor: "transparent",
+          }}
+        >
+          <AppstoreFilled style={{ fontSize: 24 }} /> Grid View
+        </Button>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -130,25 +194,53 @@ const HomePage = () => {
       >
         <Row
           style={{
-            width: "90%",
+            width: "100%",
+            maxWidth: "1360px", // Prevents too wide on large screens
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             marginBottom: "2rem",
+            border: "1px solid #FFF",
           }}
         >
           <Title level={2} style={{ marginTop: "0.5rem" }}>
             Selamat Datang di Online Test SMARTEXAM
           </Title>
+          {/* Toggle Button */}
+          <div style={{ marginLeft: "1rem" }}>
+            <Dropdown menu={{ items, selectable: true }} trigger={["click"]}>
+              <Button
+                type="default"
+                style={{
+                  width: "fit-content",
+                  height: "fit-content",
+                  padding: "0.5rem 1rem",
+                  boxShadow: "1px 1px 2px rgba(0, 0, 0, 0.25)",
+                }}
+              >
+                <Space>
+                  {mode === "list" ? (
+                    <UnorderedListOutlined style={{ fontSize: 24 }} />
+                  ) : (
+                    <AppstoreFilled style={{ fontSize: 24 }} />
+                  )}
+                  <CaretDownOutlined />
+                </Space>
+              </Button>
+            </Dropdown>
+          </div>
+
+          {/* Toggle Button */}
         </Row>
         <Row
-          gutter={[24, 16]} // Horizontal (24px) and Vertical (16px) spacing
+          gutter={[24, 10]} // Horizontal (24px) and Vertical (16px) spacing
           style={{
-            width: "90%",
-            maxWidth: "1200px", // Prevents too wide on large screens
+            width: "100%",
+            maxWidth: "1360px", // Prevents too wide on large screens
             display: "flex",
             justifyContent: "space-between",
             flexWrap: "wrap", // Allows wrapping on smaller screens
+            border: "1px solid white",
           }}
         >
           {/* Left Panel (User Info) */}
@@ -173,7 +265,7 @@ const HomePage = () => {
                 width: "100%",
                 height: "100%",
                 backgroundColor: "white",
-                // border: "1px solid black",
+                border: "1px solid white",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between", // Perubahan utama untuk sebaran vertikal
@@ -239,8 +331,10 @@ const HomePage = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              maxHeight: "100%",
               height: "fit-content",
               padding: "0",
+              border: "1px solid white",
             }}
           >
             <div
@@ -248,9 +342,18 @@ const HomePage = () => {
                 width: "100%",
                 height: "100%",
                 backgroundColor: "transparent",
+                border: "1px solid white",
               }}
             >
-              <Col span={25} style={{ rowGap: "2rem" }}>
+              <div
+                style={{
+                  display: mode === "grid" ? "grid" : "flex",
+                  gridTemplateColumns:
+                    mode === "grid" ? "repeat(3, 1fr)" : "none",
+                  flexDirection: mode === "list" ? "column" : "row",
+                  gap: "2.5rem 2rem",
+                }}
+              >
                 {QuizBankList.map((item, key) => (
                   <QuizBankCard
                     isPackage={false}
@@ -262,7 +365,7 @@ const HomePage = () => {
                     }
                   />
                 ))}
-              </Col>
+              </div>
             </div>
           </Col>
         </Row>
