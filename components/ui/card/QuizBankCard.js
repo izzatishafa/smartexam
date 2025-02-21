@@ -43,9 +43,7 @@ const QuizBankCard = ({ title, route, onClick, isGrid, isDone = false }) => {
           padding: "0.5rem 1rem",
           borderRadius: "6rem",
           color: isDone ? "rgba(144, 211, 106, 1)" : "rgba(255, 0, 0, 1)",
-          backgroundColor: isDone
-            ? "rgba(144, 211, 106, 0.2)"
-            : "rgba(255, 0, 0, 0.2)",
+          backgroundColor: isDone ? "rgba(144, 211, 106, 0.2)" : "rgba(255, 0, 0, 0.2)",
         }}
       >
         {isDone ? "Done" : "Not Taken"}
@@ -105,7 +103,8 @@ const QuizBankCard = ({ title, route, onClick, isGrid, isDone = false }) => {
           style={{
             width: "100%",
             height: "fit-content",
-            justifyItems: isGrid ? "center" : "left",
+            justifyContent: isGrid ? "center" : "left",
+            display: "flex",
           }}
         >
           <Button
