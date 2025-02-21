@@ -5,9 +5,10 @@ import styles from "../../styles/style.module.css";
 import ModalGti2 from "../../components/ModalGti2";
 const { Title, Text } = Typography;
 import useExamStore from "@/app/(exam)/stores/useExamStore";
+import LoadingPage from "@/app/(exam)/components-layout/LoadingPage";
 
 const GtiQuestion2 = () => {
-  const { getCurrentQuestion, setAnswer, answers, currentQuestion } = useExamStore();
+  const { getCurrentQuestion, setAnswer, answers, currentQuestion, currentSubtest } = useExamStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => setIsModalOpen(true);
   const handleClose = () => setIsModalOpen(false);
@@ -23,7 +24,8 @@ const GtiQuestion2 = () => {
     // Gunakan regex untuk mendeteksi pertanyaan (misalnya: "Siapa yang", "Apa yang", dll.)
     const questionMatch = mainPart.match(/(Siapa|Apa|Bagaimana|Mengapa|Dimana|Kapan|Berapa)\s+\w+/i);
 
-    if (!questionMatch) return { scenarios: [], question: mainPart, options: [] };
+    
+    // if (!questionMatch) return { scenarios: [], question: mainPart, options: [] };
 
     const questionStartIndex = questionMatch.index;
     const scenarios = mainPart
@@ -35,6 +37,8 @@ const GtiQuestion2 = () => {
 
     return { scenarios, question, options };
   };
+
+  if (currentSubtest !== "gti_penalaran") return <LoadingPage />;
 
   const QuestionOption = ({ letter, option, isSelected, onClick }) => (
     <Button className={`${styles["user-button"]} ${isSelected ? styles["selected"] : ""}`} onClick={() => onClick(letter)}>

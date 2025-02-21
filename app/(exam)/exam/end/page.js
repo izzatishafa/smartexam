@@ -4,17 +4,21 @@ import { Button, Flex, Typography } from "antd";
 const { Title, Text } = Typography;
 import { HomeOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-import { useExam } from "../../contexts/ExamContext";
+import useExamStore from "../../stores/useExamStore";
 
 const EndPage = () => {
   const router = useRouter();
+  const { endStatus, currentSubtest, currentExamType, resetFullState, getNextSubtestCode, initializeExam } = useExamStore();
 
   const [status, setStatus] = useState("time-up-subtest");
-  const { endStatus, currentSubtest, currentExamType } = useExam();
+
+  
 
   const handleClick = () => {
+    resetFullState(); // Reset state sebelum kembali
     router.push("/");
   };
+
 
   const handleClickSubtest = () => {
     router.push(`/exam/${currentExamType}/subtest${currentSubtest + 1}/tutorial-intro`);
@@ -85,7 +89,8 @@ const EndPage = () => {
                 textAlign: "center",
               }}
             >
-              Terima kasih atas partisipasi Anda! Silakan tunggu hasilnya <br /> atau hubungi tim kami jika ada pertanyaan. 😊
+              Terima kasih atas partisipasi Anda! Silakan tunggu hasilnya <br />
+              atau hubungi tim kami jika ada pertanyaan. 😊
             </Text>
             <Button
               style={{
@@ -94,7 +99,6 @@ const EndPage = () => {
                 padding: "1rem 8rem",
               }}
               type="primary"
-              color="qhite"
               onClick={handleClick}
             >
               Akhiri Test

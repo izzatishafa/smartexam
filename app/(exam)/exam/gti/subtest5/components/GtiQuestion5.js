@@ -5,6 +5,7 @@ import { Button, Card, Col, Row, Typography } from "antd";
 import Image from "next/image";
 import ModalGti5 from "./ModalGti5";
 import useExamStore from "@/app/(exam)/stores/useExamStore";
+import LoadingPage from "@/app/(exam)/components-layout/LoadingPage";
 
 const { Text } = Typography;
 
@@ -20,12 +21,13 @@ const rotationImages = {
 };
 
 const GtiQuestion5 = () => {
-  const { getCurrentQuestion, setAnswer, answers, currentQuestion } = useExamStore();
+  const { getCurrentQuestion, setAnswer, answers, currentQuestion, currentSubtest } = useExamStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const currentQuestionData = getCurrentQuestion() || {}; // Pastikan tidak null
   const showModal = () => setIsModalOpen(true);
   const options = [0, 1, 2, 3];
+  if (currentSubtest !== "gti_orientasi") return <LoadingPage />;
 
   const RotationCard = ({ topNumber, bottomNumber }) => (
     <Card

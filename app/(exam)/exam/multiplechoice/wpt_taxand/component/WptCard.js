@@ -38,12 +38,7 @@ const WptCard = () => {
   return (
     <>
       <Row style={{ width: "100%", paddingRight: "24px" }} justify="end">
-        <Button
-          type="default"
-          size="middle"
-          onClick={() => setIsModalOpen(true)}
-          style={{ margin: "16px 0px" }}
-        >
+        <Button size="middle" onClick={() => setIsModalOpen(true)} style={{ margin: "16px 0px" }} color="green" variant="outlined">
           Panduan
         </Button>
       </Row>
@@ -56,8 +51,7 @@ const WptCard = () => {
         }}
       >
         <Title level={4} style={{ fontWeight: "normal", paddingLeft: "10px" }}>
-          {currentQuestion}. Pilihlah pasangan kata yang mempunyai kesesuaian
-          dengan pola soal.
+          {currentQuestion}. Pilihlah pasangan kata yang mempunyai kesesuaian dengan pola soal.
         </Title>
 
         <Space style={{ paddingLeft: "30px" }} direction="vertical">
@@ -83,18 +77,11 @@ const WptCard = () => {
                 onClick={() => setAnswer(currentQuestionData.id, choice.label)}
                 style={{
                   color: "#1B3042",
-                  backgroundColor:
-                    selectedAnswer === choice.label
-                      ? "aliceblue"
-                      : "transparent",
+                  backgroundColor: selectedAnswer === choice.label ? "aliceblue" : "transparent",
                   padding: "8px 16px",
                   borderRadius: "12px",
                   cursor: "pointer",
-                  border: `1px solid ${
-                    selectedAnswer === choice.label
-                      ? "cornflowerblue"
-                      : "lightgray"
-                  }`,
+                  border: `1px solid ${selectedAnswer === choice.label ? "cornflowerblue" : "lightgray"}`,
                   display: "flex",
                   alignItems: "center",
                 }}
@@ -110,10 +97,7 @@ const WptCard = () => {
                     justifyContent: "center",
                     alignItems: "center",
                     marginRight: "10px",
-                    backgroundColor:
-                      selectedAnswer === choice.label
-                        ? "cornflowerblue"
-                        : "transparent",
+                    backgroundColor: selectedAnswer === choice.label ? "cornflowerblue" : "transparent",
                     color: selectedAnswer === choice.label ? "white" : "gray",
                   }}
                 >

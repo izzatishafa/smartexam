@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import ModalGti1 from "./ModalGti1";
 const { Text } = Typography;
 import useExamStore from "@/app/(exam)/stores/useExamStore";
+import LoadingPage from "@/app/(exam)/components-layout/LoadingPage";
 
 const LetterCard = ({ upperLetter, lowerLetter, isHighlighted }) => (
   <Card
@@ -74,10 +75,11 @@ const NumberOption = ({ number, isSelected, onClick }) => (
 
 const GtiQuestion1 = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { getCurrentQuestion, setAnswer, answers, currentQuestion } = useExamStore();
+  const { getCurrentQuestion, setAnswer, answers, currentQuestion, currentSubtest  } = useExamStore();
 
   const currentQuestionData = getCurrentQuestion();
   if (!currentQuestionData) return <div>Loading...</div>;
+  if (currentSubtest !== "gti_pci") return <LoadingPage/>;
 
   const selectedAnswer = answers[currentQuestionData.id] || null;
 

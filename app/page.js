@@ -32,12 +32,13 @@ const QuizBankList = [
     title: "DISC",
     route: "/exam/disc",
     type: "disc",
+    code: "disc_test",
   },
-  {
-    title: "Essay",
-    route: "/exam/essay",
-    type: "essay",
-  },
+  // {
+  //   title: "Essay",
+  //   route: "/exam/essay",
+  //   type: "essay",
+  // },
   {
     title: "Accounting Junior",
     route: "/exam/multiplechoice/accounting_junior",
@@ -55,63 +56,59 @@ const QuizBankList = [
     route: "/exam/english",
     type: "english",
   },
-  {
-    title: "IST FA (Finden von Analogien)",
-    route: "/exam/ist/ist_fa",
-    type: "ist",
-    code: "ist_fa",
-  },
-  {
-    title: "IST WU (Wortverständnis)",
-    route: "/exam/ist/ist_wu",
-    type: "ist",
-    code: "ist_wu",
-  },
-  {
-    title: "IST ZR (Zahlenreihen)",
-    route: "/exam/ist/ist_zr",
-    type: "ist",
-    code: "ist_zr",
-  },
-  {
-    title: "Work Personality Test (P1)",
-    route: "/exam/personal/work_personality_p1",
-    type: "personal",
-    code: "work_personality_p1",
-  },
-  {
-    title: "CTI",
-    route: "/exam/personal/cti",
-    type: "personal",
-    code: "cti",
-  },
-  {
-    title: "D3AD",
-    route: "/exam/personal/d3ad",
-    type: "personal",
-    code: "d3ad",
-  },
-  {
-    title: "Social Description (SocDes)",
-    route: "/exam/personal/socdes",
-    type: "personal",
-    code: "socdes",
-  },
+  // {
+  //   title: "IST FA (Finden von Analogien)",
+  //   route: "/exam/ist/ist_fa",
+  //   type: "ist",
+  //   code: "ist_fa",
+  // },
+  // {
+  //   title: "IST WU (Wortverständnis)",
+  //   route: "/exam/ist/ist_wu",
+  //   type: "ist",
+  //   code: "ist_wu",
+  // },
+  // {
+  //   title: "IST ZR (Zahlenreihen)",
+  //   route: "/exam/ist/ist_zr",
+  //   type: "ist",
+  //   code: "ist_zr",
+  // },
+  // {
+  //   title: "Work Personality Test (P1)",
+  //   route: "/exam/personal/work_personality_p1",
+  //   type: "personal",
+  //   code: "work_personality_p1",
+  // },
+  // {
+  //   title: "CTI",
+  //   route: "/exam/personal/cti",
+  //   type: "personal",
+  //   code: "cti",
+  // },
+  // {
+  //   title: "D3AD",
+  //   route: "/exam/personal/d3ad",
+  //   type: "personal",
+  //   code: "d3ad",
+  // },
+  // {
+  //   title: "Social Description (SocDes)",
+  //   route: "/exam/personal/socdes",
+  //   type: "personal",
+  //   code: "socdes",
+  // },
 ];
 
 const HomePage = () => {
   const router = useRouter();
   const initializeExam = useExamStore((state) => state.initializeExam);
-  const resetState = useExamStore((state) => state.resetState); // Buat fungsi resetState di store
+
   const handleQuizSelect = async (route, type, code) => {
     console.log("Selected Quiz:", { route, type, code });
     await initializeExam(type, code);
     router.push(route);
   };
-
-  // useEffect(() => {
-  //   resetState(); // Reset state saat HomePage di-render
-  // }, [resetState]);
 
   return (
     <>
@@ -192,9 +189,7 @@ const HomePage = () => {
                 >
                   Nama Peserta :
                 </Title>
-                <Text style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-                  Gwkerenbgt15
-                </Text>
+                <Text style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Gwkerenbgt15</Text>
               </div>
 
               <div>
@@ -208,21 +203,14 @@ const HomePage = () => {
                 >
                   Kode Peserta :
                 </Title>
-                <Text style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-                  0123412
-                </Text>
+                <Text style={{ fontSize: "1.5rem", fontWeight: "bold" }}>0123412</Text>
               </div>
 
               <div>
-                <Title
-                  level={5}
-                  style={{ marginTop: "0.25rem", color: "gray" }}
-                >
+                <Title level={5} style={{ marginTop: "0.25rem", color: "gray" }}>
                   Waktu Ujian
                 </Title>
-                <Text style={{ fontWeight: "bold" }}>
-                  03/02/2025, 07.00 - 09.00 WIB
-                </Text>
+                <Text style={{ fontWeight: "bold" }}>03/02/2025, 07.00 - 09.00 WIB</Text>
               </div>
             </Col>
           </Col>
@@ -252,15 +240,7 @@ const HomePage = () => {
             >
               <Col span={25} style={{ rowGap: "2rem" }}>
                 {QuizBankList.map((item, key) => (
-                  <QuizBankCard
-                    isPackage={false}
-                    key={key}
-                    title={item.title}
-                    route={item.route}
-                    onClick={() =>
-                      handleQuizSelect(item.route, item.type, item.code)
-                    }
-                  />
+                  <QuizBankCard isPackage={false} key={key} title={item.title} route={item.route} onClick={() => handleQuizSelect(item.route, item.type, item.code)} />
                 ))}
               </Col>
             </div>

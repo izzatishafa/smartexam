@@ -6,12 +6,10 @@ const useExamStore = create((set, get) => ({
   // Menambahkan state yang dibutuhkan layout
   collapsed: false,
   isModalOpen: false,
-  isLoading: true,
+  isLoading: false,
   // Menambahkan actions untuk layout
   setCollapsed: (value) => set({ collapsed: value }),
 
-  // State
-  isLoading: true,
   answers: {},
   currentQuestion: 1,
   currentExamType: "",
@@ -21,6 +19,7 @@ const useExamStore = create((set, get) => ({
     minutes: 0,
     seconds: 0,
   },
+  timerId: null,
   endStatus: "",
 
   // Actions
@@ -31,6 +30,73 @@ const useExamStore = create((set, get) => ({
         [questionId]: answer,
       },
     })),
+
+  // Method untuk memulai timer
+  startTimer: () => {
+    const timerId = setInterval(() => {
+      const store = get();
+      const { hours, minutes, seconds } = store.timeRemaining;
+
+      if (hours === 0 && minutes === 0 && seconds === 0) {
+        // Waktu habis
+        clearInterval(store.timerId);
+        set({ endStatus: "time-up" }); // Set status jadi time-up
+        // Arahkan ke halaman end
+        if (typeof window !== "undefined") {
+          window.location.href = "/exam/end"; // Gunakan direct redirect
+        }
+        return;
+      }
+
+      if (seconds > 0) {
+        set({
+          timeRemaining: {
+            hours,
+            minutes,
+            seconds: seconds - 1,
+          },
+        });
+      } else if (minutes > 0) {
+        set({
+          timeRemaining: {
+            hours,
+            minutes: minutes - 1,
+            seconds: 59,
+          },
+        });
+      } else if (hours > 0) {
+        set({
+          timeRemaining: {
+            hours: hours - 1,
+            minutes: 59,
+            seconds: 59,
+          },
+        });
+      }
+    }, 1000);
+
+    set({ timerId });
+  },
+
+  // Method untuk menghentikan timer
+  stopTimer: () => {
+    const { timerId } = get();
+    if (timerId) {
+      clearInterval(timerId);
+      set({ timerId: null });
+    }
+  },
+
+  // Method untuk set waktu awal
+  setInitialTime: (timeLimit) => {
+    set({
+      timeRemaining: {
+        hours: timeLimit.hours || 0,
+        minutes: timeLimit.minutes || 0,
+        seconds: timeLimit.seconds || 0,
+      },
+    });
+  },
 
   // Khusus untuk HEXACO
   getHexacoChoices: () => {
@@ -54,28 +120,37 @@ const useExamStore = create((set, get) => ({
     ];
   },
 
+  // Modifikasi initializeExam untuk memulai timer
   initializeExam: async (examType, subtestCode) => {
-    const examData = questionData[examType].subtests.find(
-      (subtest) => subtest.code === subtestCode
-    );
-    console.log("Exam Data Loaded:", examData);
+    set({ isLoading: true });
+    const examData = questionData[examType].subtests.find((subtest) => subtest.code === subtestCode);
+
+    // Stop timer yang sedang berjalan (jika ada)
+    get().stopTimer();
+
+    // Set state awal
     set({
       currentExamType: examType,
       currentSubtest: subtestCode,
       answers: {},
       currentQuestion: 1,
-      timeRemaining: examData.timeLimit,
-      isLoading: false,
+      endStatus: "",
     });
+
+    // Set dan mulai timer baru
+    if (examData?.timeLimit) {
+      get().setInitialTime(examData.timeLimit);
+      get().startTimer();
+    }
+
+    set({ isLoading: false });
   },
 
   getCurrentQuestionData: () => {
     const { currentExamType, currentSubtest } = get();
     const examData = questionData[currentExamType];
     if (!examData || !examData.subtests) return [];
-    const subtest = examData.subtests.find(
-      (subtest) => subtest.code === currentSubtest
-    );
+    const subtest = examData.subtests.find((subtest) => subtest.code === currentSubtest);
     return subtest?.questions || [];
   },
 
@@ -95,7 +170,10 @@ const useExamStore = create((set, get) => ({
   },
 
   // Fungsi reset total untuk akhir test
+  // Modifikasi resetFullState
   resetFullState: () => {
+    const store = get();
+    store.stopTimer();
     set({
       answers: {},
       currentQuestion: 1,
@@ -107,6 +185,7 @@ const useExamStore = create((set, get) => ({
         seconds: 0,
       },
       endStatus: "",
+      timerId: null,
     });
   },
 
@@ -119,10 +198,7 @@ const useExamStore = create((set, get) => ({
     const { currentExamType, currentSubtest } = get();
     const examData = questionData[currentExamType];
     if (!examData?.subtests) return null;
-    return (
-      examData.subtests.find((subtest) => subtest.code === currentSubtest) ||
-      null
-    );
+    return examData.subtests.find((subtest) => subtest.code === currentSubtest) || null;
   },
 
   // Tambahkan getter untuk total subtests

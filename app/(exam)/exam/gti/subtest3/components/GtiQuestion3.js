@@ -3,17 +3,19 @@ import React, { useState } from "react";
 import { Button, Card, Row, Typography, Col } from "antd";
 import ModalGti3 from "./ModalGti3";
 import useExamStore from "@/app/(exam)/stores/useExamStore";
+import LoadingPage from "@/app/(exam)/components-layout/LoadingPage";
 const { Text } = Typography;
 
 
 const GtiQuestion3 = () => {
-  const { getCurrentQuestion, setAnswer, answers, currentQuestion } = useExamStore();
+  const { getCurrentQuestion, setAnswer, answers, currentQuestion, currentSubtest } = useExamStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const currentQuestionData = getCurrentQuestion();
 
   const showModal = () => setIsModalOpen(true);
   // Memproses string pertanyaan menjadi array huruf
   const letters = currentQuestionData.question.split("");
+  if (currentSubtest !== "gti_jh") return <LoadingPage />;
 
   const LetterCard = ({ letter, isSelected }) => (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
