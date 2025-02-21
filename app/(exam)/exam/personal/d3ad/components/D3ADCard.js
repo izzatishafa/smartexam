@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Typography, Card, Space, Button, Row } from "antd";
-import MultipleChoice from "./MultipleChoice";
+import MultipleChoice from "@/app/(exam)/components/MultipleChoice";
 import ModalD3AD from "./ModalD3AD";
 import useExamStore from "@/app/(exam)/stores/useExamStore";
 

@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { useState } from "react";
 import useExamStore from "@/app/(exam)/stores/useExamStore";
 
 const MultipleChoice = ({ options, questionId }) => {
@@ -23,7 +22,7 @@ const MultipleChoice = ({ options, questionId }) => {
           }}
         >
           {options.map((option, index) => {
-            const choice = String.fromCharCode(65 + index); // Converts 0 -> 'A', 1 -> 'B', etc.
+            const choice = String.fromCharCode(65 + index);
 
             return (
               <li

@@ -1,11 +1,26 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { Col, Flex, Row, Typography } from "antd";
+import React, { useState } from "react";
+import {
+  Button,
+  Col,
+  Divider,
+  Dropdown,
+  Flex,
+  Radio,
+  Row,
+  Space,
+  Typography,
+} from "antd";
 import HeaderComponent from "@/components/ui/Header";
 import QuizBankCard from "@/components/ui/card/QuizBankCard";
 import useExamStore from "./(exam)/stores/useExamStore";
 import { useRouter } from "next/navigation";
+import {
+  AppstoreFilled,
+  CaretDownOutlined,
+  UnorderedListOutlined,
+} from "@ant-design/icons";
 
 const { Title, Text } = Typography;
 
@@ -15,12 +30,14 @@ const QuizBankList = [
     route: "/exam/personal/hexaco",
     type: "personal",
     code: "hexaco",
+    isDone: true,
   },
   {
     title: "WPT",
     route: "/exam/multiplechoice/wpt_taxand",
     type: "multipleChoice",
     code: "wpt_taxand",
+    isDone: false,
   },
   {
     title: "GTI Group",
@@ -53,8 +70,9 @@ const QuizBankList = [
   },
   {
     title: "English University",
-    route: "/exam/english",
-    type: "english",
+    route: "/exam/multiplechoice/english",
+    type: "multipleChoice",
+    code: "english_university",
   },
   // {
   //   title: "IST FA (Finden von Analogien)",
@@ -102,6 +120,7 @@ const QuizBankList = [
 
 const HomePage = () => {
   const router = useRouter();
+  console.log("jumlah soal ===> ", QuizBankList.length);
   const initializeExam = useExamStore((state) => state.initializeExam);
 
   const handleQuizSelect = async (route, type, code) => {
@@ -111,41 +130,69 @@ const HomePage = () => {
   };
 
   return (
-    <>
+    <div style={{ maxHeight: "100vh", boxSizing: "content-box" }}>
       <HeaderComponent />
       <Flex
         style={{
           backgroundColor: "white",
           width: "100%",
-          minHeight: "100vh",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          paddingTop: "2rem",
+          boxSizing: "content-box",
         }}
       >
         <Row
           style={{
-            width: "90%",
+            width: "100%",
+            maxWidth: "1360px", // Prevents too wide on large screens
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            marginBottom: "2rem",
+            marginTop: "6rem",
+            marginBottom: "1rem",
+            border: "1px solid #FFF",
           }}
         >
           <Title level={2} style={{ marginTop: "0.5rem" }}>
             Selamat Datang di Online Test SMARTEXAM
           </Title>
+          {/* Toggle Button */}
+          <div style={{ marginLeft: "1rem" }}>
+            <Dropdown menu={{ items, selectable: true }} trigger={["click"]}>
+              <Button
+                type="default"
+                style={{
+                  width: "fit-content",
+                  height: "fit-content",
+                  padding: "0.5rem 1rem",
+                  boxShadow: "1px 1px 2px rgba(0, 0, 0, 0.25)",
+                }}
+              >
+                <Space>
+                  {mode === "list" ? (
+                    <UnorderedListOutlined style={{ fontSize: 24 }} />
+                  ) : (
+                    <AppstoreFilled style={{ fontSize: 24 }} />
+                  )}
+                  <CaretDownOutlined />
+                </Space>
+              </Button>
+            </Dropdown>
+          </div>
+
+          {/* Toggle Button */}
         </Row>
         <Row
-          gutter={[24, 16]} // Horizontal (24px) and Vertical (16px) spacing
+          gutter={[24, 10]} // Horizontal (24px) and Vertical (16px) spacing
           style={{
-            width: "90%",
-            maxWidth: "1200px", // Prevents too wide on large screens
+            width: "100%",
+            maxWidth: "1360px", // Prevents too wide on large screens
             display: "flex",
             justifyContent: "space-between",
             flexWrap: "wrap", // Allows wrapping on smaller screens
+            border: "1px solid white",
           }}
         >
           {/* Left Panel (User Info) */}
@@ -170,7 +217,7 @@ const HomePage = () => {
                 width: "100%",
                 height: "100%",
                 backgroundColor: "white",
-                // border: "1px solid black",
+                border: "1px solid white",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between", // Perubahan utama untuk sebaran vertikal
@@ -224,8 +271,6 @@ const HomePage = () => {
             xl={17}
             style={{
               backgroundColor: "transparent",
-              display: "flex",
-              justifyContent: "center",
               alignItems: "center",
               height: "fit-content",
               padding: "0",
@@ -247,7 +292,7 @@ const HomePage = () => {
           </Col>
         </Row>
       </Flex>
-    </>
+    </div>
   );
 };
 

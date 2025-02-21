@@ -1,33 +1,26 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Typography, Card, Space, Row, Button, Flex } from "antd";
-import MultipleChoice from "@/components/ui/MultipleChoice";
+import MultipleChoice from "@/app/(exam)/components/MultipleChoice";
 import ModalEnglish from "./ModalEnglish";
+import useExamStore from "@/app/(exam)/stores/useExamStore";
 
-const { Text } = Typography;
+const { Title, Text } = Typography;
 
 export default function EnglishCard({ data, onAnswer, answered, index }) {
-  const [selectedOption, setSelectedOption] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { getCurrentQuestion, currentQuestion } = useExamStore();
+  const currentQuestionData = getCurrentQuestion();
 
-  const showModal = () => setIsModalOpen(true);
-  const handleClose = () => setIsModalOpen(false);
+  if (!currentQuestionData) return <div>Loading...</div>;
 
-  // Saat pindah soal, cek apakah sudah ada jawaban sebelumnya
-  useEffect(() => {
-    setSelectedOption(answered || null);
-  }, [index, answered]);
-
-  const handleAnswer = (choice, label) => {
-    setSelectedOption(choice);
-    onAnswer(index, choice, label); // Kirim dengan index soal
+  const showModal = () => {
+    setIsModalOpen(true);
   };
 
-  console.log("ini soal english : ", data);
-  // console.log(
-  //   "ini soal english : ",
-  //   data.answer_choices.map((item) => item.choice)
-  // );
+  const handleClose = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
@@ -39,9 +32,11 @@ export default function EnglishCard({ data, onAnswer, answered, index }) {
         justify="end"
       >
         <Button
+          variant="outlined"
+          size="middle"
           color="green"
           onClick={showModal}
-          style={{ margin: "0 0 16px" }}
+          style={{ margin: "16px 0px" }}
         >
           Panduan
         </Button>
@@ -54,34 +49,21 @@ export default function EnglishCard({ data, onAnswer, answered, index }) {
           backgroundColor: "#fff",
         }}
       >
-        <Flex
-          direction="column"
-          style={{ width: "100%", flexDirection: "column" }}
+        <Title
+          level={5}
+          style={{ margin: 0, fontWeight: "normal", paddingLeft: "10px" }}
         >
-          <Text
-            style={{
-              fontWeight: "normal",
-              paddingLeft: "10px",
-              marginBottom: "10px",
-            }}
-          >
-            <strong>{index}</strong> . Choose the grammatically correct word ord
-            phrase to complete the following sentences.
+          {currentQuestion}. Choose the grammatically correct word ord phrase to
+          complete the following sentences.
+        </Title>
+
+        <Space style={{ paddingLeft: "30px" }} direction="vertical">
+          <Text style={{ fontSize: "16px", fontWeight: "bold" }}>
+            {currentQuestionData.question}
           </Text>
-          <Text
-            style={{ marginLeft: "2rem", fontSize: "16px", fontWeight: "bold" }}
-          >
-            {data.question}
-          </Text>
-        </Flex>
-        <Space
-          style={{ width: "100%", paddingLeft: "30px", marginTop: "10px" }}
-          direction="vertical"
-        >
           <MultipleChoice
-            data={data.answer_choices}
-            onAnswer={handleAnswer}
-            currentAnswer={selectedOption}
+            options={currentQuestionData.options}
+            questionId={currentQuestionData.id}
           />
         </Space>
       </Card>
