@@ -19,7 +19,6 @@ import { useRouter } from "next/navigation";
 import {
   AppstoreFilled,
   CaretDownOutlined,
-  DownOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
 
@@ -31,12 +30,14 @@ const QuizBankList = [
     route: "/exam/personal/hexaco",
     type: "personal",
     code: "hexaco",
+    isDone: true,
   },
   {
     title: "WPT",
     route: "/exam/multiplechoice/wpt_taxand",
     type: "multipleChoice",
     code: "wpt_taxand",
+    isDone: false,
   },
   {
     title: "GTI Group",
@@ -124,6 +125,7 @@ const QuizBankList = [
 
 const HomePage = () => {
   const router = useRouter();
+  console.log("jumlah soal ===> ", QuizBankList.length);
   const initializeExam = useExamStore((state) => state.initializeExam);
   const resetState = useExamStore((state) => state.resetState); // Buat fungsi resetState di store
   const handleQuizSelect = async (route, type, code) => {
@@ -178,18 +180,17 @@ const HomePage = () => {
   ];
 
   return (
-    <>
+    <div style={{ maxHeight: "100vh", boxSizing: "content-box" }}>
       <HeaderComponent />
       <Flex
         style={{
           backgroundColor: "white",
           width: "100%",
-          minHeight: "100vh",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          paddingTop: "2rem",
+          boxSizing: "content-box",
         }}
       >
         <Row
@@ -199,7 +200,8 @@ const HomePage = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            marginBottom: "2rem",
+            marginTop: "6rem",
+            marginBottom: "1rem",
             border: "1px solid #FFF",
           }}
         >
@@ -328,49 +330,37 @@ const HomePage = () => {
             xl={17}
             style={{
               backgroundColor: "transparent",
-              display: "flex",
-              justifyContent: "center",
               alignItems: "center",
-              maxHeight: "100%",
               height: "fit-content",
-              padding: "0",
               border: "1px solid white",
+              maxHeight: "540px",
+              maxWidth: "100%",
+              overflowY: "auto",
+              gap: "2.5rem 2rem",
+              padding: "1rem",
+              display: mode === "grid" ? "grid" : "flex",
+              gridTemplateColumns: mode === "grid" ? "repeat(3, 1fr)" : "none",
+              flexDirection: mode === "list" ? "column" : "row",
+              flexWrap: mode === "grid" ? "wrap" : "nowrap",
             }}
           >
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                backgroundColor: "transparent",
-                border: "1px solid white",
-              }}
-            >
-              <div
-                style={{
-                  display: mode === "grid" ? "grid" : "flex",
-                  gridTemplateColumns:
-                    mode === "grid" ? "repeat(3, 1fr)" : "none",
-                  flexDirection: mode === "list" ? "column" : "row",
-                  gap: "2.5rem 2rem",
-                }}
-              >
-                {QuizBankList.map((item, key) => (
-                  <QuizBankCard
-                    isPackage={false}
-                    key={key}
-                    title={item.title}
-                    route={item.route}
-                    onClick={() =>
-                      handleQuizSelect(item.route, item.type, item.code)
-                    }
-                  />
-                ))}
-              </div>
-            </div>
+            {QuizBankList.map((item, key) => (
+              <QuizBankCard
+                isDone={item.isDone}
+                isPackage={false}
+                isGrid={mode === "grid"}
+                key={key}
+                title={item.title}
+                route={item.route}
+                onClick={() =>
+                  handleQuizSelect(item.route, item.type, item.code)
+                }
+              />
+            ))}
           </Col>
         </Row>
       </Flex>
-    </>
+    </div>
   );
 };
 

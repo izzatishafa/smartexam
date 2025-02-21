@@ -87,9 +87,10 @@ export default function HeaderComponent() {
           alignItems: "center",
           justifyContent: "space-between",
           backgroundColor: "white",
-          position: "sticky",
+          position: "absolute",
           top: 0,
           zIndex: 1000,
+          width: "100%",
           height: "auto",
           padding: "0",
         }}
