@@ -30,7 +30,8 @@ const QuizBankCard = ({ title, route, onClick, isGrid, isDone = false }) => {
         padding: "1rem 2rem",
         flexWrap: "nowrap",
         marginBottom: "0rem",
-        boxShadow: "1px 1px 2px 2px rgba(0, 0, 0, 0.25)",
+        border: "1px solid #FFF",
+        boxShadow: "0px 0px 4px 2px rgba(0, 0, 0, 0.25)",
       }}
     >
       <div
@@ -43,7 +44,9 @@ const QuizBankCard = ({ title, route, onClick, isGrid, isDone = false }) => {
           padding: "0.5rem 1rem",
           borderRadius: "6rem",
           color: isDone ? "rgba(144, 211, 106, 1)" : "rgba(255, 0, 0, 1)",
-          backgroundColor: isDone ? "rgba(144, 211, 106, 0.2)" : "rgba(255, 0, 0, 0.2)",
+          backgroundColor: isDone
+            ? "rgba(144, 211, 106, 0.2)"
+            : "rgba(255, 0, 0, 0.2)",
         }}
       >
         {isDone ? "Done" : "Not Taken"}

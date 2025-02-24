@@ -15,9 +15,11 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSuccess = async (accessToken, userRole, userId) => {
+  const handleSuccess = async (accessToken, userData, quizData) => {
     try {
       await asyncLocalStorage.setItem("access_token", accessToken);
+      await asyncLocalStorage.setItem("user_data", JSON.stringify(userData));
+      await asyncLocalStorage.setItem("quiz_data", JSON.stringify(quizData));
       console.log("navigate to exam page");
       router.push("/");
     } catch (error) {
@@ -53,10 +55,10 @@ export default function Page() {
         }
       );
 
-      const { data, status } = response;
+      const { data, status } = response.data;
       if (status === 200 || status === 201) {
-        const { token, user_data } = data;
-        await handleSuccess(token, user_data.role, user_data.id);
+        const { token, user_data, quiz_data } = data;
+        await handleSuccess(token, user_data, quiz_data);
         console.log("ini adalah token : ", token);
         message.success("Login successful!");
       }

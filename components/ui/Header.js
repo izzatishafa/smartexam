@@ -79,6 +79,16 @@ export default function HeaderComponent() {
     boxShadow: "none",
   };
 
+  const handleLogout = () => {
+    // Hapus semua data sesi dari localStorage
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("user_data");
+    localStorage.removeItem("quiz_data");
+
+    // Redirect ke halaman login atau home
+    router.push("/login"); // Sesuaikan dengan route login
+  };
+
   return (
     <>
       <Header
@@ -140,7 +150,9 @@ export default function HeaderComponent() {
                     })}
                     <Divider style={{ margin: 0 }} />
                     <Space style={{ padding: 8 }}>
-                      <Button danger>Log Out</Button>
+                      <Button danger onClick={handleLogout}>
+                        Log Out
+                      </Button>
                     </Space>
                   </div>
                 )}

@@ -1,17 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import {
-  Button,
-  Col,
-  Divider,
-  Dropdown,
-  Flex,
-  Radio,
-  Row,
-  Space,
-  Typography,
-} from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Col, Dropdown, Flex, Row, Space, Typography } from "antd";
 import HeaderComponent from "@/components/ui/Header";
 import QuizBankCard from "@/components/ui/card/QuizBankCard";
 import useExamStore from "./(exam)/stores/useExamStore";
@@ -19,6 +9,7 @@ import { useRouter } from "next/navigation";
 import {
   AppstoreFilled,
   CaretDownOutlined,
+  CheckOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
 
@@ -142,7 +133,20 @@ const HomePage = () => {
   const items = [
     {
       key: "view_as",
-      label: <Text style={{ fontSize: "16px" }}>View as</Text>,
+      disabled: true,
+      label: (
+        <Text
+          style={{
+            fontSize: "16px",
+            color: "darkgray",
+            pointerEvents: "none",
+            cursor: "default",
+            backgroundColor: "transparent",
+          }}
+        >
+          View as
+        </Text>
+      ),
     },
     {
       type: "divider",
@@ -158,7 +162,10 @@ const HomePage = () => {
             backgroundColor: "transparent",
           }}
         >
-          <UnorderedListOutlined style={{ fontSize: 24 }} /> List View
+          <UnorderedListOutlined style={{ fontSize: 24 }} /> List
+          {mode === "list" && (
+            <CheckOutlined style={{ color: "black", marginLeft: "2rem" }} />
+          )}
         </Button>
       ),
     },
@@ -173,11 +180,40 @@ const HomePage = () => {
             backgroundColor: "transparent",
           }}
         >
-          <AppstoreFilled style={{ fontSize: 24 }} /> Grid View
+          <AppstoreFilled style={{ fontSize: 24 }} /> Grid
+          {mode === "grid" && (
+            <CheckOutlined style={{ color: "black", marginLeft: "2rem" }} />
+          )}
         </Button>
       ),
     },
   ];
+
+  const [userData, setUserData] = useState(null);
+  const [quizData, setQuizData] = useState(null);
+  console.log("userData", userData);
+  console.log("quizData", quizData);
+
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const user = localStorage.getItem("user_data");
+        const quiz = localStorage.getItem("quiz_data");
+
+        if (user) {
+          setUserData(JSON.parse(user));
+        }
+
+        if (quiz) {
+          setQuizData(JSON.parse(quiz));
+        }
+      } catch (error) {
+        console.error("Error retrieving data:", error);
+      }
+    };
+
+    getUserData();
+  }, []);
 
   return (
     <div style={{ maxHeight: "100vh", boxSizing: "content-box" }}>
@@ -210,14 +246,14 @@ const HomePage = () => {
           </Title>
           {/* Toggle Button */}
           <div style={{ marginLeft: "1rem" }}>
-            <Dropdown menu={{ items, selectable: true }} trigger={["click"]}>
+            <Dropdown menu={{ items }} trigger={["click"]}>
               <Button
                 type="default"
                 style={{
                   width: "fit-content",
                   height: "fit-content",
                   padding: "0.5rem 1rem",
-                  boxShadow: "1px 1px 2px rgba(0, 0, 0, 0.25)",
+                  boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
                 }}
               >
                 <Space>
@@ -226,7 +262,7 @@ const HomePage = () => {
                   ) : (
                     <AppstoreFilled style={{ fontSize: 24 }} />
                   )}
-                  <CaretDownOutlined />
+                  <CaretDownOutlined style={{ marginLeft: "1rem" }} />
                 </Space>
               </Button>
             </Dropdown>
@@ -287,7 +323,7 @@ const HomePage = () => {
                   Nama Peserta :
                 </Title>
                 <Text style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-                  Gwkerenbgt15
+                  {userData?.username || "Gwkerenbgt15"}
                 </Text>
               </div>
 

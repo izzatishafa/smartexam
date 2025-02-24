@@ -1,13 +1,11 @@
 const asyncLocalStorage = {
-  setItem(key, value) {
-    return Promise.resolve().then(() => {
-      localStorage.setItem(key, value);
-    });
+  async setItem(key, value) {
+    await Promise.resolve();
+    localStorage.setItem(key, value);
   },
-  getItem(key) {
-    return Promise.resolve().then(() => {
-      return localStorage.getItem(key);
-    });
+  async getItem(key) {
+    await Promise.resolve();
+    return localStorage.getItem(key);
   },
 };
 

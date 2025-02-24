@@ -18,9 +18,21 @@ const questionData = {
         instructions: "Instruksi untuk GTI subtest 2",
         timeLimit: { hours: 0, minutes: 3, seconds: 0 },
         questions: [
-          { id: 1, question: "John lebih lamban daripada Dani, John lebih cepat dari pada Roy, Siapa yang terlamban?;Roy, John, Dani" },
-          { id: 2, question: "Rani Lebih pendek daripada Susi,Rani lebih tinggi daripada Rita,Siapa yang tertinggi?;Rani,Susi,Rita" },
-          { id: 3, question: "Laras lebih cerdas daripada Lina,Laras lebih bodoh daripada Mona,Siapa yang tercerdas? ;Lina,Laras,Mona" },
+          {
+            id: 1,
+            question:
+              "John lebih lamban daripada Dani, John lebih cepat dari pada Roy, Siapa yang terlamban?;Roy, John, Dani",
+          },
+          {
+            id: 2,
+            question:
+              "Rani Lebih pendek daripada Susi,Rani lebih tinggi daripada Rita,Siapa yang tertinggi?;Rani,Susi,Rita",
+          },
+          {
+            id: 3,
+            question:
+              "Laras lebih cerdas daripada Lina,Laras lebih bodoh daripada Mona,Siapa yang tercerdas? ;Lina,Laras,Mona",
+          },
         ],
       },
       {
@@ -67,17 +79,20 @@ const questionData = {
         questions: [
           {
             id: 1,
-            question: "Selama ini saya mendapatkan fasilitas kerja sesuai dengan jabatan saya",
+            question:
+              "Selama ini saya mendapatkan fasilitas kerja sesuai dengan jabatan saya",
             options: null,
           },
           {
             id: 2,
-            question: "Ketika merasa tidak enak badan saya langsung mengambil jatah cuti karena saya takut penyakitnya semakin parah.",
+            question:
+              "Ketika merasa tidak enak badan saya langsung mengambil jatah cuti karena saya takut penyakitnya semakin parah.",
             options: null,
           },
           {
             id: 3,
-            question: "Setiap sakit saya harus memeriksakan ke berbagai dokter spesialis untuk mendapatkan kepastian mengenai penyakit saya.",
+            question:
+              "Setiap sakit saya harus memeriksakan ke berbagai dokter spesialis untuk mendapatkan kepastian mengenai penyakit saya.",
             options: null,
           },
         ],
@@ -90,27 +105,32 @@ const questionData = {
         questions: [
           {
             id: 1,
-            question: "Saya membuat rencana dan jadwal untuk menyelesaikan tugas tepat waktu.",
+            question:
+              "Saya membuat rencana dan jadwal untuk menyelesaikan tugas tepat waktu.",
             options: null,
           },
           {
             id: 2,
-            question: "Saya menyelesaikan tugas dengan cara yang berbeda dari yang telah ditentukan.",
+            question:
+              "Saya menyelesaikan tugas dengan cara yang berbeda dari yang telah ditentukan.",
             options: null,
           },
           {
             id: 3,
-            question: "Saya meminta bantuan dari rekan kerja untuk menyelesaikan tugas yang sulit.",
+            question:
+              "Saya meminta bantuan dari rekan kerja untuk menyelesaikan tugas yang sulit.",
             options: null,
           },
           {
             id: 4,
-            question: "Saya selalu meminta pendapat rekan kerja sebelum membuat keputusan.",
+            question:
+              "Saya selalu meminta pendapat rekan kerja sebelum membuat keputusan.",
             options: null,
           },
           {
             id: 5,
-            question: "Saya merasa tidak nyaman jika harus bekerja dengan orang yang tidak saya kenal.",
+            question:
+              "Saya merasa tidak nyaman jika harus bekerja dengan orang yang tidak saya kenal.",
             options: null,
           },
         ],
@@ -128,22 +148,26 @@ const questionData = {
           },
           {
             id: 2,
-            question: "Mengikuti pelatihan yang diselenggarakan oleh perusahaan.",
+            question:
+              "Mengikuti pelatihan yang diselenggarakan oleh perusahaan.",
             options: null,
           },
           {
             id: 3,
-            question: "Membaca buku atau artikel yang berkaitan dengan pekerjaan.",
+            question:
+              "Membaca buku atau artikel yang berkaitan dengan pekerjaan.",
             options: null,
           },
           {
             id: 4,
-            question: "Mengikuti kursus atau pelatihan yang diselenggarakan oleh pihak ketiga.",
+            question:
+              "Mengikuti kursus atau pelatihan yang diselenggarakan oleh pihak ketiga.",
             options: null,
           },
           {
             id: 5,
-            question: "Mengikuti seminar atau workshop yang diselenggarakan oleh perusahaan.",
+            question:
+              "Mengikuti seminar atau workshop yang diselenggarakan oleh perusahaan.",
             options: null,
           },
         ],
@@ -156,12 +180,17 @@ const questionData = {
         questions: [
           {
             id: 1,
-            question: "Anda diminta untuk meningkatkan efisiensi di tempat kerja. Apa yang akan Anda lakukan?",
-            options: ["Mengusulkan alat atau sistem baru yang lebih cepat.", "Menganalisis proses yang ada dan menghilangkan langkah yang tidak perlu."],
+            question:
+              "Anda diminta untuk meningkatkan efisiensi di tempat kerja. Apa yang akan Anda lakukan?",
+            options: [
+              "Mengusulkan alat atau sistem baru yang lebih cepat.",
+              "Menganalisis proses yang ada dan menghilangkan langkah yang tidak perlu.",
+            ],
           },
           {
             id: 2,
-            question: "Anda memiliki ide yang bagus untuk meningkatkan kinerja tim. Apa yang Anda lakukan?",
+            question:
+              "Anda memiliki ide yang bagus untuk meningkatkan kinerja tim. Apa yang Anda lakukan?",
             options: [
               "Pada tanggal 28 Maret, mencatat beban telepon di debet dan utang telepon di kredit,Pada tanggal 28 Maret, mencatat beban telepon di debet dan utang telepon di kredit",
               "Pada tanggal 5 April, mencatat beban telepon di debet dan kas di kredit",
@@ -169,7 +198,8 @@ const questionData = {
           },
           {
             id: 3,
-            question: "Anda dan rekan kerja memiliki pendapat berbeda tentang cara menyelesaikan proyek. Apa yang Anda lakukan?",
+            question:
+              "Anda dan rekan kerja memiliki pendapat berbeda tentang cara menyelesaikan proyek. Apa yang Anda lakukan?",
             options: [
               "Pada tanggal 28 Maret, mencatat beban telepon di debet dan utang telepon di kredit,Pada tanggal 28 Maret, mencatat beban telepon di debet dan utang telepon di kredit",
               "Pada tanggal 5 April, mencatat beban telepon di debet dan kas di kredit",
@@ -177,7 +207,8 @@ const questionData = {
           },
           {
             id: 4,
-            question: "Anda memiliki ide yang bagus untuk meningkatkan kinerja tim. Apa yang Anda lakukan?",
+            question:
+              "Anda memiliki ide yang bagus untuk meningkatkan kinerja tim. Apa yang Anda lakukan?",
             options: [
               "Pada tanggal 28 Maret, mencatat beban telepon di debet dan utang telepon di kredit,Pada tanggal 28 Maret, mencatat beban telepon di debet dan utang telepon di kredit",
               "Pada tanggal 5 April, mencatat beban telepon di debet dan kas di kredit",
@@ -185,7 +216,8 @@ const questionData = {
           },
           {
             id: 5,
-            question: "Anda dan rekan kerja memiliki pendapat berbeda tentang cara menyelesaikan proyek. Apa yang Anda lakukan?",
+            question:
+              "Anda dan rekan kerja memiliki pendapat berbeda tentang cara menyelesaikan proyek. Apa yang Anda lakukan?",
             options: [
               "Pada tanggal 28 Maret, mencatat beban telepon di debet dan utang telepon di kredit,Pada tanggal 28 Maret, mencatat beban telepon di debet dan utang telepon di kredit",
               "Pada tanggal 5 April, mencatat beban telepon di debet dan kas di kredit",
@@ -201,7 +233,8 @@ const questionData = {
         questions: [
           {
             id: 1,
-            question: "Pada tanggal 28 Maret, PT Sejahtera menerima tagihan telepon untuk bulan Maret yang akan dibayar pada tanggal 5 April. Jurnal yang tepat yang harus dibuat oleh PT Sejahtera adalah:",
+            question:
+              "Pada tanggal 28 Maret, PT Sejahtera menerima tagihan telepon untuk bulan Maret yang akan dibayar pada tanggal 5 April. Jurnal yang tepat yang harus dibuat oleh PT Sejahtera adalah:",
             options: [
               "Pada tanggal 28 Maret, mencatat beban telepon di debet dan utang telepon di kredit,Pada tanggal 28 Maret, mencatat beban telepon di debet dan utang telepon di kredit",
               "Pada tanggal 5 April, mencatat beban telepon di debet dan kas di kredit",
@@ -212,7 +245,8 @@ const questionData = {
           },
           {
             id: 2,
-            question: "Pada tanggal 31 Maret, PT Sejahtera menerima tagihan listrik untuk bulan Maret yang akan dibayar pada tanggal 5 April. Jurnal yang tepat yang harus dibuat oleh PT Sejahtera adalah:",
+            question:
+              "Pada tanggal 31 Maret, PT Sejahtera menerima tagihan listrik untuk bulan Maret yang akan dibayar pada tanggal 5 April. Jurnal yang tepat yang harus dibuat oleh PT Sejahtera adalah:",
             options: [
               "Pada tanggal 31 Maret, mencatat beban listrik di debet dan utang listrik di kredit",
               "Pada tanggal 5 April, mencatat beban listrik di debet dan kas di kredit",
@@ -223,7 +257,8 @@ const questionData = {
           },
           {
             id: 3,
-            question: "Pada tanggal 31 Maret, PT Sejahtera menerima tagihan air untuk bulan Maret yang akan dibayar pada tanggal 5 April. Jurnal yang tepat yang harus dibuat oleh PT Sejahtera adalah:",
+            question:
+              "Pada tanggal 31 Maret, PT Sejahtera menerima tagihan air untuk bulan Maret yang akan dibayar pada tanggal 5 April. Jurnal yang tepat yang harus dibuat oleh PT Sejahtera adalah:",
             options: [
               "Pada tanggal 31 Maret, mencatat beban air di debet dan utang air di kredit",
               "Pada tanggal 5 April, mencatat beban air di debet dan kas di kredit",
@@ -239,35 +274,89 @@ const questionData = {
         type: "D3AD",
         instructions: "Instruksi untuk D3AD",
         timeLimit: { hours: 0, minutes: 3, seconds: 0 },
-        question: [
+
+        questions: [
           {
-            questions: [
-              {
-                id: 1,
-                question: "Anda diminta untuk meningkatkan efisiensi di tempat kerja. Apa yang akan Anda lakukan?",
-                options: ["Mengusulkan alat atau sistem baru yang lebih cepat.", "Menganalisis proses yang ada dan menghilangkan langkah yang tidak perlu."],
-              },
-              {
-                id: 2,
-                question: "Rekan kerja Anda mengalami kesulitan dalam memahami tugas yang diberikan. Bagaimana Anda membantu?",
-                options: ["Memberikan panduan langkah demi langkah dan memastikan mereka memahaminya.", "Menyarankan mereka untuk mencari solusi sendiri agar lebih mandiri."],
-              },
-              {
-                id: 3,
-                question: "Ketika menghadapi tantangan baru di tempat kerja, bagaimana reaksi Anda?",
-                options: ["Mencari informasi dan beradaptasi dengan cepat untuk menyelesaikan tantangan.", "Mengandalkan metode lama yang sudah terbukti berhasil."],
-              },
-              {
-                id: 4,
-                question: "Anda diberikan proyek dengan tenggat waktu yang sangat singkat. Apa yang Anda lakukan?",
-                options: ["Membuat daftar prioritas dan bekerja secara efisien untuk menyelesaikan tugas tepat waktu.", "Bekerja tanpa rencana dan menyesuaikan dengan situasi yang berkembang."],
-              },
-              {
-                id: 5,
-                question: "Bagaimana Anda menangani konflik dengan rekan kerja terkait perbedaan cara kerja?",
-                options: ["Mendiskusikan perbedaan dengan terbuka dan mencari solusi bersama.", "Tetap pada cara kerja sendiri tanpa memperdulikan pendapat mereka."],
-              },
+            id: 1,
+            question:
+              "Anda diminta untuk meningkatkan efisiensi di tempat kerja. Apa yang akan Anda lakukan?",
+            options: [
+              "Mengusulkan alat atau sistem baru yang lebih cepat.",
+              "Menganalisis proses yang ada dan menghilangkan langkah yang tidak perlu.",
             ],
+          },
+          {
+            id: 2,
+            question:
+              "Rekan kerja Anda mengalami kesulitan dalam memahami tugas yang diberikan. Bagaimana Anda membantu?",
+            options: [
+              "Memberikan panduan langkah demi langkah dan memastikan mereka memahaminya.",
+              "Menyarankan mereka untuk mencari solusi sendiri agar lebih mandiri.",
+            ],
+          },
+          {
+            id: 3,
+            question:
+              "Ketika menghadapi tantangan baru di tempat kerja, bagaimana reaksi Anda?",
+            options: [
+              "Mencari informasi dan beradaptasi dengan cepat untuk menyelesaikan tantangan.",
+              "Mengandalkan metode lama yang sudah terbukti berhasil.",
+            ],
+          },
+          {
+            id: 4,
+            question:
+              "Anda diberikan proyek dengan tenggat waktu yang sangat singkat. Apa yang Anda lakukan?",
+            options: [
+              "Membuat daftar prioritas dan bekerja secara efisien untuk menyelesaikan tugas tepat waktu.",
+              "Bekerja tanpa rencana dan menyesuaikan dengan situasi yang berkembang.",
+            ],
+          },
+          {
+            id: 5,
+            question:
+              "Bagaimana Anda menangani konflik dengan rekan kerja terkait perbedaan cara kerja?",
+            options: [
+              "Mendiskusikan perbedaan dengan terbuka dan mencari solusi bersama.",
+              "Tetap pada cara kerja sendiri tanpa memperdulikan pendapat mereka.",
+            ],
+          },
+        ],
+      },
+      {
+        code: "socdes",
+        type: "Social Description (SOCDES)",
+        instructions: "Instruksi untuk Social Description (SOCDES)",
+        timeLimit: { hours: 0, minutes: 3, seconds: 0 },
+        questions: [
+          {
+            id: 1,
+            question: "Bertanya kepada rekan kerja yang lebih berpengalaman.",
+            options: null,
+          },
+          {
+            id: 2,
+            question:
+              "Mengikuti pelatihan yang diselenggarakan oleh perusahaan.",
+            options: null,
+          },
+          {
+            id: 3,
+            question:
+              "Membaca buku atau artikel yang berkaitan dengan pekerjaan.",
+            options: null,
+          },
+          {
+            id: 4,
+            question:
+              "Mengikuti kursus atau pelatihan yang diselenggarakan oleh pihak ketiga.",
+            options: null,
+          },
+          {
+            id: 5,
+            question:
+              "Mengikuti seminar atau workshop yang diselenggarakan oleh perusahaan.",
+            options: null,
           },
         ],
       },
@@ -284,12 +373,14 @@ const questionData = {
         questions: [
           {
             id: 1,
-            question: "Pilihlah pasangan kata yang mempunyai kesesuaian dengan pola soal <br> Oven : Roti = … : Foto",
+            question:
+              "Pilihlah pasangan kata yang mempunyai kesesuaian dengan pola soal <br> Oven : Roti = … : Foto",
             options: ["motor", "roda", "kolak", "nobita"],
           },
           {
             id: 2,
-            question: "Pilihlah pasangan kata yang mempunyai kesesuaian dengan pola soal <br> Jala : Nelayan = … : Dokter",
+            question:
+              "Pilihlah pasangan kata yang mempunyai kesesuaian dengan pola soal <br> Jala : Nelayan = … : Dokter",
             options: ["Kamera", "Lensa", "Kertas", "Warna"],
           },
         ],
@@ -302,7 +393,8 @@ const questionData = {
         questions: [
           {
             id: 1,
-            question: "Pada tanggal 28 Maret, PT Sejahtera menerima tagihan telepon untuk bulan Maret yang akan dibayar pada tanggal 5 April. Jurnal yang tepat yang harus dibuat oleh PT Sejahtera adalah:",
+            question:
+              "Pada tanggal 28 Maret, PT Sejahtera menerima tagihan telepon untuk bulan Maret yang akan dibayar pada tanggal 5 April. Jurnal yang tepat yang harus dibuat oleh PT Sejahtera adalah:",
             options: [
               "Pada tanggal 28 Maret, mencatat beban telepon di debet dan utang telepon di kredit,Pada tanggal 28 Maret, mencatat beban telepon di debet dan utang telepon di kredit",
               "Pada tanggal 5 April, mencatat beban telepon di debet dan kas di kredit",
@@ -313,7 +405,8 @@ const questionData = {
           },
           {
             id: 2,
-            question: "Pada tanggal 31 Maret, PT Sejahtera menerima tagihan listrik untuk bulan Maret yang akan dibayar pada tanggal 5 April. Jurnal yang tepat yang harus dibuat oleh PT Sejahtera adalah:",
+            question:
+              "Pada tanggal 31 Maret, PT Sejahtera menerima tagihan listrik untuk bulan Maret yang akan dibayar pada tanggal 5 April. Jurnal yang tepat yang harus dibuat oleh PT Sejahtera adalah:",
             options: [
               "Pada tanggal 31 Maret, mencatat beban listrik di debet dan utang listrik di kredit",
               "Pada tanggal 5 April, mencatat beban listrik di debet dan kas di kredit",
@@ -324,7 +417,8 @@ const questionData = {
           },
           {
             id: 3,
-            question: "Pada tanggal 31 Maret, PT Sejahtera menerima tagihan air untuk bulan Maret yang akan dibayar pada tanggal 5 April. Jurnal yang tepat yang harus dibuat oleh PT Sejahtera adalah:",
+            question:
+              "Pada tanggal 31 Maret, PT Sejahtera menerima tagihan air untuk bulan Maret yang akan dibayar pada tanggal 5 April. Jurnal yang tepat yang harus dibuat oleh PT Sejahtera adalah:",
             options: [
               "Pada tanggal 31 Maret, mencatat beban air di debet dan utang air di kredit",
               "Pada tanggal 5 April, mencatat beban air di debet dan kas di kredit",
@@ -365,7 +459,8 @@ const questionData = {
           },
           {
             id: 3,
-            question: "<p>PT D menerima pembayaran uang muka sebesar Rp 50 juta dari pelanggan untuk proyek jasa yang akan dikerjakan dalam 3 bulan ke depan.</p><p>Bagaimana jurnal yang benar untuk mencatat penerimaan uang muka ini?</p>",
+            question:
+              "<p>PT D menerima pembayaran uang muka sebesar Rp 50 juta dari pelanggan untuk proyek jasa yang akan dikerjakan dalam 3 bulan ke depan.</p><p>Bagaimana jurnal yang benar untuk mencatat penerimaan uang muka ini?</p>",
             options: [
               "Mencatat pendapatan jasa sebesar Rp 50 juta.",
               "Mencatat kas masuk Rp 50 juta dan liabilitas pendapatan diterima di muka Rp 50 juta.",
@@ -375,7 +470,8 @@ const questionData = {
           },
           {
             id: 4,
-            question: "<p>PT E membeli kendaraan operasional seharga Rp 200 juta dengan pembayaran secara cicilan selama 5 tahun.</p><p>Bagaimana pencatatan jurnal pada saat kendaraan diterima?</p>",
+            question:
+              "<p>PT E membeli kendaraan operasional seharga Rp 200 juta dengan pembayaran secara cicilan selama 5 tahun.</p><p>Bagaimana pencatatan jurnal pada saat kendaraan diterima?</p>",
             options: [
               "Mencatat aset kendaraan Rp 200 juta dan utang jangka panjang Rp 200 juta.",
               "Mencatat beban kendaraan Rp 200 juta dan kas keluar Rp 200 juta.",
