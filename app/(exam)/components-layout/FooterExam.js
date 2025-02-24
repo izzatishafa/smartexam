@@ -7,10 +7,41 @@ const { Footer } = Layout;
 import useExamStore from "@/app/(exam)/stores/useExamStore";
 
 const FooterExam = () => {
-  const { goToNext, goToPrevious, getAnsweredCount, getNotAnsweredCount, collapsed } = useExamStore();
+  const { goToNext, goToPrevious, answers, collapsed, questions, currentSubtest } = useExamStore();
 
-  const answeredCount = getAnsweredCount();
-  const notAnsweredCount = getNotAnsweredCount();
+  // const answeredCount = getAnsweredCount();
+  // const notAnsweredCount = getNotAnsweredCount();
+
+  // Fungsi untuk mendapatkan jumlah jawaban untuk data API
+  const getAPIAnsweredCount = () => {
+    return Object.keys(answers || {}).length;
+  };
+
+  // Fungsi untuk mendapatkan jumlah pertanyaan yang belum dijawab untuk data API
+  const getAPINotAnsweredCount = () => {
+    const totalQuestions = questions?.length || 0;
+    return totalQuestions - getAPIAnsweredCount();
+  };
+
+  // Logika untuk mendapatkan jumlah berdasarkan sumber data
+  const answeredCount = currentSubtest === "hexaco" ? getAPIAnsweredCount() : getAnsweredCount();
+
+  const notAnsweredCount = currentSubtest === "hexaco" ? getAPINotAnsweredCount() : getNotAnsweredCount();
+
+  // // Perbaikan perhitungan jumlah jawaban
+  // const getAnsweredCount = () => {
+  //   return Object.keys(answers || {}).length;
+  // };
+
+  // // Perbaikan perhitungan pertanyaan yang belum dijawab
+  // const getNotAnsweredCount = () => {
+  //   const totalQuestions = currentSubtest === "hexaco" ? questions?.rows?.jumlah_soal || 0 : questions?.length || 0;
+
+  //   return Math.max(0, totalQuestions - getAnsweredCount());
+  // };
+
+  // const answeredCount = getAnsweredCount();
+  // const notAnsweredCount = getNotAnsweredCount();
 
   return (
     <>

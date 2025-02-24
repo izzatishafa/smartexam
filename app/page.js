@@ -118,17 +118,19 @@ const HomePage = () => {
   const router = useRouter();
   console.log("jumlah soal ===> ", QuizBankList.length);
   const initializeExam = useExamStore((state) => state.initializeExam);
-  const resetState = useExamStore((state) => state.resetState); // Buat fungsi resetState di store
+  const initializeExamAPI = useExamStore((state) => state.initializeExamAPI);
+
   const handleQuizSelect = async (route, type, code) => {
     console.log("Selected Quiz:", { route, type, code });
-    await initializeExam(type, code);
+    if (code === "hexaco") {
+      await initializeExamAPI(type, code);
+    } else {
+      await initializeExam(type, code);
+    }
     router.push(route);
   };
 
   const [mode, setMode] = useState("list");
-  const handleModeChange = (e) => {
-    setMode(e.target.value);
-  };
 
   const items = [
     {
