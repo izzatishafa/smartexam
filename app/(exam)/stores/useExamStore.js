@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import questionData from "../dummy/questionData";
+import { fetchHexacoQuestions } from "../services/examService";
 import { Modal } from "antd";
 
 const useExamStore = create((set, get) => ({
@@ -7,13 +8,13 @@ const useExamStore = create((set, get) => ({
   collapsed: false,
   isModalOpen: false,
   isLoading: false,
-  // Menambahkan actions untuk layout
   setCollapsed: (value) => set({ collapsed: value }),
-
   answers: {},
   currentQuestion: 1,
   currentExamType: "",
   currentSubtest: "",
+  questions: [],
+  error: null,
   timeRemaining: {
     hours: 0,
     minutes: 0,
@@ -120,6 +121,34 @@ const useExamStore = create((set, get) => ({
     ];
   },
 
+  // Action untuk inisialisasi data Hexaco
+  initializeExamAPI: async (examType, subtestCode) => {
+    try {
+      set({ isLoading: true });
+      const questions = await fetchHexacoQuestions();
+      console.log("Questions:", questions);
+      set({
+        questions,
+        isLoading: false,
+        currentExamType: examType,
+        currentSubtest: subtestCode,
+        answers: {},
+        currentQuestion: 1,
+      });
+    } catch (error) {
+      set({
+        error: error.message,
+        isLoading: false,
+      });
+    }
+  },
+
+  // Getter untuk pertanyaan saat ini
+  getCurrentQuestionAPI: () => {
+    const { currentQuestion, questions } = get();
+    return questions[currentQuestion - 1] || null;
+  },
+
   // Modifikasi initializeExam untuk memulai timer
   initializeExam: async (examType, subtestCode) => {
     set({ isLoading: true });
@@ -224,11 +253,20 @@ const useExamStore = create((set, get) => ({
     }));
   },
 
+  // Modify getProgress untuk handle kedua sumber data
   getProgress: () => {
-    const answers = get().answers || {};
+    const { currentSubtest, answers, questions } = get();
+
+    if (currentSubtest === "hexaco") {
+      const totalQuestions = questions?.rows?.jumlah_soal || 0;
+      if (!totalQuestions) return 0;
+      const answered = Object.keys(answers || {}).length;
+      return Math.round((answered / totalQuestions) * 100);
+    }
+
     const questionData = get().getCurrentQuestionData();
     if (!questionData.length) return 0;
-    const answered = Object.keys(answers).length;
+    const answered = Object.keys(answers || {}).length;
     return Math.round((answered / questionData.length) * 100);
   },
 

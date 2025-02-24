@@ -4,7 +4,7 @@ import { Flex, Spin } from "antd";
 import styles from "../styles-layout/styles.module.css";
 
 const LoadingPage = () => {
-  console.log("Styles:", styles);
+  // console.log("Styles:", styles);
   return (
     <div className={styles.loadingContainer}>
       <Flex align="center" gap="middle">

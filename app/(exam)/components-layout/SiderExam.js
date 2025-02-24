@@ -12,13 +12,40 @@ import styles from "@/app/(exam)/styles-layout/styles.module.css";
 const { Sider } = Layout;
 
 const SiderExam = () => {
-  const { currentQuestion, collapsed, setCollapsed, answers, getCurrentQuestionData, goToQuestion, getProgress, getCurrentSubtestInfo } = useExamStore();
-
-  const router = useRouter();
+  const { collapsed, setCollapsed, answers, getCurrentQuestionData, goToQuestion, getProgress, getCurrentSubtestInfo, currentSubtest, getCurrentQuestionAPI, questions } = useExamStore();
   const handleSubmit = useExamStore((state) => state.handleSubmit);
+  const router = useRouter();
 
-  const questionData = getCurrentQuestionData() || [];
+  console.log("currentSubtest:", currentSubtest);
+  console.log("jut:", questions);
+
+  // Perbaikan untuk mendapatkan data pertanyaan
+  const getQuestionData = () => {
+    if (currentSubtest === "hexaco") {
+      // Data questions sudah dalam bentuk array yang benar
+      return (
+        questions?.map((q, index) => ({
+          id: index + 1,
+          question: q.question,
+          choices: q.choices,
+        })) || []
+      );
+    }
+    return getCurrentQuestionData() || [];
+  };
+
+  const questionData = getQuestionData();
+  console.log("questionData", questionData);
+
   const subtestInfo = getCurrentSubtestInfo();
+
+  // Perbaikan untuk mendapatkan total pertanyaan
+  const getTotalQuestions = () => {
+    if (currentSubtest === "hexaco") {
+      return questions?.rows?.jumlah_soal || 0;
+    }
+    return subtestInfo?.questions?.length || 0;
+  };
 
   const {
     token: { colorBgContainer },
@@ -34,7 +61,7 @@ const SiderExam = () => {
           alignItems: "center",
         }}
       >
-        <Progress percent={getProgress()} format={(percent) => `${Object.keys(answers || {}).length} / ${subtestInfo?.questions?.length || 0}`} strokeColor="#457D42" />
+        <Progress percent={getProgress()} format={(percent) => `${Object.keys(answers || {}).length} / ${getTotalQuestions()}`} strokeColor="#457D42" />
       </Row>
       <Row
         style={{

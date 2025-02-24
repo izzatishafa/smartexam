@@ -5,10 +5,9 @@ import { useRouter } from "next/navigation";
 import useExamStore from "@/app/(exam)/stores/useExamStore";
 
 const Hexaco = () => {
-  const router = useRouter();
-  const { initializeExam, getCurrentQuestion, getHexacoChoices, currentQuestion, setAnswer, answers } = useExamStore();
+  const { getCurrentQuestionAPI, getHexacoChoices, currentQuestion, setAnswer, answers } = useExamStore();
 
-  const currentQuestionData = getCurrentQuestion();
+  const currentQuestionData = getCurrentQuestionAPI();
   const choices = getHexacoChoices();
   
   if (!currentQuestionData) return <div>Loading...</div>;
