@@ -40,6 +40,7 @@ const QuizBankList = [
     title: "DISC",
     route: "/exam/disc",
     type: "disc",
+    code: "disc_test",
   },
   {
     title: "Essay",

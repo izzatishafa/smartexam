@@ -45,16 +45,23 @@ const useExamStore = create((set, get) => ({
   startTimer: () => {
     const timerId = setInterval(() => {
       const store = get();
+      const { currentExamType } = get();
       const { hours, minutes, seconds } = store.timeRemaining;
 
       if (hours === 0 && minutes === 0 && seconds === 0) {
         // Waktu habis
         clearInterval(store.timerId);
-        set({ endStatus: "time-up" }); // Set status jadi time-up
+        // set({ endStatus: "time-up" }); // Set status jadi time-up
+
         // Arahkan ke halaman end
         if (typeof window !== "undefined") {
-          window.location.href = "/exam/end"; // Gunakan direct redirect
+          if (currentExamType === "gti") {
+            window.location.href = "/exam/end/time-up-subtest";
+          } else {
+            window.location.href = "/exam/end/time-up"; // Gunakan direct redirect
+          }
         }
+
         return;
       }
 
