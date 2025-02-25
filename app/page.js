@@ -193,8 +193,6 @@ const HomePage = () => {
 
   const [userData, setUserData] = useState(null);
   const [quizData, setQuizData] = useState(null);
-  console.log("userData", userData);
-  console.log("quizData", quizData);
 
   useEffect(() => {
     const getUserData = async () => {
