@@ -22,15 +22,24 @@ const useExamStore = create((set, get) => ({
   },
   timerId: null,
   endStatus: "",
+  isUsingAPI: false, // Flag untuk menandai apakah menggunakan API atau dummy data
 
   // Actions
-  setAnswer: (questionId, answer) =>
+  setAnswer: (questionId, answer) => {
+    const { isUsingAPI, currentQuestion } = get();
+
+    // Jika menggunakan API, gunakan kombinasi currentQuestion sebagai kunci
+    // Karena mungkin API tidak memiliki ID unik untuk tiap pertanyaan
+    const uniqueId = isUsingAPI ? `api_${currentQuestion}` : questionId;
+    console.log("Unique ID:", uniqueId);
+
     set((state) => ({
       answers: {
         ...state.answers,
-        [questionId]: answer,
+        [uniqueId]: answer,
       },
-    })),
+    }));
+  },
 
   // Method untuk memulai timer
   startTimer: () => {
@@ -121,38 +130,68 @@ const useExamStore = create((set, get) => ({
     ];
   },
 
-  // Action untuk inisialisasi data Hexaco
+  // Action untuk inisialisasi data dari API (Hexaco)
   initializeExamAPI: async (examType, subtestCode) => {
     try {
-      set({ isLoading: true });
+      set({
+        isLoading: true,
+        isUsingAPI: true,
+      });
+
       const questions = await fetchHexacoQuestions();
-      console.log("Questions:", questions);
+      console.log("Questions from API:", questions);
+
       set({
         questions,
         isLoading: false,
         currentExamType: examType,
         currentSubtest: subtestCode,
-        answers: {},
+        answers: {}, // Reset jawaban
         currentQuestion: 1,
       });
     } catch (error) {
+      console.error("Error fetching API data:", error);
+      // Fallback ke dummy data jika API gagal
+      const dummyQuestions = get().getDummyQuestions(examType, subtestCode);
+
       set({
-        error: error.message,
+        questions: dummyQuestions,
         isLoading: false,
+        currentExamType: examType,
+        currentSubtest: subtestCode,
+        answers: {},
+        currentQuestion: 1,
+        isUsingAPI: false,
+        error: `API Error: ${error.message}. Fallback to dummy data.`,
       });
     }
   },
 
-  // Getter untuk pertanyaan saat ini
-  getCurrentQuestionAPI: () => {
-    const { currentQuestion, questions } = get();
-    return questions[currentQuestion - 1] || null;
+  // Mendapatkan dummy questions untuk fallback
+  getDummyQuestions: (examType, subtestCode) => {
+    const examData = questionData[examType]?.subtests?.find((subtest) => subtest.code === subtestCode);
+    return examData?.questions || [];
   },
 
-  // Modifikasi initializeExam untuk memulai timer
+  // Getter untuk pertanyaan saat ini (API)
+  getCurrentQuestionAPI: () => {
+    const { currentQuestion, questions, isUsingAPI } = get();
+
+    if (isUsingAPI) {
+      return questions[currentQuestion - 1] || null;
+    } else {
+      return get().getCurrentQuestion();
+    }
+  },
+
+  // Modifikasi initializeExam untuk memulai timer (dummy data)
   initializeExam: async (examType, subtestCode) => {
-    set({ isLoading: true });
-    const examData = questionData[examType].subtests.find((subtest) => subtest.code === subtestCode);
+    set({
+      isLoading: true,
+      isUsingAPI: false,
+    });
+
+    const examData = questionData[examType]?.subtests?.find((subtest) => subtest.code === subtestCode);
 
     // Stop timer yang sedang berjalan (jika ada)
     get().stopTimer();
@@ -164,6 +203,7 @@ const useExamStore = create((set, get) => ({
       answers: {},
       currentQuestion: 1,
       endStatus: "",
+      questions: examData?.questions || [], // Set questions untuk konsistensi dengan API
     });
 
     // Set dan mulai timer baru
@@ -175,8 +215,16 @@ const useExamStore = create((set, get) => ({
     set({ isLoading: false });
   },
 
+  // Mendapatkan pertanyaan dari dummy data
   getCurrentQuestionData: () => {
-    const { currentExamType, currentSubtest } = get();
+    const { currentExamType, currentSubtest, isUsingAPI, questions } = get();
+
+    // Jika menggunakan API, gunakan state questions
+    if (isUsingAPI) {
+      return questions || [];
+    }
+
+    // Jika menggunakan dummy data
     const examData = questionData[currentExamType];
     if (!examData || !examData.subtests) return [];
     const subtest = examData.subtests.find((subtest) => subtest.code === currentSubtest);
@@ -199,7 +247,6 @@ const useExamStore = create((set, get) => ({
   },
 
   // Fungsi reset total untuk akhir test
-  // Modifikasi resetFullState
   resetFullState: () => {
     const store = get();
     store.stopTimer();
@@ -215,6 +262,8 @@ const useExamStore = create((set, get) => ({
       },
       endStatus: "",
       timerId: null,
+      questions: [],
+      isUsingAPI: false,
     });
   },
 
@@ -224,27 +273,57 @@ const useExamStore = create((set, get) => ({
 
   // Tambahkan getter untuk subtestInfo
   getCurrentSubtestInfo: () => {
-    const { currentExamType, currentSubtest } = get();
+    const { currentExamType, currentSubtest, isUsingAPI } = get();
+
+    // Jika menggunakan API dan currentSubtest adalah "hexaco"
+    if (isUsingAPI && currentSubtest === "hexaco") {
+      // Return custom object untuk Hexaco yang diambil dari API
+      return {
+        code: "hexaco",
+        title: "HEXACO Personality Test",
+        timeLimit: { hours: 0, minutes: 30, seconds: 0 },
+        // Tambahkan properti lain yang diperlukan
+      };
+    }
+
+    // Jika menggunakan dummy data
     const examData = questionData[currentExamType];
     if (!examData?.subtests) return null;
     return examData.subtests.find((subtest) => subtest.code === currentSubtest) || null;
   },
 
   // Tambahkan getter untuk total subtests
-  getTotalSubtests: () => {},
+  getTotalSubtests: () => {
+    const { currentExamType } = get();
+    return questionData[currentExamType]?.subtests?.length || 0;
+  },
 
+  // Mendapatkan pertanyaan saat ini (unified untuk API dan dummy)
   getCurrentQuestion: () => {
-    const { currentQuestion } = get();
-    const questions = get().getCurrentQuestionData();
-    if (!questions.length) return null;
-    return questions.find((q) => q.id === currentQuestion) || null;
+    const { currentQuestion, isUsingAPI, questions } = get();
+
+    if (isUsingAPI) {
+      return questions[currentQuestion - 1] || null;
+    } else {
+      const questions = get().getCurrentQuestionData();
+      if (!questions.length) return null;
+      return questions.find((q) => q.id === currentQuestion) || null;
+    }
   },
 
   goToNext: () => {
-    const questions = get().getCurrentQuestionData();
-    set((state) => ({
-      currentQuestion: Math.min(state.currentQuestion + 1, questions.length),
-    }));
+    const { isUsingAPI, questions } = get();
+
+    if (isUsingAPI) {
+      set((state) => ({
+        currentQuestion: Math.min(state.currentQuestion + 1, questions.length),
+      }));
+    } else {
+      const questions = get().getCurrentQuestionData();
+      set((state) => ({
+        currentQuestion: Math.min(state.currentQuestion + 1, questions.length),
+      }));
+    }
   },
 
   goToPrevious: () => {
@@ -253,14 +332,22 @@ const useExamStore = create((set, get) => ({
     }));
   },
 
-  // Modify getProgress untuk handle kedua sumber data
+  // Perbaikan untuk getProgress - memeriksa jawaban berdasarkan ID yang digunakan
   getProgress: () => {
-    const { currentSubtest, answers, questions } = get();
+    const { currentSubtest, answers, questions, isUsingAPI } = get();
 
-    if (currentSubtest === "hexaco") {
-      const totalQuestions = questions?.rows?.jumlah_soal || 0;
+    if (isUsingAPI || currentSubtest === "hexaco") {
+      const totalQuestions = questions?.length || 0;
       if (!totalQuestions) return 0;
-      const answered = Object.keys(answers || {}).length;
+
+      // Hitung jumlah pertanyaan dari API yang sudah dijawab
+      let answered = 0;
+      for (let i = 1; i <= totalQuestions; i++) {
+        if (answers[`api_${i}`] !== undefined) {
+          answered++;
+        }
+      }
+
       return Math.round((answered / totalQuestions) * 100);
     }
 
@@ -270,38 +357,55 @@ const useExamStore = create((set, get) => ({
     return Math.round((answered / questionData.length) * 100);
   },
 
-  // confirmSubmit: async () => {
-  //   set({ isModalOpen: false });
-  //   const subtestTotal = get().getTotalSubtests();
-  //   const currentSubtest = get().currentSubtest;
-
-  //   if (currentSubtest < subtestTotal) {
-  //     set({
-  //       answers: {},
-  //       currentQuestion: 1,
-  //       currentSubtest: currentSubtest + 1,
-  //       isNavigate: true,
-  //     });
-  //   } else {
-  //     set({ endStatus: "all-done" });
-  //     // Handle routing harus dilakukan di component
-  //   }
-  // },
-
   // Method untuk header
   isTutorialPage: (pathname) => {
     return pathname?.includes("/tutorial"); // Gunakan optional chaining untuk menghindari error
   },
 
-  // Fungsi untuk footer
+  // Fungsi untuk footer (perbaikan untuk menghitung jawaban)
   getAnsweredCount: () => {
-    return Object.keys(get().answers).length;
+    const { answers, isUsingAPI, questions } = get();
+
+    if (isUsingAPI) {
+      // Hitung jawaban dari API berdasarkan kunci api_X
+      let count = 0;
+      const totalQuestions = questions?.length || 0;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        if (answers[`api_${i}`] !== undefined) {
+          count++;
+        }
+      }
+
+      return count;
+    }
+
+    return Object.keys(answers).length;
   },
 
   getNotAnsweredCount: () => {
-    const totalQuestions = get().getCurrentQuestionData().length;
-    const answeredCount = Object.keys(get().answers).length;
+    const { isUsingAPI, questions, currentSubtest } = get();
+
+    let totalQuestions = 0;
+    if (isUsingAPI || currentSubtest === "hexaco") {
+      totalQuestions = questions?.length || 0;
+    } else {
+      totalQuestions = get().getCurrentQuestionData().length;
+    }
+
+    const answeredCount = get().getAnsweredCount();
     return totalQuestions - answeredCount;
+  },
+
+  // Mendapatkan jawaban untuk pertanyaan saat ini
+  getCurrentAnswer: () => {
+    const { answers, currentQuestion, isUsingAPI } = get();
+
+    if (isUsingAPI) {
+      return answers[`api_${currentQuestion}`];
+    }
+
+    return answers[currentQuestion];
   },
 
   // Menambahkan fungsi untuk mendapatkan rute tutorial berikutnya
@@ -333,14 +437,22 @@ const useExamStore = create((set, get) => ({
   },
 
   // Handle submit dengan parameter onNavigate untuk navigasi
-  // Modifikasi handleSubmit untuk menangani flow GTI
   handleSubmit: (onNavigate) => {
-    const currentQuestionData = get().getCurrentQuestionData();
-    const currentExamType = get().currentExamType;
-    const currentSubtest = get().currentSubtest;
-    const answers = get().answers;
-    const totalQuestions = currentQuestionData.length;
-    const answeredQuestions = Object.keys(answers).length;
+    const { currentExamType, currentSubtest, isUsingAPI } = get();
+
+    let currentQuestionData;
+    let totalQuestions;
+
+    if (isUsingAPI || currentSubtest === "hexaco") {
+      currentQuestionData = get().questions;
+      totalQuestions = currentQuestionData?.length || 0;
+    } else {
+      currentQuestionData = get().getCurrentQuestionData();
+      totalQuestions = currentQuestionData.length;
+    }
+
+    // Periksa apakah semua pertanyaan sudah dijawab
+    const answeredQuestions = get().getAnsweredCount();
 
     if (answeredQuestions < totalQuestions) {
       Modal.warning({
@@ -364,7 +476,12 @@ const useExamStore = create((set, get) => ({
             get().resetFullState();
             onNavigate("/");
           } else {
-            get().initializeExam(currentExamType, nextSubtestGti.split("/")[3]);
+            // Tentukan metode inisialisasi berdasarkan status API
+            if (isUsingAPI) {
+              get().initializeExamAPI(currentExamType, nextSubtestGti.split("/")[3]);
+            } else {
+              get().initializeExam(currentExamType, nextSubtestGti.split("/")[3]);
+            }
             onNavigate(nextRoute);
           }
         } else {
@@ -375,8 +492,6 @@ const useExamStore = create((set, get) => ({
       },
     });
   },
-
-  // Tambahkan actions lainnya sesuai kebutuhan
 }));
 
 export default useExamStore;

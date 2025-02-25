@@ -12,17 +12,17 @@ import styles from "@/app/(exam)/styles-layout/styles.module.css";
 const { Sider } = Layout;
 
 const SiderExam = () => {
-  const { collapsed, setCollapsed, answers, getCurrentQuestionData, goToQuestion, getProgress, getCurrentSubtestInfo, currentSubtest, getCurrentQuestionAPI, questions } = useExamStore();
+  const { collapsed, setCollapsed, answers, getCurrentQuestionData, goToQuestion, getProgress, getCurrentSubtestInfo, currentSubtest, questions, isUsingAPI } = useExamStore();
+
   const handleSubmit = useExamStore((state) => state.handleSubmit);
   const router = useRouter();
 
   console.log("currentSubtest:", currentSubtest);
-  console.log("jut:", questions);
+  console.log("questions:", questions);
 
-  // Perbaikan untuk mendapatkan data pertanyaan
+  // Mendapatkan data pertanyaan berdasarkan sumber (API atau dummy)
   const getQuestionData = () => {
-    if (currentSubtest === "hexaco") {
-      // Data questions sudah dalam bentuk array yang benar
+    if (isUsingAPI || currentSubtest === "hexaco") {
       return (
         questions?.map((q, index) => ({
           id: index + 1,
@@ -31,6 +31,7 @@ const SiderExam = () => {
         })) || []
       );
     }
+
     return getCurrentQuestionData() || [];
   };
 
@@ -39,12 +40,23 @@ const SiderExam = () => {
 
   const subtestInfo = getCurrentSubtestInfo();
 
-  // Perbaikan untuk mendapatkan total pertanyaan
+  // Mendapatkan total pertanyaan
   const getTotalQuestions = () => {
-    if (currentSubtest === "hexaco") {
-      return questions?.rows?.jumlah_soal || 0;
+    if (isUsingAPI || currentSubtest === "hexaco") {
+      return questions?.length || 0;
     }
     return subtestInfo?.questions?.length || 0;
+  };
+
+  // Fungsi untuk memeriksa apakah pertanyaan sudah dijawab
+  const isQuestionAnswered = (questionId) => {
+    if (isUsingAPI) {
+      // Untuk API gunakan format api_X sebagai kunci
+      return answers[`api_${questionId}`] !== undefined;
+    } else {
+      // Untuk data dummy, gunakan ID asli
+      return answers[questionId] !== undefined;
+    }
   };
 
   const {
@@ -61,7 +73,7 @@ const SiderExam = () => {
           alignItems: "center",
         }}
       >
-        <Progress percent={getProgress()} format={(percent) => `${Object.keys(answers || {}).length} / ${getTotalQuestions()}`} strokeColor="#457D42" />
+        <Progress percent={getProgress()} format={(percent) => `${useExamStore.getState().getAnsweredCount()} / ${getTotalQuestions()}`} strokeColor="#457D42" />
       </Row>
       <Row
         style={{
@@ -104,7 +116,7 @@ const SiderExam = () => {
                 let backgroundColor = "#f5f5f5";
                 let color = "#000";
 
-                if (answers?.[question?.id] !== undefined) {
+                if (isQuestionAnswered(question?.id)) {
                   backgroundColor = "#36454F";
                   color = "#fff";
                 }

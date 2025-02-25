@@ -7,41 +7,31 @@ const { Footer } = Layout;
 import useExamStore from "@/app/(exam)/stores/useExamStore";
 
 const FooterExam = () => {
-  const { goToNext, goToPrevious, answers, collapsed, questions, currentSubtest } = useExamStore();
+  const { goToNext, goToPrevious, answers, collapsed, questions, currentSubtest, getCurrentQuestionData } = useExamStore();
 
-  // const answeredCount = getAnsweredCount();
-  // const notAnsweredCount = getNotAnsweredCount();
-
-  // Fungsi untuk mendapatkan jumlah jawaban untuk data API
-  const getAPIAnsweredCount = () => {
+  // Perbaikan perhitungan jawaban yang sudah dijawab
+  const getAnsweredCount = () => {
     return Object.keys(answers || {}).length;
   };
 
-  // Fungsi untuk mendapatkan jumlah pertanyaan yang belum dijawab untuk data API
-  const getAPINotAnsweredCount = () => {
-    const totalQuestions = questions?.length || 0;
-    return totalQuestions - getAPIAnsweredCount();
+  // Perbaikan perhitungan pertanyaan yang belum dijawab
+  const getNotAnsweredCount = () => {
+    // Mendapatkan total pertanyaan berdasarkan sumber data
+    let totalQuestions = 0;
+
+    if (currentSubtest === "hexaco") {
+      // Jika menggunakan API (hexaco)
+      totalQuestions = questions?.length || 0;
+    } else {
+      // Jika menggunakan dummy data
+      totalQuestions = getCurrentQuestionData()?.length || 0;
+    }
+
+    return totalQuestions - getAnsweredCount();
   };
 
-  // Logika untuk mendapatkan jumlah berdasarkan sumber data
-  const answeredCount = currentSubtest === "hexaco" ? getAPIAnsweredCount() : getAnsweredCount();
-
-  const notAnsweredCount = currentSubtest === "hexaco" ? getAPINotAnsweredCount() : getNotAnsweredCount();
-
-  // // Perbaikan perhitungan jumlah jawaban
-  // const getAnsweredCount = () => {
-  //   return Object.keys(answers || {}).length;
-  // };
-
-  // // Perbaikan perhitungan pertanyaan yang belum dijawab
-  // const getNotAnsweredCount = () => {
-  //   const totalQuestions = currentSubtest === "hexaco" ? questions?.rows?.jumlah_soal || 0 : questions?.length || 0;
-
-  //   return Math.max(0, totalQuestions - getAnsweredCount());
-  // };
-
-  // const answeredCount = getAnsweredCount();
-  // const notAnsweredCount = getNotAnsweredCount();
+  const answeredCount = getAnsweredCount();
+  const notAnsweredCount = getNotAnsweredCount();
 
   return (
     <>
