@@ -42,12 +42,24 @@ const FooterExam = () => {
           padding: "12px",
         }}
       >
-        <Row style={{ height: "40px", margin: "0px 30px 5px", marginRight: collapsed ? "150px" : "30px" }}>
+        <Row
+          style={{
+            height: "40px",
+            margin: "0px 30px 5px",
+            marginRight: collapsed ? "150px" : "30px",
+          }}
+        >
           {/* komponen ini */}
-          <Col span={12} style={{ height: "100%", display: "flex", alignItems: "center" }}>
+          <Col
+            span={12}
+            style={{ height: "100%", display: "flex", alignItems: "center" }}
+          >
             <Space size="large">
               <Badge color="#36454F" text={`Answered (${answeredCount})`} />
-              <Badge color="#D9D9D9" text={`Not answered (${notAnsweredCount})`} />
+              <Badge
+                color="#D9D9D9"
+                text={`Not answered (${notAnsweredCount})`}
+              />
               {/* <Badge color="#ffd700" text={`Confused (${confusedCount})`} /> */}
             </Space>
           </Col>
@@ -64,10 +76,16 @@ const FooterExam = () => {
               {/* <button className={`${styles.button} ${styles.confused}`} onClick={markConfused}>
                 Mark confused
               </button> */}
-              <button className={`${styles.button} ${styles.previous}`} onClick={goToPrevious}>
+              <button
+                className={`${styles.button} ${styles.previous}`}
+                onClick={goToPrevious}
+              >
                 Previous
               </button>
-              <button className={`${styles.button} ${styles.next}`} onClick={goToNext}>
+              <button
+                className={`${styles.button} ${styles.next}`}
+                onClick={goToNext}
+              >
                 Next
               </button>
             </Space>

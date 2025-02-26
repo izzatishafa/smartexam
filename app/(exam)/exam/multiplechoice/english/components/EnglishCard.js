@@ -1,18 +1,21 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Typography, Card, Space, Row, Button, Flex } from "antd";
 import MultipleChoice from "@/app/(exam)/components/MultipleChoice";
 import ModalEnglish from "./ModalEnglish";
-import useExamStore from "@/app/(exam)/stores/useExamStore";
 
 const { Title, Text } = Typography;
 
-export default function EnglishCard({ data, onAnswer, answered, index }) {
+export default function EnglishCard({
+  question,
+  choices,
+  questionNumber,
+  selectedOption,
+  onSelectOption,
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { getCurrentQuestion, currentQuestion } = useExamStore();
-  const currentQuestionData = getCurrentQuestion();
 
-  if (!currentQuestionData) return <div>Loading...</div>;
+  console.log("ini adalah pilihan :", choices);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -53,18 +56,15 @@ export default function EnglishCard({ data, onAnswer, answered, index }) {
           level={5}
           style={{ margin: 0, fontWeight: "normal", paddingLeft: "10px" }}
         >
-          {currentQuestion}. Choose the grammatically correct word ord phrase to
+          {questionNumber}. Choose the grammatically correct word ord phrase to
           complete the following sentences.
         </Title>
 
         <Space style={{ paddingLeft: "30px" }} direction="vertical">
           <Text style={{ fontSize: "16px", fontWeight: "bold" }}>
-            {currentQuestionData.question}
+            {question}
           </Text>
-          <MultipleChoice
-            options={currentQuestionData.options}
-            questionId={currentQuestionData.id}
-          />
+          <MultipleChoice choices={choices} onSelectOption={onSelectOption} />
         </Space>
       </Card>
       <ModalEnglish open={isModalOpen} close={handleClose} />
