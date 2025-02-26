@@ -17,13 +17,6 @@ const { Title, Text } = Typography;
 
 const QuizBankList = [
   {
-    title: "Hexaco",
-    route: "/exam/personal/hexaco",
-    type: "personal",
-    code: "hexaco",
-    isDone: true,
-  },
-  {
     title: "WPT",
     route: "/exam/multiplechoice/wpt_taxand",
     type: "multipleChoice",
@@ -43,11 +36,6 @@ const QuizBankList = [
     code: "disc_test",
   },
   {
-    title: "Essay",
-    route: "/exam/essay",
-    type: "essay",
-  },
-  {
     title: "Accounting Junior",
     route: "/exam/multiplechoice/accounting_junior",
     type: "multipleChoice",
@@ -65,54 +53,66 @@ const QuizBankList = [
     type: "multipleChoice",
     code: "english_university",
   },
+  // {
+  //   title: "IST FA (Finden von Analogien)",
+  //   route: "/exam/ist/ist_fa",
+  //   type: "ist",
+  //   code: "ist_fa",
+  // },
+  // {
+  //   title: "IST WU (Wortverständnis)",
+  //   route: "/exam/ist/ist_wu",
+  //   type: "ist",
+  //   code: "ist_wu",
+  // },
+  // {
+  //   title: "IST ZR (Zahlenreihen)",
+  //   route: "/exam/ist/ist_zr",
+  //   type: "ist",
+  //   code: "ist_zr",
+  // },
+  // {
+  //   title: "Work Personality Test (P1)",
+  //   route: "/exam/personal/work_personality_p1",
+  //   type: "personal",
+  //   code: "work_personality_p1",
+  // },
+  // {
+  //   title: "CTI",
+  //   route: "/exam/personal/cti",
+  //   type: "personal",
+  //   code: "cti",
+  // },
+  // {
+  //   title: "D3AD",
+  //   route: "/exam/personal/d3ad",
+  //   type: "personal",
+  //   code: "d3ad",
+  // },
+  // {
+  //   title: "Social Description (SocDes)",
+  //   route: "/exam/personal/socdes",
+  //   type: "personal",
+  //   code: "socdes",
+  // },
+  // {
+  //   title: "Table Test",
+  //   route: "/exam/table_test",
+  //   type: "tableTest",
+  //   code: "table_test",
+  // },
   {
-    title: "IST FA (Finden von Analogien)",
-    route: "/exam/ist/ist_fa",
-    type: "ist",
-    code: "ist_fa",
-  },
-  {
-    title: "IST WU (Wortverständnis)",
-    route: "/exam/ist/ist_wu",
-    type: "ist",
-    code: "ist_wu",
-  },
-  {
-    title: "IST ZR (Zahlenreihen)",
-    route: "/exam/ist/ist_zr",
-    type: "ist",
-    code: "ist_zr",
-  },
-  {
-    title: "Work Personality Test (P1)",
-    route: "/exam/personal/work_personality_p1",
+    title: "Hexaco",
+    route: "/exam/personal/hexaco",
     type: "personal",
-    code: "work_personality_p1",
+    code: "hexaco",
+    isDone: true,
   },
-  {
-    title: "CTI",
-    route: "/exam/personal/cti",
-    type: "personal",
-    code: "cti",
-  },
-  {
-    title: "D3AD",
-    route: "/exam/personal/d3ad",
-    type: "personal",
-    code: "d3ad",
-  },
-  {
-    title: "Social Description (SocDes)",
-    route: "/exam/personal/socdes",
-    type: "personal",
-    code: "socdes",
-  },
-  {
-    title: "Table Test",
-    route: "/exam/table_test",
-    type: "tableTest",
-    code: "table_test",
-  },
+  // {
+  //   title: "Essay",
+  //   route: "/exam/essay",
+  //   type: "essay",
+  // },
 ];
 
 const HomePage = () => {

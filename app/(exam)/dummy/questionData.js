@@ -5,7 +5,7 @@ const questionData = {
         code: "gti_pci",
         type: "GTI",
         instructions: "Instruksi untuk GTI subtest 1",
-        timeLimit: { hours: 0, minutes: 0, seconds: 5 },
+        timeLimit: { hours: 0, minutes: 0, seconds: 15 },
         questions: [
           { id: 1, question: "qpdtQPDT" },
           { id: 2, question: "mnfqKNFQ" },
@@ -369,7 +369,7 @@ const questionData = {
         code: "wpt_taxand",
         type: "WPT",
         instructions: "Instruksi untuk WPT subtest 1",
-        timeLimit: { hours: 0, minutes: 0, seconds: 3 },
+        timeLimit: { hours: 0, minutes: 0, seconds: 15 },
         questions: [
           {
             id: 1,
