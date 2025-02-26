@@ -169,7 +169,9 @@ const useExamStore = create((set, get) => ({
 
   // Mendapatkan dummy questions untuk fallback
   getDummyQuestions: (examType, subtestCode) => {
-    const examData = questionData[examType]?.subtests?.find((subtest) => subtest.code === subtestCode);
+    const examData = questionData[examType]?.subtests?.find(
+      (subtest) => subtest.code === subtestCode
+    );
     return examData?.questions || [];
   },
 
@@ -191,7 +193,9 @@ const useExamStore = create((set, get) => ({
       isUsingAPI: false,
     });
 
-    const examData = questionData[examType]?.subtests?.find((subtest) => subtest.code === subtestCode);
+    const examData = questionData[examType]?.subtests?.find(
+      (subtest) => subtest.code === subtestCode
+    );
 
     // Stop timer yang sedang berjalan (jika ada)
     get().stopTimer();
@@ -227,7 +231,9 @@ const useExamStore = create((set, get) => ({
     // Jika menggunakan dummy data
     const examData = questionData[currentExamType];
     if (!examData || !examData.subtests) return [];
-    const subtest = examData.subtests.find((subtest) => subtest.code === currentSubtest);
+    const subtest = examData.subtests.find(
+      (subtest) => subtest.code === currentSubtest
+    );
     return subtest?.questions || [];
   },
 
@@ -289,7 +295,10 @@ const useExamStore = create((set, get) => ({
     // Jika menggunakan dummy data
     const examData = questionData[currentExamType];
     if (!examData?.subtests) return null;
-    return examData.subtests.find((subtest) => subtest.code === currentSubtest) || null;
+    return (
+      examData.subtests.find((subtest) => subtest.code === currentSubtest) ||
+      null
+    );
   },
 
   // Tambahkan getter untuk total subtests
@@ -478,9 +487,15 @@ const useExamStore = create((set, get) => ({
           } else {
             // Tentukan metode inisialisasi berdasarkan status API
             if (isUsingAPI) {
-              get().initializeExamAPI(currentExamType, nextSubtestGti.split("/")[3]);
+              get().initializeExamAPI(
+                currentExamType,
+                nextSubtestGti.split("/")[3]
+              );
             } else {
-              get().initializeExam(currentExamType, nextSubtestGti.split("/")[3]);
+              get().initializeExam(
+                currentExamType,
+                nextSubtestGti.split("/")[3]
+              );
             }
             onNavigate(nextRoute);
           }

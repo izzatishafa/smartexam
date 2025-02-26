@@ -1,17 +1,29 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Button, Col, Dropdown, Flex, Row, Space, Typography } from "antd";
+import {
+  Button,
+  Col,
+  Divider,
+  Dropdown,
+  Flex,
+  Row,
+  Space,
+  Typography,
+  theme,
+} from "antd";
 import HeaderComponent from "@/components/ui/Header";
 import QuizBankCard from "@/components/ui/card/QuizBankCard";
 import useExamStore from "./(exam)/stores/useExamStore";
 import { useRouter } from "next/navigation";
 import {
   AppstoreFilled,
+  CaretDownFilled,
   CaretDownOutlined,
   CheckOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
+import useToken from "antd/es/theme/useToken";
 
 const { Title, Text } = Typography;
 
@@ -61,8 +73,8 @@ const QuizBankList = [
   {
     title: "English University",
     route: "/exam/multiplechoice/english",
-    type: "multipleChoice",
-    code: "english_university",
+    type: "multiplechoice",
+    code: "english",
   },
   {
     title: "IST FA (Finden von Analogien)",
@@ -135,20 +147,7 @@ const HomePage = () => {
   const items = [
     {
       key: "view_as",
-      disabled: true,
-      label: (
-        <Text
-          style={{
-            fontSize: "16px",
-            color: "darkgray",
-            pointerEvents: "none",
-            cursor: "default",
-            backgroundColor: "transparent",
-          }}
-        >
-          View as
-        </Text>
-      ),
+      label: "View as",
     },
     {
       type: "divider",
@@ -237,11 +236,11 @@ const HomePage = () => {
             justifyContent: "center",
             alignItems: "center",
             marginTop: "6rem",
-            marginBottom: "1rem",
-            border: "1px solid #FFF",
+            marginBottom: "2rem",
+            border: "1px solid white",
           }}
         >
-          <Title level={2} style={{ marginTop: "0.5rem" }}>
+          <Title level={2} style={{ margin: 0 }}>
             Selamat Datang di Online Test SMARTEXAM
           </Title>
           {/* Toggle Button */}
@@ -271,7 +270,7 @@ const HomePage = () => {
           {/* Toggle Button */}
         </Row>
         <Row
-          gutter={[24, 10]} // Horizontal (24px) and Vertical (16px) spacing
+          gutter={[24, 16]} // Horizontal (24px) and Vertical (16px) spacing
           style={{
             width: "100%",
             maxWidth: "1360px", // Prevents too wide on large screens
@@ -369,7 +368,7 @@ const HomePage = () => {
               alignItems: "center",
               height: "fit-content",
               border: "1px solid white",
-              maxHeight: "540px",
+              maxHeight: "75vh",
               maxWidth: "100%",
               overflowY: "auto",
               gap: "2.5rem 2rem",

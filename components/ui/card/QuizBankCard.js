@@ -111,6 +111,7 @@ const QuizBankCard = ({ title, route, onClick, isGrid, isDone = false }) => {
           }}
         >
           <Button
+            disabled={isDone}
             style={{
               width: "fit-content",
               height: "fit-content",
@@ -120,7 +121,7 @@ const QuizBankCard = ({ title, route, onClick, isGrid, isDone = false }) => {
               justifyContent: "center",
               padding: "0.5rem 1rem",
               borderRadius: "6rem",
-              backgroundColor: "#1B3042",
+              backgroundColor: isDone ? "#DEDEDE" : "#1B3042",
               color: "white",
             }}
             variant="solid"

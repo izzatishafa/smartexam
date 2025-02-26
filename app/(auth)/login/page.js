@@ -141,7 +141,7 @@ export default function Page() {
                 textAlign: "left",
               }}
             >
-              Welcome ...
+              Selamat Datang
             </Title>
             <Title
               level={4}
@@ -151,12 +151,11 @@ export default function Page() {
                 textAlign: "left",
               }}
             >
-              Di platform online test{" "}
+              Di platform test online{" "}
               <span style={{ fontWeight: "bold" }}>SMARTEXAM</span> oleh{" "}
               <span style={{ fontWeight: "bold", color: "#E3C72A" }}>
                 PB TAXAND
               </span>
-              !
             </Title>
           </Flex>
           <img

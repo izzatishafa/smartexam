@@ -73,6 +73,7 @@ export default function HeaderComponent() {
     backgroundColor: token.colorBgElevated,
     borderRadius: token.borderRadiusLG,
     boxShadow: token.boxShadowSecondary,
+    border: token.colorBorder,
   };
 
   const menuStyle = {
@@ -164,12 +165,15 @@ export default function HeaderComponent() {
                     color: "gray",
                     alignItems: "center",
                     gap: "10px",
+                    padding: "4px 10px",
+                    borderRadius: "6px",
+                    boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
                   }}
                 >
                   <img
-                    src="/assets/profile-pict.png"
+                    src="/assets/avatar.svg"
                     alt="profile picture"
-                    style={{ width: 40 }}
+                    style={{ width: 35 }}
                   />
                   <CaretDownFilled />
                 </a>

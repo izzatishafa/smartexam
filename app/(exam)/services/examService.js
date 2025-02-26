@@ -17,7 +17,7 @@ export const fetchHexacoQuestions = async () => {
     console.log(data);
 
     if (data.status === 200) {
-      return data.data[0].rows.soal;
+      return data.rows.soal;
     }
     throw new Error("Failed to fetch Hexaco questions");
   } catch (error) {
